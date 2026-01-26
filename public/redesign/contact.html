@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Get in touch with DLC. Contact us for consultations, program inquiries, or general questions.">
+    <title>Contact Us - DLC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="index.html" class="nav__logo">
+                <span class="logo-text">DLC</span>
+                <span class="logo-tagline">Destiny Life Coaching</span>
+            </a>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="index.html" class="nav__link">Home</a></li>
+                    <li class="nav__item"><a href="about.html" class="nav__link">About Us</a></li>
+                    <li class="nav__item"><a href="events.html" class="nav__link">Events</a></li>
+                    <li class="nav__item"><a href="become-a-coach.html" class="nav__link">Become a Coach</a></li>
+                    <li class="nav__item"><a href="life-mastery-bootcamp.html" class="nav__link">Life Mastery Bootcamp</a></li>
+                    <li class="nav__item"><a href="life-mastery-webinar.html" class="nav__link">Life Mastery Webinar</a></li>
+                    <li class="nav__item"><a href="my-account.html" class="nav__link">My Account</a></li>
+                    <li class="nav__item"><a href="contact.html" class="nav__link active">Contact</a></li>
+                </ul>
+                <a href="contact.html" class="btn btn--primary nav__cta">Get Started</a>
+            </div>
+            <div class="nav__toggle" id="nav-toggle"><i class="fas fa-bars"></i></div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero hero--small">
+            <div class="container">
+                <h1 class="hero__title">Get In Touch</h1>
+                <p class="hero__description">We're here to help you start your transformation journey</p>
+            </div>
+        </section>
+
+        <section class="section contact-section">
+            <div class="container">
+                <div class="contact__grid">
+                    <div class="contact-form">
+                        <h2>Send Us a Message</h2>
+                        <form id="contact-form" action="#" method="POST">
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Subject *</label>
+                                <select id="subject" name="subject" required>
+                                    <option value="">Select a subject</option>
+                                    <option value="consultation">Free Consultation</option>
+                                    <option value="program">Program Inquiry</option>
+                                    <option value="certification">Certification Program</option>
+                                    <option value="corporate">Corporate Coaching</option>
+                                    <option value="general">General Inquiry</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Message *</label>
+                                <textarea id="message" name="message" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn--accent btn--large" style="width: 100%;">Send Message</button>
+                        </form>
+                    </div>
+                    
+                    <div class="contact-info">
+                        <div class="contact-info__item">
+                            <div class="contact-info__icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-info__content">
+                                <h3>Email Us</h3>
+                                <p>info@dlc.co.ke</p>
+                                <p>support@dlc.co.ke</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info__item">
+                            <div class="contact-info__icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-info__content">
+                                <h3>Call Us</h3>
+                                <p>+254 722 992 111</p>
+                                <p>Mon - Fri: 9:00 AM - 6:00 PM</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info__item">
+                            <div class="contact-info__icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-info__content">
+                                <h3>Visit Us</h3>
+                                <p>Nairobi, Kenya</p>
+                                <p>By appointment only</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info__item">
+                            <div class="contact-info__icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-info__content">
+                                <h3>Office Hours</h3>
+                                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                                <p>Saturday: 10:00 AM - 2:00 PM</p>
+                                <p>Sunday: Closed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background-color: var(--color-light);">
+            <div class="container">
+                <div class="section__header">
+                    <span class="section__subtitle">Frequently Asked Questions</span>
+                    <h2 class="section__title">Have Questions?</h2>
+                </div>
+                <div class="faq__list">
+                    <div class="faq-item">
+                        <h3>How do I get started?</h3>
+                        <p>Simply fill out the contact form above or call us to schedule a free consultation. We'll discuss your goals and recommend the best program for you.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What is included in the coaching programs?</h3>
+                        <p>Each program includes one-on-one sessions, personalized action plans, progress tracking, and ongoing support. Specific details vary by program.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Do you offer online coaching?</h3>
+                        <p>Yes, we offer both in-person and online coaching sessions to accommodate your preferences and location.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Are your certifications recognized?</h3>
+                        <p>Yes, our certification programs are accredited by leading coaching organizations including ICF (International Coach Federation).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__column">
+                    <h3 class="footer__title">About DLC</h3>
+                    <p class="footer__description">We are dedicated to empowering individuals through professional coaching.</p>
+                    <div class="footer__social">
+                        <a href="#" class="footer__social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="footer__social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="footer__social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer__column">
+                    <h3 class="footer__title">Quick Links</h3>
+                    <ul class="footer__list">
+                        <li><a href="index.html" class="footer__link">Home</a></li>
+                        <li><a href="about.html" class="footer__link">About Us</a></li>
+                        <li><a href="team.html" class="footer__link">Our Team</a></li>
+                        <li><a href="programs.html" class="footer__link">Programs</a></li>
+                        <li><a href="events.html" class="footer__link">Events</a></li>
+                        <li><a href="contact.html" class="footer__link">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer__column">
+                    <h3 class="footer__title">Programs</h3>
+                    <ul class="footer__list">
+                        <li><a href="programs.html#career" class="footer__link">Career Coaching</a></li>
+                        <li><a href="programs.html#life" class="footer__link">Life Coaching</a></li>
+                        <li><a href="programs.html#certification" class="footer__link">Certification</a></li>
+                        <li><a href="programs.html#corporate" class="footer__link">Corporate Coaching</a></li>
+                    </ul>
+                </div>
+                <div class="footer__column">
+                    <h3 class="footer__title">Contact Info</h3>
+                    <ul class="footer__contact">
+                        <li><i class="fas fa-envelope"></i><span>info@dlc.co.ke</span></li>
+                        <li><i class="fas fa-phone"></i><span>+254 722 992 111</span></li>
+                        <li><i class="fas fa-map-marker-alt"></i><span>Nairobi, Kenya</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copyright">&copy; 2024 DLC - Destiny Life Coaching. All rights reserved.</p>
+                <div class="footer__legal">
+                    <a href="#" class="footer__link">Privacy Policy</a>
+                    <a href="#" class="footer__link">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
+

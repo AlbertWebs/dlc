@@ -1,0 +1,103 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Setting;
+use Illuminate\Http\Request;
+
+class SettingsController extends Controller
+{
+    public function index()
+    {
+        return view('admin.settings', [
+            'settings' => $this->getSettings()
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            // General Settings
+            'site_name' => 'nullable|string|max:255',
+            'site_url' => 'nullable|url|max:255',
+            'site_email' => 'nullable|email|max:255',
+            'timezone' => 'nullable|string|max:50',
+            
+            // Contact Information
+            'phone' => 'nullable|string|max:50',
+            'email' => 'nullable|email|max:255',
+            'location' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:500',
+            'city' => 'nullable|string|max:100',
+            'country' => 'nullable|string|max:100',
+            'postal_code' => 'nullable|string|max:20',
+            
+            // Social Media
+            'social_facebook' => 'nullable|url|max:255',
+            'social_linkedin' => 'nullable|url|max:255',
+            'social_instagram' => 'nullable|url|max:255',
+            'social_twitter' => 'nullable|url|max:255',
+            'social_youtube' => 'nullable|url|max:255',
+            
+            // SEO Settings
+            'meta_description' => 'nullable|string|max:500',
+            'meta_keywords' => 'nullable|string|max:500',
+            'google_analytics' => 'nullable|string|max:100',
+            'google_tag_manager' => 'nullable|string|max:100',
+            
+            // Appearance
+            'logo_url' => 'nullable|url|max:500',
+            'favicon_url' => 'nullable|url|max:500',
+            'hero_type' => 'nullable|in:slider,fullwidth-video',
+            
+            // Who We Are Section
+            'about_section_title' => 'nullable|string|max:255',
+            'about_section_subtitle' => 'nullable|string|max:500',
+            'about_section_description' => 'nullable|string',
+            'about_section_image' => 'nullable|url|max:500',
+        ]);
+
+        // Save all settings to database
+        foreach ($validated as $key => $value) {
+            Setting::set($key, $value ?? '');
+        }
+
+        return redirect()->route('admin.settings')
+            ->with('success', 'Settings saved successfully!');
+    }
+
+    private function getSettings()
+    {
+        // Get settings from database, fallback to config
+        return [
+            'site_name' => Setting::get('site_name', config('app.name', 'DLC')),
+            'site_url' => Setting::get('site_url', config('app.url', url('/'))),
+            'site_email' => Setting::get('site_email', config('app.email', 'info@dlc.co.ke')),
+            'timezone' => Setting::get('timezone', config('app.timezone', 'Africa/Nairobi')),
+            'phone' => Setting::get('phone', config('app.phone', '+254 722 992 111')),
+            'email' => Setting::get('email', config('app.email', 'info@dlc.co.ke')),
+            'location' => Setting::get('location', config('app.location', 'Nairobi, Kenya')),
+            'address' => Setting::get('address', config('app.address', '')),
+            'city' => Setting::get('city', config('app.city', 'Nairobi')),
+            'country' => Setting::get('country', config('app.country', 'Kenya')),
+            'postal_code' => Setting::get('postal_code', config('app.postal_code', '')),
+            'social_facebook' => Setting::get('social_facebook', config('app.social.facebook', '')),
+            'social_linkedin' => Setting::get('social_linkedin', config('app.social.linkedin', '')),
+            'social_instagram' => Setting::get('social_instagram', config('app.social.instagram', '')),
+            'social_twitter' => Setting::get('social_twitter', config('app.social.twitter', '')),
+            'social_youtube' => Setting::get('social_youtube', config('app.social.youtube', '')),
+            'meta_description' => Setting::get('meta_description', config('app.meta.description', '')),
+            'meta_keywords' => Setting::get('meta_keywords', config('app.meta.keywords', '')),
+            'google_analytics' => Setting::get('google_analytics', config('app.google.analytics', '')),
+            'google_tag_manager' => Setting::get('google_tag_manager', config('app.google.tag_manager', '')),
+            'logo_url' => Setting::get('logo_url', config('app.logo_url', '')),
+            'favicon_url' => Setting::get('favicon_url', config('app.favicon_url', '')),
+            'hero_type' => Setting::get('hero_type', 'slider'),
+            'about_section_title' => Setting::get('about_section_title', 'Empowering Lives Through Expert Coaching'),
+            'about_section_subtitle' => Setting::get('about_section_subtitle', 'We are a leading coaching organization dedicated to helping individuals unlock their full potential through personalized guidance, proven methodologies, and comprehensive certification programs.'),
+            'about_section_description' => Setting::get('about_section_description', 'Our mission is to transform lives by providing world-class coaching education and support. With years of experience and a commitment to excellence, we\'ve helped thousands of individuals achieve their personal and professional goals.'),
+            'about_section_image' => Setting::get('about_section_image', config('app.about_section_image', '')),
+        ];
+    }
+}
