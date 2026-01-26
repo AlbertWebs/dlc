@@ -9,7 +9,7 @@
         $navigations = collect([
             (object)['label' => 'Home', 'url' => route('home')],
             (object)['label' => 'About Us', 'url' => route('about')],
-            (object)['label' => 'Events', 'url' => route('events')],
+            (object)['label' => 'Events', 'url' => route('events.index')],
             (object)['label' => 'Videos', 'url' => route('videos.index')],
             (object)['label' => 'Become a Coach', 'url' => route('become-a-coach')],
             (object)['label' => 'Contact', 'url' => route('contact')],

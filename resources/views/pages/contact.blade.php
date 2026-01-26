@@ -4,11 +4,34 @@
 @section('description', 'Get in touch with DLC. Contact us for consultations, program inquiries, or general questions.')
 
 @section('content')
+    <!-- Breadcrumb -->
+    <x-breadcrumb :items="[
+        ['label' => 'Home', 'url' => route('home')],
+        ['label' => 'Contact Us', 'url' => route('contact')]
+    ]" />
+
     <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-primary-50 to-white py-20 lg:py-24">
-        <div class="container text-center">
-            <h1 class="text-4xl lg:text-5xl font-bold text-primary-900 mb-4">Get In Touch</h1>
-            <p class="text-xl text-gray-600">We're here to help you start your transformation journey</p>
+    <section class="relative bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white py-16 lg:py-20 overflow-hidden">
+        <!-- Decorative Background -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 right-0 w-96 h-96 bg-accent-400 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 w-96 h-96 bg-accent-500 rounded-full blur-3xl"></div>
+        </div>
+        
+        <!-- Accent Border Top -->
+        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent-400 to-transparent"></div>
+        
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full mb-6 border border-white/20">
+                <i class="fas fa-envelope text-accent-400"></i>
+                <span class="text-sm font-semibold text-accent-300">Get In Touch</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
+                Let's Start Your <span class="text-accent-400 italic">Transformation</span>
+            </h1>
+            <p class="text-xl text-gray-100 max-w-2xl mx-auto leading-relaxed">
+                We're here to help you start your transformation journey. Reach out and let's discuss how we can support your growth.
+            </p>
         </div>
     </section>
 
@@ -17,8 +40,13 @@
         <div class="container max-w-6xl">
             <div class="grid lg:grid-cols-2 gap-12">
                 <!-- Contact Form -->
-                <div class="card animate-on-scroll">
-                    <h2 class="text-2xl font-bold text-primary-900 mb-6">Send Us a Message</h2>
+                <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 animate-on-scroll hover:shadow-2xl transition-shadow">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-primary-600 to-primary-800 rounded-xl flex items-center justify-center shadow-lg">
+                            <i class="fas fa-paper-plane text-white"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-primary-900">Send Us a Message</h2>
+                    </div>
                     @if(session('success'))
                         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6">
                             {{ session('success') }}
@@ -72,16 +100,19 @@
                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"></textarea>
                         </div>
                         
-                        <button type="submit" class="btn btn-accent w-full">Send Message</button>
+                        <button type="submit" class="w-full px-6 py-4 bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-400 hover:to-accent-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Send Message</span>
+                        </button>
                     </form>
                 </div>
                 
                 <!-- Contact Info -->
                 <div class="space-y-6 animate-on-scroll">
-                    <div class="card">
+                    <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all hover:-translate-y-1">
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-envelope text-white"></i>
+                            <div class="w-14 h-14 bg-gradient-to-br from-primary-600 to-primary-800 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                                <i class="fas fa-envelope text-white text-lg"></i>
                             </div>
                             <div>
                                 <h3 class="text-lg font-bold text-primary-900 mb-1">Email Us</h3>
@@ -91,10 +122,10 @@
                         </div>
                     </div>
                     
-                    <div class="card">
+                    <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all hover:-translate-y-1">
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-phone text-white"></i>
+                            <div class="w-14 h-14 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                                <i class="fas fa-phone text-white text-lg"></i>
                             </div>
                             <div>
                                 <h3 class="text-lg font-bold text-primary-900 mb-1">Call Us</h3>
@@ -104,10 +135,10 @@
                         </div>
                     </div>
                     
-                    <div class="card">
+                    <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all hover:-translate-y-1">
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-map-marker-alt text-white"></i>
+                            <div class="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                                <i class="fas fa-map-marker-alt text-white text-lg"></i>
                             </div>
                             <div>
                                 <h3 class="text-lg font-bold text-primary-900 mb-1">Visit Us</h3>
@@ -117,10 +148,10 @@
                         </div>
                     </div>
                     
-                    <div class="card">
+                    <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all hover:-translate-y-1">
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-clock text-white"></i>
+                            <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                                <i class="fas fa-clock text-white text-lg"></i>
                             </div>
                             <div>
                                 <h3 class="text-lg font-bold text-primary-900 mb-1">Office Hours</h3>

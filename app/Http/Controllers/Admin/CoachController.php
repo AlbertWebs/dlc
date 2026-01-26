@@ -39,7 +39,7 @@ class CoachController extends Controller
             'experience' => 'nullable|string',
             'education' => 'nullable|string',
             'certifications' => 'nullable|string',
-            'coaching_style' => 'nullable|string|max:255',
+            'coaching_style' => 'nullable|string',
             'testimonials' => 'nullable|string',
             'is_featured' => 'boolean',
             'is_active' => 'boolean',
@@ -111,7 +111,7 @@ class CoachController extends Controller
             'experience' => 'nullable|string',
             'education' => 'nullable|string',
             'certifications' => 'nullable|string',
-            'coaching_style' => 'nullable|string|max:255',
+            'coaching_style' => 'nullable|string',
             'testimonials' => 'nullable|string',
             'is_featured' => 'boolean',
             'is_active' => 'boolean',
@@ -130,6 +130,12 @@ class CoachController extends Controller
                 Storage::disk('public')->delete($coach->photo);
             }
             $validated['photo'] = $request->file('photo')->store('coaches', 'public');
+        } elseif ($request->has('delete_photo') && $request->delete_photo) {
+            // Delete photo if checkbox is checked
+            if ($coach->photo && Storage::disk('public')->exists($coach->photo)) {
+                Storage::disk('public')->delete($coach->photo);
+            }
+            $validated['photo'] = null;
         }
 
         // Convert credentials string to array

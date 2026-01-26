@@ -4,6 +4,12 @@
 @section('description', 'Learn about DLC\'s mission, vision, and commitment to transforming lives through professional coaching.')
 
 @section('content')
+    <!-- Breadcrumb -->
+    <x-breadcrumb :items="[
+        ['label' => 'Home', 'url' => route('home')],
+        ['label' => 'About Us', 'url' => route('about')]
+    ]" />
+
     @php
         $heroTitle = \App\Models\Setting::get('about_page_hero_title', 'ABOUT US');
         $heroSubtitle = \App\Models\Setting::get('about_page_hero_subtitle', 'Empowering lives through expert coaching and professional development');

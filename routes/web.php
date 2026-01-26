@@ -19,7 +19,7 @@ use App\Http\Controllers\Admin\AboutPageController;
 // Frontend Routes
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
-Route::get('/events', [PageController::class, 'events'])->name('events');
+Route::get('/events', [PageController::class, 'events'])->name('events.index');
 Route::get('/become-a-coach', [PageController::class, 'becomeACoach'])->name('become-a-coach');
 Route::match(['get', 'post'], '/contact', [PageController::class, 'contact'])->name('contact');
 Route::get('/programs', [PageController::class, 'programs'])->name('programs.index');

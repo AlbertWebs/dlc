@@ -4,6 +4,12 @@
 @section('description', 'Stay updated with our latest events, workshops, and blog posts on coaching and personal development.')
 
 @section('content')
+    <!-- Breadcrumb -->
+    <x-breadcrumb :items="[
+        ['label' => 'Home', 'url' => route('home')],
+        ['label' => 'Events', 'url' => route('events.index')]
+    ]" />
+
     <!-- Hero Section -->
     <section class="bg-gradient-to-br from-primary-50 to-white py-20 lg:py-24">
         <div class="container text-center">

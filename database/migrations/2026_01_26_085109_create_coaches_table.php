@@ -28,7 +28,7 @@ return new class extends Migration
             $table->text('experience')->nullable();
             $table->text('education')->nullable();
             $table->text('certifications')->nullable();
-            $table->string('coaching_style')->nullable();
+            $table->text('coaching_style')->nullable();
             $table->text('testimonials')->nullable();
             $table->boolean('is_featured')->default(false);
             $table->boolean('is_active')->default(true);

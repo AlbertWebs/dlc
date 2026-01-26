@@ -315,7 +315,7 @@
                         </span>
                     </div>
                     
-                    <h2 class="text-4xl lg:text-5xl xl:text-6xl font-bold text-primary-900 mb-6 leading-tight">
+                    <h2 class="text-3xl lg:text-4xl xl:text-5xl font-bold text-primary-900 mb-6 leading-tight">
                         @php
                             $aboutTitle = \App\Models\Setting::get('about_section_title', 'Empowering Lives Through Expert Coaching');
                             if (stripos($aboutTitle, 'Expert Coaching') !== false) {
@@ -1090,7 +1090,7 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section class="section bg-gray-50">
+    <section class="pt-16 lg:pt-24 pb-0 bg-gray-50">
         <div class="container">
             <div class="text-center mb-12 animate-on-scroll">
                 <span class="text-accent-600 font-semibold text-sm uppercase tracking-wider">Success Stories</span>

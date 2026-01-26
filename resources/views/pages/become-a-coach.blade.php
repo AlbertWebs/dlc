@@ -4,6 +4,12 @@
 @section('description', 'Become a certified life coach with DLC\'s comprehensive certification program. Transform lives and build a rewarding coaching career.')
 
 @section('content')
+    <!-- Breadcrumb -->
+    <x-breadcrumb :items="[
+        ['label' => 'Home', 'url' => route('home')],
+        ['label' => 'Become a Coach', 'url' => route('become-a-coach')]
+    ]" />
+
     <!-- Hero Section -->
     <section class="bg-gradient-to-br from-primary-50 to-white py-20 lg:py-24">
         <div class="container text-center">
