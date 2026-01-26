@@ -1158,19 +1158,7 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="section bg-gradient-to-r from-primary-900 to-primary-800 text-white">
-        <div class="container text-center">
-            <h2 class="text-3xl lg:text-4xl font-bold mb-4">Ready to Transform Your Life?</h2>
-            <p class="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
-                Take the first step towards achieving your goals. Get in touch with us today and discover how we can help you succeed.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="{{ route('contact') }}" class="btn btn-accent btn-large">Get Started Today</a>
-                <a href="{{ route('programs.index') }}" class="btn bg-white text-primary-900 hover:bg-gray-100 btn-large">Explore Programs</a>
-            </div>
-        </div>
-    </section>
+   
 @endsection
 
 @push('scripts')
