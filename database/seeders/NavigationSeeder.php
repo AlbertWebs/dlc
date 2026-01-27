@@ -2,47 +2,318 @@
 
 namespace Database\Seeders;
 
-use App\Models\Navigation;
 use Illuminate\Database\Seeder;
+use App\Models\Navigation;
 
 class NavigationSeeder extends Seeder
 {
     public function run(): void
     {
-        $headerLinks = [
-            ['label' => 'Home', 'url' => '/', 'location' => 'header', 'order' => 1],
-            ['label' => 'About Us', 'url' => '/about', 'location' => 'header', 'order' => 2],
-            ['label' => 'Events', 'url' => '/events', 'location' => 'header', 'order' => 3],
-            ['label' => 'Coaches', 'url' => '/coaches', 'location' => 'header', 'order' => 4],
-            ['label' => 'Become a Coach', 'url' => '/become-a-coach', 'location' => 'header', 'order' => 5],
-            ['label' => 'Videos', 'url' => '/videos', 'location' => 'header', 'order' => 6],
-            ['label' => 'Our Blog', 'url' => '/blog', 'location' => 'header', 'order' => 7],
-            // These will be CMS-controlled but not shown in frontend nav
-            ['label' => 'Life Mastery Bootcamp', 'url' => '/life-mastery-bootcamp', 'location' => 'header', 'is_visible' => false, 'order' => 8],
-            ['label' => 'Life Mastery Webinar', 'url' => '/life-mastery-webinar', 'location' => 'header', 'is_visible' => false, 'order' => 9],
-            ['label' => 'My Account', 'url' => '/my-account', 'location' => 'header', 'is_visible' => false, 'order' => 10],
-        ];
+        Navigation::updateOrCreate(
+            [
+                'label' => 'Home',
+                'url' => '/',
+                'location' => 'header',
+            ],
+            [
+                'label' => 'Home',
+                'url' => '/',
+                'location' => 'header',
+                'category' => null,
+                'is_visible' => true,
+                'order' => 1,
+                'created_at' => '2025-12-10 09:18:00',
+                'updated_at' => '2025-12-10 09:18:00',
+            ]
+        );
 
-        $footerLinks = [
-            ['label' => 'Home', 'url' => '/', 'location' => 'footer', 'category' => 'quick_links', 'order' => 1],
-            ['label' => 'About Us', 'url' => '/about', 'location' => 'footer', 'category' => 'quick_links', 'order' => 2],
-            ['label' => 'Events', 'url' => '/events', 'location' => 'footer', 'category' => 'quick_links', 'order' => 3],
-            ['label' => 'Coaches', 'url' => '/coaches', 'location' => 'footer', 'category' => 'quick_links', 'order' => 4],
-            ['label' => 'Become a Coach', 'url' => '/become-a-coach', 'location' => 'footer', 'category' => 'quick_links', 'order' => 5],
-            ['label' => 'Videos', 'url' => '/videos', 'location' => 'footer', 'category' => 'quick_links', 'order' => 6],
-            ['label' => 'Contact', 'url' => '/contact', 'location' => 'footer', 'category' => 'quick_links', 'order' => 7],
-        ];
+        Navigation::updateOrCreate(
+            [
+                'label' => 'About Us',
+                'url' => '/about',
+                'location' => 'header',
+            ],
+            [
+                'label' => 'About Us',
+                'url' => '/about',
+                'location' => 'header',
+                'category' => null,
+                'is_visible' => true,
+                'order' => 2,
+                'created_at' => '2025-12-10 09:18:00',
+                'updated_at' => '2025-12-10 09:18:00',
+            ]
+        );
 
-        foreach (array_merge($headerLinks, $footerLinks) as $link) {
-            Navigation::updateOrCreate(
-                [
-                    'location' => $link['location'],
-                    'label' => $link['label'],
-                    'url' => $link['url'],
-                    'category' => $link['category'] ?? null,
-                ],
-                $link
-            );
-        }
+        Navigation::updateOrCreate(
+            [
+                'label' => 'Events',
+                'url' => '/events',
+                'location' => 'header',
+            ],
+            [
+                'label' => 'Events',
+                'url' => '/events',
+                'location' => 'header',
+                'category' => null,
+                'is_visible' => true,
+                'order' => 3,
+                'created_at' => '2025-12-10 09:18:00',
+                'updated_at' => '2025-12-10 09:18:00',
+            ]
+        );
+
+        Navigation::updateOrCreate(
+            [
+                'label' => 'Become a Coach',
+                'url' => '/become-a-coach',
+                'location' => 'header',
+            ],
+            [
+                'label' => 'Become a Coach',
+                'url' => '/become-a-coach',
+                'location' => 'header',
+                'category' => null,
+                'is_visible' => true,
+                'order' => 5,
+                'created_at' => '2025-12-10 09:18:00',
+                'updated_at' => '2026-01-27 08:08:19',
+            ]
+        );
+
+        Navigation::updateOrCreate(
+            [
+                'label' => 'Life Mastery Bootcamp',
+                'url' => '/life-mastery-bootcamp',
+                'location' => 'header',
+            ],
+            [
+                'label' => 'Life Mastery Bootcamp',
+                'url' => '/life-mastery-bootcamp',
+                'location' => 'header',
+                'category' => null,
+                'is_visible' => false,
+                'order' => 8,
+                'created_at' => '2025-12-10 09:18:00',
+                'updated_at' => '2026-01-27 08:08:19',
+            ]
+        );
+
+        Navigation::updateOrCreate(
+            [
+                'label' => 'Life Mastery Webinar',
+                'url' => '/life-mastery-webinar',
+                'location' => 'header',
+            ],
+            [
+                'label' => 'Life Mastery Webinar',
+                'url' => '/life-mastery-webinar',
+                'location' => 'header',
+                'category' => null,
+                'is_visible' => false,
+                'order' => 9,
+                'created_at' => '2025-12-10 09:18:00',
+                'updated_at' => '2026-01-27 08:08:19',
+            ]
+        );
+
+        Navigation::updateOrCreate(
+            [
+                'label' => 'My Account',
+                'url' => '/my-account',
+                'location' => 'header',
+            ],
+            [
+                'label' => 'My Account',
+                'url' => '/my-account',
+                'location' => 'header',
+                'category' => null,
+                'is_visible' => false,
+                'order' => 10,
+                'created_at' => '2025-12-10 09:18:00',
+                'updated_at' => '2026-01-27 08:08:19',
+            ]
+        );
+
+        Navigation::updateOrCreate(
+            [
+                'label' => 'Home',
+                'url' => '/',
+                'location' => 'footer',
+            ],
+            [
+                'label' => 'Home',
+                'url' => '/',
+                'location' => 'footer',
+                'category' => 'quick_links',
+                'is_visible' => true,
+                'order' => 1,
+                'created_at' => '2025-12-10 09:18:00',
+                'updated_at' => '2025-12-10 09:18:00',
+            ]
+        );
+
+        Navigation::updateOrCreate(
+            [
+                'label' => 'About Us',
+                'url' => '/about',
+                'location' => 'footer',
+            ],
+            [
+                'label' => 'About Us',
+                'url' => '/about',
+                'location' => 'footer',
+                'category' => 'quick_links',
+                'is_visible' => true,
+                'order' => 2,
+                'created_at' => '2025-12-10 09:18:00',
+                'updated_at' => '2025-12-10 09:18:00',
+            ]
+        );
+
+        Navigation::updateOrCreate(
+            [
+                'label' => 'Events',
+                'url' => '/events',
+                'location' => 'footer',
+            ],
+            [
+                'label' => 'Events',
+                'url' => '/events',
+                'location' => 'footer',
+                'category' => 'quick_links',
+                'is_visible' => true,
+                'order' => 3,
+                'created_at' => '2025-12-10 09:18:00',
+                'updated_at' => '2025-12-10 09:18:00',
+            ]
+        );
+
+        Navigation::updateOrCreate(
+            [
+                'label' => 'Become a Coach',
+                'url' => '/become-a-coach',
+                'location' => 'footer',
+            ],
+            [
+                'label' => 'Become a Coach',
+                'url' => '/become-a-coach',
+                'location' => 'footer',
+                'category' => 'quick_links',
+                'is_visible' => true,
+                'order' => 5,
+                'created_at' => '2025-12-10 09:18:00',
+                'updated_at' => '2026-01-27 08:52:21',
+            ]
+        );
+
+        Navigation::updateOrCreate(
+            [
+                'label' => 'Contact',
+                'url' => '/contact',
+                'location' => 'footer',
+            ],
+            [
+                'label' => 'Contact',
+                'url' => '/contact',
+                'location' => 'footer',
+                'category' => 'quick_links',
+                'is_visible' => true,
+                'order' => 7,
+                'created_at' => '2025-12-10 09:18:00',
+                'updated_at' => '2026-01-27 08:52:21',
+            ]
+        );
+
+        Navigation::updateOrCreate(
+            [
+                'label' => 'Videos',
+                'url' => '/videos',
+                'location' => 'header',
+            ],
+            [
+                'label' => 'Videos',
+                'url' => '/videos',
+                'location' => 'header',
+                'category' => null,
+                'is_visible' => true,
+                'order' => 6,
+                'created_at' => '2026-01-26 09:27:42',
+                'updated_at' => '2026-01-27 08:08:19',
+            ]
+        );
+
+        Navigation::updateOrCreate(
+            [
+                'label' => 'Videos',
+                'url' => '/videos',
+                'location' => 'footer',
+            ],
+            [
+                'label' => 'Videos',
+                'url' => '/videos',
+                'location' => 'footer',
+                'category' => 'quick_links',
+                'is_visible' => true,
+                'order' => 6,
+                'created_at' => '2026-01-26 09:27:42',
+                'updated_at' => '2026-01-27 08:52:21',
+            ]
+        );
+
+        Navigation::updateOrCreate(
+            [
+                'label' => 'Coaches',
+                'url' => '/coaches',
+                'location' => 'header',
+            ],
+            [
+                'label' => 'Coaches',
+                'url' => '/coaches',
+                'location' => 'header',
+                'category' => null,
+                'is_visible' => true,
+                'order' => 4,
+                'created_at' => '2026-01-27 08:08:19',
+                'updated_at' => '2026-01-27 08:08:19',
+            ]
+        );
+
+        Navigation::updateOrCreate(
+            [
+                'label' => 'Coaches',
+                'url' => '/coaches',
+                'location' => 'footer',
+            ],
+            [
+                'label' => 'Coaches',
+                'url' => '/coaches',
+                'location' => 'footer',
+                'category' => 'quick_links',
+                'is_visible' => true,
+                'order' => 4,
+                'created_at' => '2026-01-27 08:17:32',
+                'updated_at' => '2026-01-27 08:17:32',
+            ]
+        );
+
+        Navigation::updateOrCreate(
+            [
+                'label' => 'Our Blog',
+                'url' => '/blog',
+                'location' => 'header',
+            ],
+            [
+                'label' => 'Our Blog',
+                'url' => '/blog',
+                'location' => 'header',
+                'category' => null,
+                'is_visible' => true,
+                'order' => 7,
+                'created_at' => '2026-01-27 08:52:21',
+                'updated_at' => '2026-01-27 08:52:21',
+            ]
+        );
+
     }
 }
