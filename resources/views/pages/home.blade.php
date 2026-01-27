@@ -791,7 +791,14 @@
                     <!-- Image -->
                     <div class="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-500">
                         <div class="absolute inset-0 bg-gradient-to-br from-accent-400/20 to-primary-600/20 rounded-2xl"></div>
-                        <img src="https://dlc.co.ke/wp-content/uploads/elementor/thumbs/ChatGPT-Image-Jun-4-2025-09_46_15-PM-r6tq51fgwytx5tcd8q5z0yfio99kocnhl574kp0t76.png" 
+                        @php
+                            $breakthroughImage = \App\Models\Setting::get('home_breakthrough_coach_image_file');
+                            $breakthroughImageUrl = \App\Models\Setting::get('home_breakthrough_coach_image_url');
+                            $breakthroughImageSrc = $breakthroughImage 
+                                ? asset('storage/' . $breakthroughImage) 
+                                : ($breakthroughImageUrl ?: 'https://dlc.co.ke/wp-content/uploads/elementor/thumbs/ChatGPT-Image-Jun-4-2025-09_46_15-PM-r6tq51fgwytx5tcd8q5z0yfio99kocnhl574kp0t76.png');
+                        @endphp
+                        <img src="{{ $breakthroughImageSrc }}" 
                              alt="Breakthrough life coach" 
                              class="w-full h-auto object-cover rounded-2xl relative z-10"
                              loading="lazy"
@@ -866,7 +873,14 @@
         <div class="flex flex-col md:flex-row items-stretch">
             <!-- Image on Left - 50% Width -->
             <div class="w-full md:w-1/2 relative min-h-[400px] md:min-h-0">
-                <img src="https://dlc.co.ke/wp-content/uploads/elementor/thumbs/ChatGPT-Image-Jun-4-2025-09_46_15-PM-r6tq51fgwytx5tcd8q5z0yfio99kocnhl574kp0t76.png" 
+                @php
+                    $breakthroughImage = \App\Models\Setting::get('home_breakthrough_coach_image_file');
+                    $breakthroughImageUrl = \App\Models\Setting::get('home_breakthrough_coach_image_url');
+                    $breakthroughImageSrc = $breakthroughImage 
+                        ? asset('storage/' . $breakthroughImage) 
+                        : ($breakthroughImageUrl ?: 'https://dlc.co.ke/wp-content/uploads/elementor/thumbs/ChatGPT-Image-Jun-4-2025-09_46_15-PM-r6tq51fgwytx5tcd8q5z0yfio99kocnhl574kp0t76.png');
+                @endphp
+                <img src="{{ $breakthroughImageSrc }}" 
                      alt="Breakthrough Intervention Coaching in Kenya" 
                      class="w-full h-full object-cover"
                      loading="lazy"
@@ -900,7 +914,14 @@
                         <div class="relative aspect-video bg-primary-900" id="videoContainer">
                             <!-- Thumbnail Overlay -->
                             <div id="videoThumbnail" class="absolute inset-0 cursor-pointer" onclick="playVideo()">
-                                <img src="https://dlc.co.ke/wp-content/uploads/2023/01/1166c6db-5521-4888-9ac8-389af4436c62-370x247-1.jpg" 
+                                @php
+                                    $videoThumbnail = \App\Models\Setting::get('home_video_testimonial_image_file');
+                                    $videoThumbnailUrl = \App\Models\Setting::get('home_video_testimonial_image_url');
+                                    $videoThumbnailSrc = $videoThumbnail 
+                                        ? asset('storage/' . $videoThumbnail) 
+                                        : ($videoThumbnailUrl ?: 'https://dlc.co.ke/wp-content/uploads/2023/01/1166c6db-5521-4888-9ac8-389af4436c62-370x247-1.jpg');
+                                @endphp
+                                <img src="{{ $videoThumbnailSrc }}" 
                                      alt="BECOME A LIFE COACH AS A CAREER" 
                                      class="w-full h-full object-cover"
                                      loading="lazy">

@@ -62,6 +62,14 @@ class SettingsController extends Controller
             'about_section_description' => 'nullable|string',
             'about_section_image' => 'nullable|url|max:500',
             
+            // Home Page Images
+            'home_breakthrough_coach_image_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+            'home_breakthrough_coach_image_url' => 'nullable|url|max:500',
+            'clear_breakthrough_coach_image' => 'nullable|boolean',
+            'home_video_testimonial_image_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+            'home_video_testimonial_image_url' => 'nullable|url|max:500',
+            'clear_video_testimonial_image' => 'nullable|boolean',
+            
             // Google Reviews API
             'google_places_api_key' => 'nullable|string|max:255',
             'google_place_id' => 'nullable|string|max:255',
@@ -115,10 +123,60 @@ class SettingsController extends Controller
             Setting::set('favicon_file', null);
         }
 
+        // Handle breakthrough coach image upload
+        if ($request->hasFile('home_breakthrough_coach_image_file')) {
+            try {
+                $oldImage = Setting::get('home_breakthrough_coach_image_file');
+                if ($oldImage && Storage::disk('public')->exists($oldImage)) {
+                    Storage::disk('public')->delete($oldImage);
+                }
+                
+                $imagePath = $request->file('home_breakthrough_coach_image_file')->store('settings/home-images', 'public');
+                Setting::set('home_breakthrough_coach_image_file', $imagePath);
+            } catch (\Exception $e) {
+                return redirect()->route('admin.settings')
+                    ->withErrors(['home_breakthrough_coach_image_file' => 'Error uploading image: ' . $e->getMessage()])
+                    ->withInput();
+            }
+        } elseif ($request->has('clear_breakthrough_coach_image')) {
+            $oldImage = Setting::get('home_breakthrough_coach_image_file');
+            if ($oldImage && Storage::disk('public')->exists($oldImage)) {
+                Storage::disk('public')->delete($oldImage);
+            }
+            Setting::set('home_breakthrough_coach_image_file', null);
+        }
+
+        // Handle video testimonial image upload
+        if ($request->hasFile('home_video_testimonial_image_file')) {
+            try {
+                $oldImage = Setting::get('home_video_testimonial_image_file');
+                if ($oldImage && Storage::disk('public')->exists($oldImage)) {
+                    Storage::disk('public')->delete($oldImage);
+                }
+                
+                $imagePath = $request->file('home_video_testimonial_image_file')->store('settings/home-images', 'public');
+                Setting::set('home_video_testimonial_image_file', $imagePath);
+            } catch (\Exception $e) {
+                return redirect()->route('admin.settings')
+                    ->withErrors(['home_video_testimonial_image_file' => 'Error uploading image: ' . $e->getMessage()])
+                    ->withInput();
+            }
+        } elseif ($request->has('clear_video_testimonial_image')) {
+            $oldImage = Setting::get('home_video_testimonial_image_file');
+            if ($oldImage && Storage::disk('public')->exists($oldImage)) {
+                Storage::disk('public')->delete($oldImage);
+            }
+            Setting::set('home_video_testimonial_image_file', null);
+        }
+
         // Save all other settings to database
         foreach ($validated as $key => $value) {
             // Skip file fields as they're handled above
-            if (!in_array($key, ['logo_file', 'favicon_file', 'clear_logo', 'clear_favicon'])) {
+            if (!in_array($key, [
+                'logo_file', 'favicon_file', 'clear_logo', 'clear_favicon',
+                'home_breakthrough_coach_image_file', 'clear_breakthrough_coach_image',
+                'home_video_testimonial_image_file', 'clear_video_testimonial_image'
+            ])) {
                 Setting::set($key, $value ?? '');
             }
         }
@@ -160,6 +218,10 @@ class SettingsController extends Controller
             'about_section_subtitle' => Setting::get('about_section_subtitle', 'We are a leading coaching organization dedicated to helping individuals unlock their full potential through personalized guidance, proven methodologies, and comprehensive certification programs.'),
             'about_section_description' => Setting::get('about_section_description', 'Our mission is to transform lives by providing world-class coaching education and support. With years of experience and a commitment to excellence, we\'ve helped thousands of individuals achieve their personal and professional goals.'),
             'about_section_image' => Setting::get('about_section_image', config('app.about_section_image', '')),
+            'home_breakthrough_coach_image_file' => Setting::get('home_breakthrough_coach_image_file', ''),
+            'home_breakthrough_coach_image_url' => Setting::get('home_breakthrough_coach_image_url', ''),
+            'home_video_testimonial_image_file' => Setting::get('home_video_testimonial_image_file', ''),
+            'home_video_testimonial_image_url' => Setting::get('home_video_testimonial_image_url', ''),
             'google_places_api_key' => Setting::get('google_places_api_key', ''),
             'google_place_id' => Setting::get('google_place_id', ''),
         ];

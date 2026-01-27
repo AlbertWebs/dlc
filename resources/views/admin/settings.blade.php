@@ -476,6 +476,134 @@
             </div>
         </div>
 
+        <!-- Home Page Images -->
+        <div class="bg-white rounded-xl shadow-lg p-8">
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200">
+                <i class="fas fa-images text-primary-600 text-xl"></i>
+                <h3 class="text-xl font-semibold text-gray-800">Home Page Images</h3>
+            </div>
+            
+            <div class="space-y-8">
+                <!-- Breakthrough Coach Image -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Breakthrough Coach Image
+                    </label>
+                    <p class="text-xs text-gray-500 mb-4">Used in "Who We Are" and "Breakthrough Intervention Coaching" sections</p>
+                    
+                    @if(isset($settings['home_breakthrough_coach_image_file']) && $settings['home_breakthrough_coach_image_file'])
+                        <div class="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                            <div class="flex items-center gap-4">
+                                <img src="{{ asset('storage/' . $settings['home_breakthrough_coach_image_file']) }}" 
+                                     alt="Current Image" 
+                                     class="h-32 object-cover bg-white p-2 rounded border border-gray-200">
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-700">Current Image</p>
+                                    <p class="text-xs text-gray-500 mt-1">Click "Choose File" to replace</p>
+                                </div>
+                                <label class="cursor-pointer">
+                                    <input type="checkbox" name="clear_breakthrough_coach_image" value="1" class="rounded">
+                                    <span class="text-xs text-red-600 ml-1">Delete</span>
+                                </label>
+                            </div>
+                        </div>
+                    @elseif(isset($settings['home_breakthrough_coach_image_url']) && $settings['home_breakthrough_coach_image_url'])
+                        <div class="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                            <div class="flex items-center gap-4">
+                                <img src="{{ $settings['home_breakthrough_coach_image_url'] }}" 
+                                     alt="Current Image" 
+                                     class="h-32 object-cover bg-white p-2 rounded border border-gray-200">
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-700">Current Image (URL)</p>
+                                    <p class="text-xs text-gray-500 mt-1">Upload a file to replace the URL</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    
+                    <input type="file" id="home_breakthrough_coach_image_file" name="home_breakthrough_coach_image_file" 
+                           accept="image/jpeg,image/png,image/jpg,image/gif,image/webp"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100">
+                    <p class="text-xs text-gray-500 mt-2">
+                        <i class="fas fa-info-circle text-blue-500"></i> 
+                        Recommended: PNG or JPG, max 5MB. Used in multiple sections on home page.
+                    </p>
+                    @error('home_breakthrough_coach_image_file')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                    
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <label for="home_breakthrough_coach_image_url" class="block text-sm font-medium text-gray-700 mb-2">
+                            Image URL (Optional - fallback if no file uploaded)
+                        </label>
+                        <input type="url" id="home_breakthrough_coach_image_url" name="home_breakthrough_coach_image_url" 
+                               value="{{ old('home_breakthrough_coach_image_url', $settings['home_breakthrough_coach_image_url'] ?? '') }}"
+                               placeholder="https://dlc.co.ke/wp-content/uploads/..."
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm">
+                    </div>
+                </div>
+                
+                <!-- Video Testimonial Image -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Video Testimonial Thumbnail Image
+                    </label>
+                    <p class="text-xs text-gray-500 mb-4">Used as thumbnail for the video testimonial section</p>
+                    
+                    @if(isset($settings['home_video_testimonial_image_file']) && $settings['home_video_testimonial_image_file'])
+                        <div class="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                            <div class="flex items-center gap-4">
+                                <img src="{{ asset('storage/' . $settings['home_video_testimonial_image_file']) }}" 
+                                     alt="Current Image" 
+                                     class="h-32 object-cover bg-white p-2 rounded border border-gray-200">
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-700">Current Image</p>
+                                    <p class="text-xs text-gray-500 mt-1">Click "Choose File" to replace</p>
+                                </div>
+                                <label class="cursor-pointer">
+                                    <input type="checkbox" name="clear_video_testimonial_image" value="1" class="rounded">
+                                    <span class="text-xs text-red-600 ml-1">Delete</span>
+                                </label>
+                            </div>
+                        </div>
+                    @elseif(isset($settings['home_video_testimonial_image_url']) && $settings['home_video_testimonial_image_url'])
+                        <div class="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                            <div class="flex items-center gap-4">
+                                <img src="{{ $settings['home_video_testimonial_image_url'] }}" 
+                                     alt="Current Image" 
+                                     class="h-32 object-cover bg-white p-2 rounded border border-gray-200">
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-700">Current Image (URL)</p>
+                                    <p class="text-xs text-gray-500 mt-1">Upload a file to replace the URL</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    
+                    <input type="file" id="home_video_testimonial_image_file" name="home_video_testimonial_image_file" 
+                           accept="image/jpeg,image/png,image/jpg,image/gif,image/webp"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100">
+                    <p class="text-xs text-gray-500 mt-2">
+                        <i class="fas fa-info-circle text-blue-500"></i> 
+                        Recommended: JPG or PNG, 16:9 aspect ratio, max 5MB.
+                    </p>
+                    @error('home_video_testimonial_image_file')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                    
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <label for="home_video_testimonial_image_url" class="block text-sm font-medium text-gray-700 mb-2">
+                            Image URL (Optional - fallback if no file uploaded)
+                        </label>
+                        <input type="url" id="home_video_testimonial_image_url" name="home_video_testimonial_image_url" 
+                               value="{{ old('home_video_testimonial_image_url', $settings['home_video_testimonial_image_url'] ?? '') }}"
+                               placeholder="https://dlc.co.ke/wp-content/uploads/..."
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm">
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Google Reviews API Settings -->
         <div class="bg-white rounded-xl shadow-lg p-8">
             <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200">
