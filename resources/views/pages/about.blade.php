@@ -186,106 +186,206 @@
     </section>
 
     <!-- Mission & Vision Section -->
-    <section class="section bg-gradient-to-br from-gray-50 to-white">
-        <div class="container">
+    <section class="section bg-gradient-to-br from-gray-50 via-white to-primary-50 relative overflow-hidden">
+        <!-- Decorative Background Elements -->
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-1/4 right-0 w-96 h-96 bg-accent-500 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-1/4 left-0 w-96 h-96 bg-primary-500 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="container relative z-10">
+            <!-- Section Header -->
+            <div class="text-center mb-12 lg:mb-16 animate-on-scroll">
+                <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/80 backdrop-blur-sm border border-primary-200 rounded-full mb-6 shadow-sm">
+                    <i class="fas fa-compass text-accent-500"></i>
+                    <span class="text-sm font-semibold text-primary-700 uppercase tracking-wider">Our Foundation</span>
+                </div>
+                <h2 class="text-3xl lg:text-4xl xl:text-5xl font-bold text-primary-900 mb-4">
+                    Mission & Vision
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-accent-500 to-transparent mx-auto rounded-full"></div>
+            </div>
+            
             <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
                 <!-- Mission Card -->
-                <div class="bg-white rounded-2xl shadow-xl p-8 lg:p-10 border border-primary-100 transform hover:scale-[1.02] transition-all duration-300 animate-on-scroll">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg">
-                            <i class="fas fa-bullseye text-white text-2xl"></i>
+                <div class="group relative bg-white rounded-3xl shadow-lg p-8 lg:p-10 border-2 border-transparent hover:border-green-200 transform hover:-translate-y-2 transition-all duration-500 animate-on-scroll overflow-hidden">
+                    <!-- Decorative Gradient Background -->
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-green-50 to-transparent rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    <!-- Icon Badge -->
+                    <div class="relative flex items-start gap-5 mb-6">
+                        <div class="flex-shrink-0 w-20 h-20 bg-gradient-to-br from-green-500 via-green-600 to-green-700 rounded-2xl flex items-center justify-center shadow-xl transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                            <i class="fas fa-bullseye text-white text-3xl"></i>
                         </div>
-                        <div>
-                            <span class="text-sm font-semibold text-green-600 uppercase tracking-wider">01. Mission</span>
-                            <h3 class="text-2xl font-bold text-primary-900 mt-1">{{ $missionTitle }}</h3>
+                        <div class="flex-1 pt-2">
+                            <span class="inline-block px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold uppercase tracking-wider mb-2">01. Mission</span>
+                            <h3 class="text-2xl lg:text-3xl font-bold text-primary-900 leading-tight">{{ $missionTitle }}</h3>
                         </div>
                     </div>
-                    <p class="text-gray-700 leading-relaxed text-lg">
-                        {{ $missionContent }}
-                    </p>
+                    
+                    <!-- Content -->
+                    <div class="relative">
+                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-green-500 to-green-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <p class="text-gray-700 leading-relaxed text-base lg:text-lg pl-4 group-hover:pl-6 transition-all duration-300">
+                            {{ $missionContent }}
+                        </p>
+                    </div>
+                    
+                    <!-- Decorative Corner Element -->
+                    <div class="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-green-100 to-transparent rounded-tl-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
 
                 <!-- Vision Card -->
-                <div class="bg-white rounded-2xl shadow-xl p-8 lg:p-10 border border-primary-100 transform hover:scale-[1.02] transition-all duration-300 animate-on-scroll">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                            <i class="fas fa-eye text-white text-2xl"></i>
+                <div class="group relative bg-white rounded-3xl shadow-lg p-8 lg:p-10 border-2 border-transparent hover:border-purple-200 transform hover:-translate-y-2 transition-all duration-500 animate-on-scroll overflow-hidden">
+                    <!-- Decorative Gradient Background -->
+                    <div class="absolute top-0 left-0 w-64 h-64 bg-gradient-to-br from-purple-50 to-transparent rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    <!-- Icon Badge -->
+                    <div class="relative flex items-start gap-5 mb-6">
+                        <div class="flex-shrink-0 w-20 h-20 bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700 rounded-2xl flex items-center justify-center shadow-xl transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                            <i class="fas fa-eye text-white text-3xl"></i>
                         </div>
-                        <div>
-                            <span class="text-sm font-semibold text-purple-600 uppercase tracking-wider">02. Vision</span>
-                            <h3 class="text-2xl font-bold text-primary-900 mt-1">{{ $visionTitle }}</h3>
+                        <div class="flex-1 pt-2">
+                            <span class="inline-block px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-bold uppercase tracking-wider mb-2">02. Vision</span>
+                            <h3 class="text-2xl lg:text-3xl font-bold text-primary-900 leading-tight">{{ $visionTitle }}</h3>
                         </div>
                     </div>
-                    <p class="text-gray-700 leading-relaxed text-lg">
-                        {{ $visionContent }}
-                    </p>
+                    
+                    <!-- Content -->
+                    <div class="relative">
+                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-purple-500 to-purple-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <p class="text-gray-700 leading-relaxed text-base lg:text-lg pl-4 group-hover:pl-6 transition-all duration-300">
+                            {{ $visionContent }}
+                        </p>
+                    </div>
+                    
+                    <!-- Decorative Corner Element -->
+                    <div class="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-purple-100 to-transparent rounded-tr-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Leadership Academy Section -->
+    <!-- Leadership Academy / Courses Section -->
     @if($leadershipTitle || $leadershipContent)
-    <section class="section bg-white">
-        <div class="container">
+    <section class="section bg-gradient-to-br from-white via-primary-50/30 to-white relative overflow-hidden">
+        <!-- Decorative Background -->
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-0 right-1/4 w-[600px] h-[600px] bg-accent-500 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-primary-500 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="container relative z-10">
             <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                 <!-- Content -->
-                <div class="animate-on-scroll">
-                    <div class="inline-block mb-4">
-                        <span class="px-4 py-2 bg-primary-100 border border-primary-200 rounded-full text-primary-700 font-semibold text-sm uppercase tracking-wider">
-                            Courses
-                        </span>
+                <div class="animate-on-scroll order-2 lg:order-1">
+                    <!-- Badge -->
+                    <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-accent-100 to-accent-50 border-2 border-accent-200 rounded-full mb-6 shadow-sm">
+                        <i class="fas fa-graduation-cap text-accent-600"></i>
+                        <span class="text-accent-700 font-bold text-sm uppercase tracking-wider">Our Courses</span>
                     </div>
-                    <h2 class="text-3xl lg:text-4xl font-bold text-primary-900 mb-6">
+                    
+                    <!-- Title -->
+                    <h2 class="text-3xl lg:text-4xl xl:text-5xl font-bold text-primary-900 mb-6 leading-tight">
                         {{ $leadershipTitle }}
                     </h2>
+                    
+                    <!-- Divider -->
+                    <div class="w-20 h-1 bg-gradient-to-r from-accent-500 to-transparent rounded-full mb-6"></div>
+                    
+                    <!-- Subtitle -->
                     @if($leadershipSubtitle)
-                        <p class="text-xl text-gray-700 mb-6 leading-relaxed">
+                        <p class="text-lg lg:text-xl text-gray-700 mb-8 leading-relaxed font-medium">
                             {{ $leadershipSubtitle }}
                         </p>
                     @endif
+                    
+                    <!-- Content -->
                     @if($leadershipContent)
-                        <div class="prose prose-lg max-w-none text-gray-700 space-y-4">
+                        <div class="prose prose-lg max-w-none text-gray-700 space-y-5 mb-8">
                             @foreach(explode("\n\n", $leadershipContent) as $paragraph)
                                 @if(trim($paragraph))
-                                    <p class="leading-relaxed">{{ trim($paragraph) }}</p>
+                                    <div class="flex items-start gap-4">
+                                        <div class="flex-shrink-0 w-2 h-2 bg-accent-500 rounded-full mt-3"></div>
+                                        <p class="leading-relaxed text-base lg:text-lg flex-1">{{ trim($paragraph) }}</p>
+                                    </div>
                                 @endif
                             @endforeach
                         </div>
                     @endif
-                    <div class="mt-8">
-                        <a href="{{ route('become-a-coach') }}" class="btn btn-primary btn-large inline-flex items-center gap-2">
-                            <span>Learn More</span>
-                            <i class="fas fa-arrow-right"></i>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 mt-10">
+                        <a href="{{ route('become-a-coach') }}" class="group btn btn-primary btn-large inline-flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                            <span>Explore Programs</span>
+                            <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </a>
+                        <a href="{{ route('programs.index') }}" class="btn btn-secondary btn-large inline-flex items-center justify-center gap-2 border-2 hover:border-primary-300">
+                            <i class="fas fa-list"></i>
+                            <span>View All Courses</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Trust Indicators -->
+                    <div class="flex flex-wrap items-center gap-6 mt-10 pt-8 border-t border-gray-200">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-check-circle text-green-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-semibold text-gray-900">ICR Accredited</div>
+                                <div class="text-xs text-gray-600">Certified Programs</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-users text-blue-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-semibold text-gray-900">Expert Trainers</div>
+                                <div class="text-xs text-gray-600">World-Class Faculty</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Image -->
-                <div class="animate-on-scroll">
-                    <div class="relative">
-                        <!-- Decorative Elements -->
-                        <div class="absolute -top-6 -left-6 w-full h-full bg-gradient-to-br from-accent-400 to-accent-600 rounded-3xl transform rotate-3 opacity-20"></div>
-                        <div class="absolute -bottom-6 -right-6 w-full h-full bg-gradient-to-br from-primary-600 to-primary-800 rounded-3xl transform -rotate-3 opacity-20"></div>
+                <div class="animate-on-scroll order-1 lg:order-2">
+                    <div class="relative group">
+                        <!-- Enhanced Decorative Elements -->
+                        <div class="absolute -top-8 -left-8 w-full h-full bg-gradient-to-br from-accent-400/30 to-accent-600/30 rounded-3xl transform rotate-6 group-hover:rotate-3 transition-transform duration-500"></div>
+                        <div class="absolute -bottom-8 -right-8 w-full h-full bg-gradient-to-br from-primary-600/30 to-primary-800/30 rounded-3xl transform -rotate-6 group-hover:-rotate-3 transition-transform duration-500"></div>
                         
                         <!-- Main Image Container -->
-                        <div class="relative rounded-3xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-500">
-                            <div class="aspect-[4/3] bg-gradient-to-br from-primary-700 to-primary-900">
+                        <div class="relative rounded-3xl overflow-hidden shadow-2xl transform group-hover:scale-[1.03] transition-all duration-500 border-4 border-white">
+                            <div class="aspect-[4/3] bg-gradient-to-br from-primary-700 to-primary-900 relative overflow-hidden">
                                 @if($leadershipImage)
                                     <img src="{{ $leadershipImage }}" 
                                          alt="{{ $leadershipTitle }}" 
-                                         class="w-full h-full object-cover">
+                                         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
                                 @else
                                     <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-700 via-primary-800 to-primary-900">
                                         <div class="text-center text-white p-8">
-                                            <i class="fas fa-users-cog text-6xl lg:text-8xl mb-4 opacity-50"></i>
+                                            <i class="fas fa-users-cog text-6xl lg:text-8xl mb-4 opacity-50 group-hover:opacity-75 transition-opacity"></i>
                                             <p class="text-lg font-medium opacity-75">Leadership Academy</p>
                                         </div>
                                     </div>
                                 @endif
+                                
+                                <!-- Enhanced Overlay Gradient -->
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
+                                
+                                <!-- Shine Effect on Hover -->
+                                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                             </div>
-                            <!-- Overlay Gradient -->
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+                            
+                            <!-- Floating Badge -->
+                            <div class="absolute top-6 right-6 bg-white/95 backdrop-blur-sm rounded-xl px-4 py-2 shadow-lg border border-white/50">
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-star text-accent-500"></i>
+                                    <span class="text-sm font-bold text-primary-900">Premium Training</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
