@@ -39,20 +39,31 @@ class GoogleReviewsService
             if ($response->successful()) {
                 $data = $response->json();
                 
+                // Check for API errors in response
+                if (isset($data['status']) && $data['status'] !== 'OK') {
+                    $errorMessage = $data['error_message'] ?? 'Unknown API error';
+                    Log::error("Google Places API error status: {$data['status']} - {$errorMessage}");
+                    return ['error' => $data['status'], 'message' => $errorMessage];
+                }
+                
                 if (isset($data['result']['reviews'])) {
-                    return $data['result']['reviews'];
+                    $reviews = $data['result']['reviews'];
+                    Log::info("Fetched " . count($reviews) . " reviews from Google Places API");
+                    return $reviews;
                 }
                 
                 // Successful response but no reviews present
+                Log::info("Google Places API returned successfully but no reviews found for Place ID: {$this->placeId}");
                 return [];
             } else {
-                Log::error('Google Places API error: ' . $response->body());
+                $errorBody = $response->body();
+                Log::error('Google Places API HTTP error: ' . $errorBody);
+                return ['error' => 'HTTP_ERROR', 'message' => $errorBody];
             }
         } catch (\Exception $e) {
             Log::error('Error fetching Google reviews: ' . $e->getMessage());
+            return ['error' => 'EXCEPTION', 'message' => $e->getMessage()];
         }
-
-        return null;
     }
 
     /**
@@ -89,6 +100,18 @@ class GoogleReviewsService
                 'total' => 0,
                 'cached' => false,
                 'message' => 'Google API fetch failed or not configured.',
+            ];
+        }
+        
+        // Check if fetchReviews returned an error object
+        if (is_array($reviews) && isset($reviews['error'])) {
+            return [
+                'synced' => 0,
+                'skipped' => 0,
+                'total' => 0,
+                'cached' => false,
+                'message' => 'Google API error: ' . ($reviews['message'] ?? $reviews['error']),
+                'error_details' => $reviews['message'] ?? 'Unknown error',
             ];
         }
 
