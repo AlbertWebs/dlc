@@ -71,26 +71,8 @@ class GoogleReviewsService
      */
     public function syncReviews(bool $force = false)
     {
-        // Enforce: at most 1 external API fetch per day (unless forced)
-        if (!$force) {
-            $lastSyncAtRaw = Setting::get('google_reviews_last_sync_at');
-            if (!empty($lastSyncAtRaw)) {
-                try {
-                    $lastSyncAt = Carbon::parse($lastSyncAtRaw);
-                    if ($lastSyncAt->isSameDay(now())) {
-                        return [
-                            'synced' => 0,
-                            'skipped' => 0,
-                            'total' => 0,
-                            'cached' => true,
-                            'message' => 'Skipped Google API fetch (already synced today).',
-                        ];
-                    }
-                } catch (\Exception $e) {
-                    // Ignore parse errors; we'll proceed to fetch.
-                }
-            }
-        }
+        // No caching restriction - allows syncing every second
+        // The force flag is kept for API compatibility but has no effect
 
         $reviews = $this->fetchReviews();
         if ($reviews === null) {

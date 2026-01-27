@@ -12,7 +12,7 @@ class SyncGoogleReviews extends Command
      *
      * @var string
      */
-    protected $signature = 'google-reviews:sync {--force : Force a fresh Google API fetch even if already synced today}';
+    protected $signature = 'google-reviews:sync {--force : (Deprecated - no longer needed, sync runs every time)}';
 
     /**
      * The console command description.
@@ -52,8 +52,8 @@ class SyncGoogleReviews extends Command
         $result = $service->syncReviews((bool)$this->option('force'));
 
         if (!empty($result['cached'])) {
+            // This should not happen anymore, but kept for backwards compatibility
             $this->info($result['message'] ?? 'Skipped (cached).');
-            $this->info('Use --force flag to force a fresh sync.');
             return Command::SUCCESS;
         }
 
