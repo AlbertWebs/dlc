@@ -1,2 +1,19 @@
 User-agent: *
-Disallow:
+Allow: /
+
+# Disallow admin area
+Disallow: /admin/
+
+# Allow all other pages
+Allow: /
+Allow: /about
+Allow: /become-a-coach
+Allow: /contact
+Allow: /events
+Allow: /programs
+Allow: /coaches
+Allow: /videos
+Allow: /blog
+
+# Sitemap location (update with your actual domain)
+# Sitemap: https://dlc.co.ke/sitemap.xml

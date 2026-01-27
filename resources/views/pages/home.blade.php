@@ -2,10 +2,50 @@
 
 @php
     $pageTitle = 'Kenya Life Coach Certification – Kenya\'s top life coaching school offering internationally certified training, breakthrough coaching, and online programs to help you become a powerful coach.';
-    $pageDescription = 'Kenya\'s top life coaching school offering internationally certified training, breakthrough coaching, and online programs to help you become a powerful coach.';
+    $pageDescription = 'Kenya\'s top life coaching school offering internationally certified training, breakthrough coaching, and online programs to help you become a powerful coach. Transform your life and career with ICR-accredited certification programs.';
     $pageImage = asset('images/og-image.jpg');
     $pageType = 'website';
+    $pageKeywords = 'life coaching Kenya, coach certification, ICR accredited, life coach training, professional coaching, breakthrough coaching, online coaching programs, coaching certification Kenya, certified life coach, personal development, mindset coaching';
 @endphp
+
+@push('schema')
+@php
+    $homePageSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'WebPage',
+        'name' => $pageTitle,
+        'description' => $pageDescription,
+        'url' => url('/'),
+        'inLanguage' => 'en-KE',
+        'isPartOf' => [
+            '@type' => 'WebSite',
+            'name' => config('app.name'),
+            'url' => config('app.url')
+        ],
+        'about' => [
+            '@type' => 'Thing',
+            'name' => 'Life Coaching Certification',
+            'description' => 'Professional life coaching certification programs in Kenya'
+        ],
+        'breadcrumb' => [
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => [
+                [
+                    '@type' => 'ListItem',
+                    'position' => 1,
+                    'name' => 'Home',
+                    'item' => url('/')
+                ]
+            ]
+        ]
+    ];
+@endphp
+<script type="application/ld+json">
+@verbatim
+{!! json_encode($homePageSchema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+@endverbatim
+</script>
+@endpush
 
 @section('content')
     <!-- Hero Section -->
@@ -816,14 +856,107 @@
                         </div>
                     </div>
                     
-                    <!-- Breakthrough Intervention Coaching Box -->
-                    <div class="bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900 rounded-2xl p-6 md:p-8 text-white shadow-2xl border-2 border-accent-500/30">
-                        <h4 class="text-xl md:text-2xl font-bold mb-4 text-accent-400">
-                            Breakthrough Intervention Coaching in Kenya
-                        </h4>
-                        <p class="text-base md:text-lg text-gray-100 leading-relaxed">
-                            <strong class="text-accent-400">Breakthrough Intervention Coaching in Kenya</strong> is a game-changing approach that empowers individuals to experience rapid, lasting transformation by targeting the root cause of limiting beliefs, emotional blocks, and self-sabotaging patterns. Unlike traditional coaching models, this powerful method combines mindset rewiring, emotional mastery, and identity alignment to create deep inner shifts that ripple across every area of life—from career and relationships to purpose and confidence. At <strong class="text-accent-400">Destiny Life Coaching</strong>, our certified Breakthrough Coaches in Kenya use this results-based process to guide clients from confusion to clarity, from fear to bold action, and from survival mode to a life of intentional success and fulfillment.
-                        </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Breakthrough Intervention Coaching Section - Full Width -->
+    <section class="relative w-full overflow-hidden">
+        <div class="flex flex-col md:flex-row items-stretch">
+            <!-- Image on Left - 50% Width -->
+            <div class="w-full md:w-1/2 relative min-h-[400px] md:min-h-0">
+                <img src="https://dlc.co.ke/wp-content/uploads/elementor/thumbs/ChatGPT-Image-Jun-4-2025-09_46_15-PM-r6tq51fgwytx5tcd8q5z0yfio99kocnhl574kp0t76.png" 
+                     alt="Breakthrough Intervention Coaching in Kenya" 
+                     class="w-full h-full object-cover"
+                     loading="lazy"
+                     onerror="this.onerror=null; this.src='{{ asset('storage/placeholder-coach.jpg') }}';">
+            </div>
+            
+            <!-- Text Card on Right - 50% Width -->
+            <div class="w-full md:w-1/2 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900 p-8 md:p-12 text-white flex flex-col justify-center">
+                <h4 class="text-2xl md:text-3xl font-bold mb-6 text-accent-400">
+                    Breakthrough Intervention Coaching in Kenya
+                </h4>
+                <p class="text-lg md:text-xl text-gray-100 leading-relaxed">
+                    <strong class="text-accent-400">Breakthrough Intervention Coaching in Kenya</strong> is a game-changing approach that empowers individuals to experience rapid, lasting transformation by targeting the root cause of limiting beliefs, emotional blocks, and self-sabotaging patterns. Unlike traditional coaching models, this powerful method combines mindset rewiring, emotional mastery, and identity alignment to create deep inner shifts that ripple across every area of life—from career and relationships to purpose and confidence. At <strong class="text-accent-400">Destiny Life Coaching</strong>, our certified Breakthrough Coaches in Kenya use this results-based process to guide clients from confusion to clarity, from fear to bold action, and from survival mode to a life of intentional success and fulfillment.
+                </p>
+            </div>
+        </div>
+    </section>
+
+      <!-- Video Testimonial Section -->
+      <section class="relative py-16 md:py-24 lg:py-32 bg-gradient-to-br from-white via-primary-50/30 to-white overflow-hidden">
+        <!-- Decorative Background Elements -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-accent-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+        
+        <div class="container relative z-10 px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
+                <!-- Video Column -->
+                <div class="animate-on-scroll">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl group">
+                        <!-- Video Container -->
+                        <div class="relative aspect-video bg-primary-900" id="videoContainer">
+                            <!-- Thumbnail Overlay -->
+                            <div id="videoThumbnail" class="absolute inset-0 cursor-pointer" onclick="playVideo()">
+                                <img src="https://dlc.co.ke/wp-content/uploads/2023/01/1166c6db-5521-4888-9ac8-389af4436c62-370x247-1.jpg" 
+                                     alt="BECOME A LIFE COACH AS A CAREER" 
+                                     class="w-full h-full object-cover"
+                                     loading="lazy">
+                                <!-- Play Button Overlay -->
+                                <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-all duration-300">
+                                    <div class="w-20 h-20 md:w-24 md:h-24 bg-accent-500 rounded-full flex items-center justify-center shadow-2xl transform group-hover:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-play text-white text-2xl md:text-3xl ml-1"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- YouTube iframe (hidden initially) -->
+                            <iframe id="videoPlayer" 
+                                    class="hidden w-full h-full" 
+                                    src="" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Content Column -->
+                <div class="animate-on-scroll space-y-6">
+                    <!-- Badge -->
+                    <div>
+                        <span class="inline-block px-4 py-2 bg-accent-500/10 border border-accent-500/30 rounded-full text-accent-600 font-semibold text-sm uppercase tracking-wider">
+                            <i class="fas fa-video mr-2"></i>Video Content
+                        </span>
+                    </div>
+                    
+                    <!-- Main Heading -->
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-900 leading-tight">
+                        Subscribe to <span class="text-accent-500 font-accent italic">Breakthrough coaching</span>
+                    </h2>
+                    
+                    <!-- Subheading -->
+                    <h3 class="text-2xl md:text-3xl font-semibold text-primary-700">
+                        Video Testimonial
+                    </h3>
+                    
+                    <!-- Description -->
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Watch inspiring testimonials and coaching insights from our community. Subscribe to stay updated with the latest breakthrough coaching content.
+                    </p>
+                    
+                    <!-- Subscribe Button -->
+                    <div class="pt-4">
+                        <a href="https://www.youtube.com/channel/UCcYXau-TIgy-1h9mK9m5V4A?sub_confirmation=1" 
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold rounded-xl hover:from-red-500 hover:to-red-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl group">
+                            <i class="fab fa-youtube text-2xl"></i>
+                            <span>Subscribe</span>
+                            <i class="fas fa-long-arrow-alt-right transform group-hover:translate-x-2 transition-transform duration-300"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -919,83 +1052,7 @@
         </div>
     </section>
 
-    <!-- Video Testimonial Section -->
-    <section class="relative py-16 md:py-24 lg:py-32 bg-gradient-to-br from-white via-primary-50/30 to-white overflow-hidden">
-        <!-- Decorative Background Elements -->
-        <div class="absolute top-0 right-0 w-96 h-96 bg-accent-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-        <div class="absolute bottom-0 left-0 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
-        
-        <div class="container relative z-10 px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
-                <!-- Video Column -->
-                <div class="animate-on-scroll">
-                    <div class="relative rounded-2xl overflow-hidden shadow-2xl group">
-                        <!-- Video Container -->
-                        <div class="relative aspect-video bg-primary-900" id="videoContainer">
-                            <!-- Thumbnail Overlay -->
-                            <div id="videoThumbnail" class="absolute inset-0 cursor-pointer" onclick="playVideo()">
-                                <img src="https://dlc.co.ke/wp-content/uploads/2023/01/1166c6db-5521-4888-9ac8-389af4436c62-370x247-1.jpg" 
-                                     alt="BECOME A LIFE COACH AS A CAREER" 
-                                     class="w-full h-full object-cover"
-                                     loading="lazy">
-                                <!-- Play Button Overlay -->
-                                <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-all duration-300">
-                                    <div class="w-20 h-20 md:w-24 md:h-24 bg-accent-500 rounded-full flex items-center justify-center shadow-2xl transform group-hover:scale-110 transition-transform duration-300">
-                                        <i class="fas fa-play text-white text-2xl md:text-3xl ml-1"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- YouTube iframe (hidden initially) -->
-                            <iframe id="videoPlayer" 
-                                    class="hidden w-full h-full" 
-                                    src="" 
-                                    frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen>
-                            </iframe>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Content Column -->
-                <div class="animate-on-scroll space-y-6">
-                    <!-- Badge -->
-                    <div>
-                        <span class="inline-block px-4 py-2 bg-accent-500/10 border border-accent-500/30 rounded-full text-accent-600 font-semibold text-sm uppercase tracking-wider">
-                            <i class="fas fa-video mr-2"></i>Video Content
-                        </span>
-                    </div>
-                    
-                    <!-- Main Heading -->
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-900 leading-tight">
-                        Subscribe to <span class="text-accent-500 font-accent italic">Breakthrough coaching</span>
-                    </h2>
-                    
-                    <!-- Subheading -->
-                    <h3 class="text-2xl md:text-3xl font-semibold text-primary-700">
-                        Video Testimonial
-                    </h3>
-                    
-                    <!-- Description -->
-                    <p class="text-lg text-gray-700 leading-relaxed">
-                        Watch inspiring testimonials and coaching insights from our community. Subscribe to stay updated with the latest breakthrough coaching content.
-                    </p>
-                    
-                    <!-- Subscribe Button -->
-                    <div class="pt-4">
-                        <a href="https://www.youtube.com/channel/UCcYXau-TIgy-1h9mK9m5V4A?sub_confirmation=1" 
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold rounded-xl hover:from-red-500 hover:to-red-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl group">
-                            <i class="fab fa-youtube text-2xl"></i>
-                            <span>Subscribe</span>
-                            <i class="fas fa-long-arrow-alt-right transform group-hover:translate-x-2 transition-transform duration-300"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  
 
     <!-- Contact Us Now Section -->
     <section class="relative py-16 md:py-24 lg:py-32 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-950 text-white overflow-hidden">
@@ -1097,9 +1154,11 @@
                 <h2 class="text-3xl lg:text-4xl font-bold text-primary-900 mt-2 mb-4">What Our Clients Say</h2>
             </div>
             @php
+                // Show only Google reviews in this section
                 $testimonials = \App\Models\Testimonial::where('is_active', true)
+                    ->where('is_from_google', true)
                     ->orderBy('order')
-                    ->orderBy('is_featured', 'desc')
+                    ->orderBy('google_review_time', 'desc')
                     ->orderBy('created_at', 'desc')
                     ->limit(3)
                     ->get();
@@ -1107,7 +1166,7 @@
             @if($testimonials->count() > 0)
                 <div class="grid md:grid-cols-3 gap-8">
                     @foreach($testimonials as $testimonial)
-                        <div class="card animate-on-scroll">
+                        <div class="card animate-on-scroll {{ $testimonial->is_from_google ? 'border-l-4 border-l-blue-500 bg-gradient-to-r from-blue-50/30 to-white' : '' }}">
                             <div class="text-accent-500 text-4xl mb-4 opacity-30">
                                 <i class="fas fa-quote-left"></i>
                             </div>
@@ -1116,16 +1175,32 @@
                             </p>
                             <div class="flex items-center gap-4">
                                 @if($testimonial->photo)
-                                    <img src="{{ asset('storage/' . $testimonial->photo) }}" alt="{{ $testimonial->name }}" class="w-12 h-12 rounded-full object-cover">
+                                    <img src="{{ $testimonial->is_from_google ? $testimonial->photo : asset('storage/' . $testimonial->photo) }}" alt="{{ $testimonial->name }}" class="w-12 h-12 rounded-full object-cover">
                                 @else
                                     <div class="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center">
                                         <i class="fas fa-user text-white"></i>
                                     </div>
                                 @endif
-                                <div>
-                                    <div class="font-bold text-primary-900">{{ $testimonial->name }}</div>
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <span class="font-bold text-primary-900">{{ $testimonial->name }}</span>
+                                        @if($testimonial->is_from_google)
+                                            <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-700 text-xs rounded-full font-bold shadow-sm border border-blue-200 hover:shadow-md transition-all duration-200">
+                                                <i class="fab fa-google text-blue-600"></i>
+                                                <span>Google</span>
+                                            </span>
+                                        @endif
+                                    </div>
+                                    @if($testimonial->rating)
+                                        <div class="flex items-center gap-1 mt-2">
+                                            @for($i = 1; $i <= 5; $i++)
+                                                <i class="fas fa-star {{ $i <= $testimonial->rating ? 'text-yellow-400' : 'text-gray-300' }} text-xs"></i>
+                                            @endfor
+                                            <span class="text-xs text-gray-500 ml-1">({{ $testimonial->rating }}/5)</span>
+                                        </div>
+                                    @endif
                                     @if($testimonial->role)
-                                        <div class="text-sm text-gray-600">{{ $testimonial->role }}{{ $testimonial->company ? ' at ' . $testimonial->company : '' }}</div>
+                                        <div class="text-sm text-gray-600 mt-1">{{ $testimonial->role }}{{ $testimonial->company ? ' at ' . $testimonial->company : '' }}</div>
                                     @endif
                                 </div>
                             </div>
@@ -1133,26 +1208,13 @@
                     @endforeach
                 </div>
             @else
-                <div class="grid md:grid-cols-3 gap-8">
-                    @for($i = 0; $i < 3; $i++)
-                        <div class="card animate-on-scroll">
-                            <div class="text-accent-500 text-4xl mb-4 opacity-30">
-                                <i class="fas fa-quote-left"></i>
-                            </div>
-                            <p class="text-gray-700 italic mb-6 leading-relaxed">
-                                "The coaching program transformed my career. I gained clarity on my goals and the confidence to pursue them. Highly recommended!"
-                            </p>
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center">
-                                    <i class="fas fa-user text-white"></i>
-                                </div>
-                                <div>
-                                    <div class="font-bold text-primary-900">Sarah Johnson</div>
-                                    <div class="text-sm text-gray-600">Marketing Director</div>
-                                </div>
-                            </div>
-                        </div>
-                    @endfor
+                <!-- No Google reviews yet - show message -->
+                <div class="text-center py-12">
+                    <div class="inline-block p-8 bg-white rounded-2xl border-2 border-dashed border-gray-300 max-w-md mx-auto">
+                        <i class="fab fa-google text-5xl text-gray-400 mb-4"></i>
+                        <p class="text-gray-600 text-lg mb-2">No Google reviews available yet</p>
+                        <p class="text-gray-500 text-sm">Google reviews will appear here once synced from your Google Business Profile.</p>
+                    </div>
                 </div>
             @endif
         </div>

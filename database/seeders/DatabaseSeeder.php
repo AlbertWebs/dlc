@@ -11,6 +11,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             NavigationSeeder::class,
             CoachSeeder::class,
+            ImportedCoaches20260127Seeder::class,
+            BlogPostSeeder::class,
         ]);
     }
 }

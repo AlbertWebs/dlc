@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="bg-white rounded-xl shadow-lg p-8">
-        <form action="{{ route('admin.about-page.update') }}" method="POST" class="space-y-6">
+        <form action="{{ route('admin.about-page.update') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
             @method('PUT')
 
@@ -179,15 +179,48 @@
                         <p class="mt-1 text-xs text-gray-500">Full content for the Leadership Academy section. Use line breaks to separate paragraphs.</p>
                     </div>
 
+                    <!-- Image Upload -->
+                    <div>
+                        <label for="about_page_leadership_image_file" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-upload mr-1"></i> Upload Image
+                        </label>
+                        <input type="file" id="about_page_leadership_image_file" name="about_page_leadership_image_file" accept="image/jpeg,image/png,image/jpg,image/gif,image/webp"
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100">
+                        <p class="mt-1 text-xs text-gray-500">
+                            Upload an image for the Leadership Academy section. Max size: 5MB. Supported formats: JPEG, PNG, GIF, WebP. Recommended size: 800x600px or larger.
+                        </p>
+                        @if(isset($settings['about_page_leadership_image_file']) && $settings['about_page_leadership_image_file'])
+                            <div class="mt-3">
+                                <p class="text-sm text-gray-600 mb-2">Current Image:</p>
+                                <img src="{{ asset('storage/' . $settings['about_page_leadership_image_file']) }}" alt="Current Leadership Image" class="w-48 h-36 object-cover rounded-lg border border-gray-200">
+                            </div>
+                        @elseif(isset($settings['about_page_leadership_image']) && $settings['about_page_leadership_image'] && !str_starts_with($settings['about_page_leadership_image'], 'about-page/'))
+                            <div class="mt-3">
+                                <p class="text-sm text-gray-600 mb-2">Current Image (from URL):</p>
+                                <img src="{{ $settings['about_page_leadership_image'] }}" alt="Current Leadership Image" class="w-48 h-36 object-cover rounded-lg border border-gray-200">
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-white text-gray-500">OR</span>
+                        </div>
+                    </div>
+
+                    <!-- Image URL -->
                     <div>
                         <label for="about_page_leadership_image" class="block text-sm font-medium text-gray-700 mb-2">
                             <i class="fas fa-link mr-1"></i> Image URL
                         </label>
                         <input type="url" id="about_page_leadership_image" name="about_page_leadership_image" 
-                               value="{{ old('about_page_leadership_image', $settings['about_page_leadership_image'] ?? '') }}" 
+                               value="{{ old('about_page_leadership_image', (isset($settings['about_page_leadership_image']) && !str_starts_with($settings['about_page_leadership_image'] ?? '', 'about-page/')) ? $settings['about_page_leadership_image'] : '') }}" 
                                placeholder="https://example.com/image.jpg"
                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-                        <p class="mt-1 text-xs text-gray-500">URL to an image for the Leadership Academy section.</p>
+                        <p class="mt-1 text-xs text-gray-500">Alternatively, provide a URL to an external image. This will replace any uploaded image.</p>
                     </div>
                 </div>
             </div>

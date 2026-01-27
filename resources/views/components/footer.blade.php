@@ -269,22 +269,22 @@
                 </div>
                 <div class="flex flex-wrap items-center justify-center gap-4 md:gap-6">
                     @php
-                        $privacyLink = $footerLinks->firstWhere('label', 'Privacy Policy');
-                        $termsLink = $footerLinks->firstWhere('label', 'Terms of Service');
+                        $privacyPage = \App\Models\LegalPage::getPrivacyPolicy();
+                        $termsPage = \App\Models\LegalPage::getTermsOfService();
                     @endphp
-                    @if($privacyLink)
-                        <a href="{{ $privacyLink->url }}" class="text-gray-400 hover:text-accent-400 transition-colors text-sm flex items-center gap-2 group">
+                    @if($privacyPage)
+                        <a href="{{ route('legal.show', $privacyPage->slug) }}" class="text-gray-400 hover:text-accent-400 transition-colors text-sm flex items-center gap-2 group">
                             <i class="fas fa-shield-alt text-xs"></i>
                             <span>Privacy Policy</span>
                         </a>
                     @endif
-                    @if($termsLink)
-                        <a href="{{ $termsLink->url }}" class="text-gray-400 hover:text-accent-400 transition-colors text-sm flex items-center gap-2 group">
+                    @if($termsPage)
+                        <a href="{{ route('legal.show', $termsPage->slug) }}" class="text-gray-400 hover:text-accent-400 transition-colors text-sm flex items-center gap-2 group">
                             <i class="fas fa-file-contract text-xs"></i>
                             <span>Terms of Service</span>
                         </a>
                     @endif
-                    @if(!$privacyLink && !$termsLink)
+                    @if(!$privacyPage && !$termsPage)
                         <a href="#" class="text-gray-400 hover:text-accent-400 transition-colors text-sm flex items-center gap-2">
                             <i class="fas fa-shield-alt text-xs"></i>
                             <span>Privacy Policy</span>

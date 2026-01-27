@@ -1,7 +1,62 @@
 @extends('layouts.app')
 
-@section('title', 'About Us')
-@section('description', 'Learn about DLC\'s mission, vision, and commitment to transforming lives through professional coaching.')
+@php
+    $pageTitle = 'About Us – Destiny Life Coaching Kenya | Mission, Vision & Leadership Academy';
+    $pageDescription = 'Learn about DLC\'s mission, vision, and commitment to transforming lives through professional coaching. Discover our Leadership Academy and ICR-accredited programs in Kenya.';
+    $pageKeywords = 'about DLC Kenya, life coaching mission, coaching vision, leadership academy Kenya, ICR accredited coaching, professional coaching Kenya, coaching organization';
+    $pageImage = \App\Models\Setting::get('about_page_leadership_image_file', '') 
+        ? asset('storage/' . \App\Models\Setting::get('about_page_leadership_image_file', '')) 
+        : asset('images/og-image.jpg');
+    $pageType = 'website';
+@endphp
+
+@push('schema')
+@php
+    $aboutPageSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'AboutPage',
+        'name' => $pageTitle,
+        'description' => $pageDescription,
+        'url' => url('/about'),
+        'inLanguage' => 'en-KE',
+        'mainEntity' => [
+            '@type' => 'Organization',
+            'name' => 'Destiny Life Coaching Kenya',
+            'alternateName' => 'DLC Kenya',
+            'description' => $pageDescription,
+            'url' => config('app.url'),
+            'foundingDate' => '2006',
+            'address' => [
+                '@type' => 'PostalAddress',
+                'addressCountry' => 'KE',
+                'addressLocality' => 'Nairobi'
+            ]
+        ],
+        'breadcrumb' => [
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => [
+                [
+                    '@type' => 'ListItem',
+                    'position' => 1,
+                    'name' => 'Home',
+                    'item' => url('/')
+                ],
+                [
+                    '@type' => 'ListItem',
+                    'position' => 2,
+                    'name' => 'About Us',
+                    'item' => url('/about')
+                ]
+            ]
+        ]
+    ];
+@endphp
+<script type="application/ld+json">
+@verbatim
+{!! json_encode($aboutPageSchema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+@endverbatim
+</script>
+@endpush
 
 @section('content')
     <!-- Breadcrumb -->
@@ -22,43 +77,110 @@
         $leadershipTitle = \App\Models\Setting::get('about_page_leadership_title', 'LEADERSHIP ACADEMY');
         $leadershipSubtitle = \App\Models\Setting::get('about_page_leadership_subtitle', 'Destiny Life Coaching, Nairobi Leadership Academy offers training that helps develop leaders from within your organization and facilitates a leadership pipeline that brings about peak performance for teams.');
         $leadershipContent = \App\Models\Setting::get('about_page_leadership_content', '');
-        $leadershipImage = \App\Models\Setting::get('about_page_leadership_image', '');
+        $leadershipImageFile = \App\Models\Setting::get('about_page_leadership_image_file', '');
+        $leadershipImageUrl = \App\Models\Setting::get('about_page_leadership_image', '');
+        // Use uploaded file if exists, otherwise use URL (if it's not a stored file path)
+        $leadershipImage = $leadershipImageFile ? asset('storage/' . $leadershipImageFile) : ($leadershipImageUrl && !str_starts_with($leadershipImageUrl, 'about-page/') ? $leadershipImageUrl : ($leadershipImageUrl && str_starts_with($leadershipImageUrl, 'about-page/') ? asset('storage/' . $leadershipImageUrl) : ''));
         $accreditationTitle = \App\Models\Setting::get('about_page_accreditation_title', 'Accreditation');
         $accreditationContent = \App\Models\Setting::get('about_page_accreditation_content', 'We are accredited by the International Coaches Register and we are in good standing with ICR. We are committed to providing professional and ethical services to our clients. We are dedicated to providing quality life coaching services.');
     @endphp
 
     <!-- Hero Section -->
-    <section class="relative bg-gradient-to-br from-primary-900 via-primary-800 to-primary-950 text-white py-20 lg:py-32 overflow-hidden">
-        <!-- Decorative Background Elements -->
-        <div class="absolute top-0 right-0 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-        <div class="absolute bottom-0 left-0 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+    <section class="relative bg-gradient-to-br from-primary-900 via-primary-800 to-primary-950 text-white py-16 md:py-24 lg:py-32 overflow-hidden">
+        <!-- Enhanced Decorative Background Elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 animate-pulse"></div>
+            <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent-500/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 animate-pulse" style="animation-delay: 1s;"></div>
+            <div class="absolute top-1/2 left-1/2 w-[300px] h-[300px] bg-primary-700/30 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+        </div>
         
-        <div class="container relative z-10 text-center">
-            <div class="inline-block mb-4">
-                <span class="px-4 py-2 bg-accent-500/20 border border-accent-500/30 rounded-full text-accent-400 font-semibold text-sm uppercase tracking-wider">
-                    About Us
-                </span>
+        <!-- Accent Border Top -->
+        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent-400 to-transparent"></div>
+        
+        <div class="container relative z-10 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto text-center">
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-6 shadow-lg animate-on-scroll hover:bg-white/15 transition-all duration-300">
+                    <i class="fas fa-info-circle text-accent-400"></i>
+                    <span class="text-accent-300 font-semibold text-sm uppercase tracking-wider">About Us</span>
+                </div>
+                
+                <!-- Main Heading -->
+                <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 leading-tight animate-on-scroll">
+                    <span class="block">{{ $heroTitle }}</span>
+                </h1>
+                
+                <!-- Subtitle -->
+                <p class="text-lg md:text-xl lg:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed mb-8 animate-on-scroll">
+                    {{ $heroSubtitle }}
+                </p>
+                
+                <!-- Quick Stats or CTA -->
+                <div class="flex flex-wrap items-center justify-center gap-6 mt-10 animate-on-scroll">
+                    <div class="flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300">
+                        <div class="w-10 h-10 bg-accent-500/20 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-calendar-check text-accent-400"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-xs text-gray-400 uppercase tracking-wider">Since</div>
+                            <div class="text-lg font-bold text-white">2006</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300">
+                        <div class="w-10 h-10 bg-accent-500/20 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-certificate text-accent-400"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-xs text-gray-400 uppercase tracking-wider">Accredited</div>
+                            <div class="text-lg font-bold text-white">ICR</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300">
+                        <div class="w-10 h-10 bg-accent-500/20 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-users text-accent-400"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-xs text-gray-400 uppercase tracking-wider">Location</div>
+                            <div class="text-lg font-bold text-white">Kenya</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in">
-                {{ $heroTitle }}
-            </h1>
-            <p class="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed animate-fade-in-delay">
-                {{ $heroSubtitle }}
-            </p>
+        </div>
+        
+        <!-- Bottom Wave Decoration -->
+        <div class="absolute bottom-0 left-0 right-0">
+            <svg class="w-full h-12 text-white" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0 C300,100 600,20 900,60 C1050,80 1150,40 1200,60 L1200,120 L0,120 Z" fill="currentColor" opacity="0.1"></path>
+            </svg>
         </div>
     </section>
 
     <!-- Introduction Section -->
-    <section class="section bg-white">
-        <div class="container max-w-4xl">
+    <section class="relative py-16 md:py-20 lg:py-24 bg-white overflow-hidden">
+        <!-- Subtle Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-20 right-10 w-72 h-72 bg-primary-500 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-20 left-10 w-72 h-72 bg-accent-500 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="container max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-12 animate-on-scroll">
-                <h2 class="text-3xl lg:text-4xl font-bold text-primary-900 mb-4">{{ $introTitle }}</h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-accent-400 to-accent-600 mx-auto rounded-full"></div>
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 border border-primary-100 rounded-full mb-6">
+                    <i class="fas fa-lightbulb text-accent-500"></i>
+                    <span class="text-sm font-semibold text-primary-700 uppercase tracking-wider">{{ $introTitle }}</span>
+                </div>
+                <div class="w-20 h-1 bg-gradient-to-r from-transparent via-accent-500 to-transparent mx-auto rounded-full mb-8"></div>
             </div>
-            <div class="prose prose-lg max-w-none text-center animate-on-scroll">
-                <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
-                    {{ $introContent }}
-                </p>
+            
+            <div class="bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 md:p-12 lg:p-16 shadow-xl border border-gray-100 animate-on-scroll hover:shadow-2xl transition-all duration-500">
+                <div class="prose prose-lg max-w-none text-center">
+                    <p class="text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed font-medium">
+                        {{ $introContent }}
+                    </p>
+                </div>
             </div>
         </div>
     </section>
@@ -172,26 +294,8 @@
     </section>
     @endif
 
-    <!-- Accreditation Section -->
-    <section class="section bg-gradient-to-br from-accent-50 via-white to-primary-50">
-        <div class="container max-w-4xl">
-            <div class="bg-white rounded-2xl shadow-xl p-8 lg:p-12 border-2 border-accent-200 animate-on-scroll">
-                <div class="text-center mb-8">
-                    <div class="w-20 h-20 bg-gradient-to-br from-accent-400 to-accent-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                        <i class="fas fa-certificate text-white text-3xl"></i>
-                    </div>
-                    <h2 class="text-3xl lg:text-4xl font-bold text-primary-900 mb-4">{{ $accreditationTitle }}</h2>
-                    <div class="w-24 h-1 bg-gradient-to-r from-accent-400 to-accent-600 mx-auto rounded-full"></div>
-                </div>
-                <p class="text-lg text-gray-700 leading-relaxed text-center max-w-3xl mx-auto">
-                    {{ $accreditationContent }}
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="section bg-gradient-to-r from-primary-900 via-primary-800 to-primary-950 text-white relative overflow-hidden">
+     <!-- CTA Section -->
+     <section class="section bg-gradient-to-r from-primary-900 via-primary-800 to-primary-950 text-white relative overflow-hidden">
         <!-- Decorative Background -->
         <div class="absolute inset-0 opacity-10">
             <div class="absolute top-0 right-0 w-96 h-96 bg-accent-500 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
@@ -213,6 +317,29 @@
             </div>
         </div>
     </section>
+
+    <!-- Accreditation Section -->
+    <section class="section bg-gradient-to-br from-accent-50 via-white to-primary-50">
+        <div class="container max-w-4xl">
+            <div class="bg-white rounded-2xl shadow-xl p-8 lg:p-12 border-2 border-accent-200 animate-on-scroll">
+                <div class="text-center mb-8">
+                    <div class="w-20 h-20 bg-gradient-to-br from-accent-400 to-accent-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <i class="fas fa-certificate text-white text-3xl"></i>
+                    </div>
+                    <h2 class="text-3xl lg:text-4xl font-bold text-primary-900 mb-4">{{ $accreditationTitle }}</h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-accent-400 to-accent-600 mx-auto rounded-full"></div>
+                </div>
+                <p class="text-lg text-gray-700 leading-relaxed text-center max-w-3xl mx-auto">
+                    {{ $accreditationContent }}
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Google Reviews Section -->
+    <x-google-reviews-section />
+
+   
 @endsection
 
 @push('scripts')

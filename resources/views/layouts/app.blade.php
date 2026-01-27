@@ -25,11 +25,19 @@
     <title>{{ $pageTitle }}</title>
     <meta name="title" content="{{ $pageTitle }}">
     <meta name="description" content="{{ $pageDescription }}">
-    <meta name="keywords" content="life coaching, Kenya, coach certification, life coach training, professional coaching, breakthrough coaching, online coaching programs, coaching certification Kenya">
+    <meta name="keywords" content="{{ $pageKeywords ?? 'life coaching, Kenya, coach certification, life coach training, professional coaching, breakthrough coaching, online coaching programs, coaching certification Kenya, ICR accredited, certified life coach Kenya, life coaching courses, professional development, personal transformation, mindset coaching, executive coaching, career coaching, relationship coaching, wellness coaching, coaching school Kenya' }}">
     <meta name="author" content="{{ $siteName }}">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="googlebot" content="index, follow">
+    <meta name="bingbot" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <meta name="rating" content="general">
+    <meta name="distribution" content="global">
+    <meta name="geo.region" content="KE">
+    <meta name="geo.placename" content="Kenya">
     <link rel="canonical" href="{{ $currentUrl }}">
+    <link rel="sitemap" type="application/xml" href="{{ url('/sitemap.xml') }}">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="{{ $pageType }}">
@@ -37,11 +45,31 @@
     <meta property="og:title" content="{{ $pageTitle }}">
     <meta property="og:description" content="{{ $pageDescription }}">
     <meta property="og:image" content="{{ $pageImage }}">
+    <meta property="og:image:secure_url" content="{{ $pageImage }}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="{{ $pageTitle }}">
+    <meta property="og:image:type" content="image/jpeg">
     <meta property="og:site_name" content="{{ $siteName }}">
     <meta property="og:locale" content="en_KE">
+    <meta property="og:locale:alternate" content="en_US">
+    @if(isset($pagePublishedTime))
+    <meta property="article:published_time" content="{{ $pagePublishedTime }}">
+    @endif
+    @if(isset($pageModifiedTime))
+    <meta property="article:modified_time" content="{{ $pageModifiedTime }}">
+    @endif
+    @if(isset($pageAuthor))
+    <meta property="article:author" content="{{ $pageAuthor }}">
+    @endif
+    @if(isset($pageSection))
+    <meta property="article:section" content="{{ $pageSection }}">
+    @endif
+    @if(isset($pageTags))
+    @foreach($pageTags as $tag)
+    <meta property="article:tag" content="{{ $tag }}">
+    @endforeach
+    @endif
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
@@ -50,11 +78,17 @@
     <meta name="twitter:description" content="{{ $pageDescription }}">
     <meta name="twitter:image" content="{{ $pageImage }}">
     <meta name="twitter:image:alt" content="{{ $pageTitle }}">
+    <meta name="twitter:site" content="@{{ config('app.social.twitter_handle', 'dlckenya') }}">
+    <meta name="twitter:creator" content="@{{ config('app.social.twitter_handle', 'dlckenya') }}">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('favicon-192x192.png') }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+    @php
+        $faviconFile = \App\Models\Setting::get('favicon_file', '');
+        $faviconUrl = \App\Models\Setting::get('favicon_url', '');
+        $favicon = $faviconFile ? asset('storage/' . $faviconFile) : ($faviconUrl ?: asset('favicon-32x32.png'));
+    @endphp
+    <link rel="icon" type="image/png" href="{{ $favicon }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ $favicon }}">
     <link rel="manifest" href="{{ asset('site.webmanifest') }}">
 
     <!-- DNS Prefetch & Preconnect for Performance -->
@@ -67,30 +101,54 @@
     <!-- Structured Data (JSON-LD) -->
     @php
         $socialLinks = [];
-        if (config('app.social.facebook')) {
-            $socialLinks[] = config('app.social.facebook');
-        }
-        if (config('app.social.twitter')) {
-            $socialLinks[] = config('app.social.twitter');
-        }
-        if (config('app.social.linkedin')) {
-            $socialLinks[] = config('app.social.linkedin');
-        }
+        $facebookUrl = \App\Models\Setting::get('social_facebook', '');
+        $twitterUrl = \App\Models\Setting::get('social_twitter', '');
+        $linkedinUrl = \App\Models\Setting::get('social_linkedin', '');
+        $instagramUrl = \App\Models\Setting::get('social_instagram', '');
+        $youtubeUrl = \App\Models\Setting::get('social_youtube', '');
+        
+        if ($facebookUrl) $socialLinks[] = $facebookUrl;
+        if ($twitterUrl) $socialLinks[] = $twitterUrl;
+        if ($linkedinUrl) $socialLinks[] = $linkedinUrl;
+        if ($instagramUrl) $socialLinks[] = $instagramUrl;
+        if ($youtubeUrl) $socialLinks[] = $youtubeUrl;
+        
+        $logoUrl = \App\Models\Setting::get('logo_url', '');
+        $logoFile = \App\Models\Setting::get('logo_file', '');
+        $logo = $logoFile ? asset('storage/' . $logoFile) : ($logoUrl ?: asset('images/logo.png'));
+        
         $organizationSchema = [
             '@context' => 'https://schema.org',
             '@type' => 'EducationalOrganization',
             'name' => $siteName,
+            'alternateName' => 'DLC Kenya',
             'url' => $siteUrl,
-            'logo' => asset('images/logo.png'),
+            'logo' => $logo,
             'description' => $pageDescription,
+            'foundingDate' => '2006',
             'address' => [
                 '@type' => 'PostalAddress',
                 'addressCountry' => 'KE',
-                'addressLocality' => 'Kenya'
+                'addressLocality' => 'Nairobi',
+                'addressRegion' => 'Nairobi',
+                'streetAddress' => 'Savelberg Retreat Center Muringa Rd'
+            ],
+            'contactPoint' => [
+                '@type' => 'ContactPoint',
+                'telephone' => '+254-722-992-111',
+                'contactType' => 'Customer Service',
+                'email' => \App\Models\Setting::get('email', 'info@dlc.co.ke'),
+                'areaServed' => 'KE',
+                'availableLanguage' => ['English']
             ],
             'offers' => [
                 '@type' => 'Offer',
-                'category' => 'Educational Services'
+                'category' => 'Educational Services',
+                'priceCurrency' => 'KES'
+            ],
+            'areaServed' => [
+                '@type' => 'Country',
+                'name' => 'Kenya'
             ]
         ];
         if (!empty($socialLinks)) {
@@ -98,7 +156,9 @@
         }
     @endphp
     <script type="application/ld+json">
+    @verbatim
     {!! json_encode($organizationSchema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+    @endverbatim
     </script>
 
     @php
@@ -107,6 +167,8 @@
             '@type' => 'WebSite',
             'name' => $siteName,
             'url' => $siteUrl,
+            'description' => $pageDescription,
+            'inLanguage' => 'en-KE',
             'potentialAction' => [
                 '@type' => 'SearchAction',
                 'target' => [
@@ -118,8 +180,13 @@
         ];
     @endphp
     <script type="application/ld+json">
+    @verbatim
     {!! json_encode($websiteSchema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+    @endverbatim
     </script>
+    
+    <!-- Page-Specific Schema Data -->
+    @stack('schema')
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">

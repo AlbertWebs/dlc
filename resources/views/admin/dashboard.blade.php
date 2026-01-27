@@ -7,62 +7,133 @@
 @section('content')
     <!-- Statistics Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div class="stat-card bg-white rounded-xl shadow-lg p-6 text-white admin-card">
+        <!-- Pages Card -->
+        <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm opacity-90 mb-1">Total Pages</p>
                     <p class="text-3xl font-bold">{{ \App\Models\Page::count() }}</p>
                 </div>
                 <div class="w-14 h-14 bg-white bg-opacity-20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                    <i class="fas fa-file-alt text-2xl"></i>
+                    <i class="fas fa-file-alt text-2xl text-white"></i>
                 </div>
             </div>
-            <a href="{{ route('admin.pages.index') }}" class="text-sm opacity-90 mt-4 inline-block hover:underline">
+            <a href="{{ route('admin.pages.index') }}" class="text-sm opacity-90 mt-4 inline-flex items-center hover:opacity-100 transition-opacity">
                 View all <i class="fas fa-arrow-right ml-1"></i>
             </a>
         </div>
 
-        <div class="stat-card bg-white rounded-xl shadow-lg p-6 text-white admin-card">
+        <!-- Programs Card -->
+        <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm opacity-90 mb-1">Programs</p>
                     <p class="text-3xl font-bold">{{ \App\Models\Program::count() }}</p>
                 </div>
                 <div class="w-14 h-14 bg-white bg-opacity-20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                    <i class="fas fa-graduation-cap text-2xl"></i>
+                    <i class="fas fa-graduation-cap text-2xl text-white"></i>
                 </div>
             </div>
-            <a href="{{ route('admin.programs.index') }}" class="text-sm opacity-90 mt-4 inline-block hover:underline">
+            <a href="{{ route('admin.programs.index') }}" class="text-sm opacity-90 mt-4 inline-flex items-center hover:opacity-100 transition-opacity">
                 View all <i class="fas fa-arrow-right ml-1"></i>
             </a>
         </div>
 
-        <div class="stat-card bg-white rounded-xl shadow-lg p-6 text-white admin-card">
+        <!-- Events Card -->
+        <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm opacity-90 mb-1">Events</p>
                     <p class="text-3xl font-bold">{{ \App\Models\Event::count() }}</p>
                 </div>
                 <div class="w-14 h-14 bg-white bg-opacity-20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                    <i class="fas fa-calendar text-2xl"></i>
+                    <i class="fas fa-calendar text-2xl text-white"></i>
                 </div>
             </div>
-            <a href="{{ route('admin.events.index') }}" class="text-sm opacity-90 mt-4 inline-block hover:underline">
+            <a href="{{ route('admin.events.index') }}" class="text-sm opacity-90 mt-4 inline-flex items-center hover:opacity-100 transition-opacity">
                 View all <i class="fas fa-arrow-right ml-1"></i>
             </a>
         </div>
 
-        <div class="stat-card bg-white rounded-xl shadow-lg p-6 text-white admin-card">
+        <!-- Blog Posts Card -->
+        <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm opacity-90 mb-1">Blog Posts</p>
+                    <p class="text-3xl font-bold">{{ \App\Models\BlogPost::count() }}</p>
+                </div>
+                <div class="w-14 h-14 bg-white bg-opacity-20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                    <i class="fas fa-newspaper text-2xl text-white"></i>
+                </div>
+            </div>
+            <a href="{{ route('admin.blogs.index') }}" class="text-sm opacity-90 mt-4 inline-flex items-center hover:opacity-100 transition-opacity">
+                View all <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Second Row Statistics -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <!-- Team Members Card -->
+        <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm opacity-90 mb-1">Team Members</p>
                     <p class="text-3xl font-bold">{{ \App\Models\TeamMember::count() }}</p>
                 </div>
                 <div class="w-14 h-14 bg-white bg-opacity-20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                    <i class="fas fa-users text-2xl"></i>
+                    <i class="fas fa-users text-2xl text-white"></i>
                 </div>
             </div>
-            <a href="{{ route('admin.team.index') }}" class="text-sm opacity-90 mt-4 inline-block hover:underline">
+            <a href="{{ route('admin.team.index') }}" class="text-sm opacity-90 mt-4 inline-flex items-center hover:opacity-100 transition-opacity">
+                View all <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+        </div>
+
+        <!-- Coaches Card -->
+        <div class="bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm opacity-90 mb-1">Coaches</p>
+                    <p class="text-3xl font-bold">{{ \App\Models\Coach::count() }}</p>
+                </div>
+                <div class="w-14 h-14 bg-white bg-opacity-20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                    <i class="fas fa-user-tie text-2xl text-white"></i>
+                </div>
+            </div>
+            <a href="{{ route('admin.coaches.index') }}" class="text-sm opacity-90 mt-4 inline-flex items-center hover:opacity-100 transition-opacity">
+                View all <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+        </div>
+
+        <!-- Testimonials Card -->
+        <div class="bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm opacity-90 mb-1">Testimonials</p>
+                    <p class="text-3xl font-bold">{{ \App\Models\Testimonial::count() }}</p>
+                </div>
+                <div class="w-14 h-14 bg-white bg-opacity-20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                    <i class="fas fa-quote-left text-2xl text-white"></i>
+                </div>
+            </div>
+            <a href="{{ route('admin.testimonials.index') }}" class="text-sm opacity-90 mt-4 inline-flex items-center hover:opacity-100 transition-opacity">
+                View all <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+        </div>
+
+        <!-- Videos Card -->
+        <div class="bg-gradient-to-br from-red-500 to-red-600 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm opacity-90 mb-1">Videos</p>
+                    <p class="text-3xl font-bold">{{ \App\Models\Video::count() }}</p>
+                </div>
+                <div class="w-14 h-14 bg-white bg-opacity-20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                    <i class="fas fa-video text-2xl text-white"></i>
+                </div>
+            </div>
+            <a href="{{ route('admin.videos.index') }}" class="text-sm opacity-90 mt-4 inline-flex items-center hover:opacity-100 transition-opacity">
                 View all <i class="fas fa-arrow-right ml-1"></i>
             </a>
         </div>
@@ -73,11 +144,14 @@
         <div class="lg:col-span-2">
             <div class="bg-white rounded-xl shadow-lg p-6 admin-card">
                 <div class="flex items-center justify-between mb-6">
-                    <h3 class="text-lg font-semibold text-gray-800">Quick Actions</h3>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">Quick Actions</h3>
+                        <p class="text-sm text-gray-500 mt-1">Common tasks and shortcuts</p>
+                    </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <a href="{{ route('admin.pages.create') }}" class="flex items-center gap-4 p-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg hover:from-blue-100 hover:to-blue-200 transition-all group">
-                        <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform">
+                    <a href="{{ route('admin.pages.create') }}" class="flex items-center gap-4 p-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg hover:from-blue-100 hover:to-blue-200 transition-all group border border-blue-200">
+                        <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-md">
                             <i class="fas fa-file-alt"></i>
                         </div>
                         <div>
@@ -85,8 +159,8 @@
                             <p class="text-sm text-gray-600">Add a new page</p>
                         </div>
                     </a>
-                    <a href="{{ route('admin.programs.create') }}" class="flex items-center gap-4 p-4 bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg hover:from-purple-100 hover:to-purple-200 transition-all group">
-                        <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform">
+                    <a href="{{ route('admin.programs.create') }}" class="flex items-center gap-4 p-4 bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg hover:from-purple-100 hover:to-purple-200 transition-all group border border-purple-200">
+                        <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-md">
                             <i class="fas fa-graduation-cap"></i>
                         </div>
                         <div>
@@ -94,8 +168,8 @@
                             <p class="text-sm text-gray-600">Create new program</p>
                         </div>
                     </a>
-                    <a href="{{ route('admin.events.create') }}" class="flex items-center gap-4 p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-lg hover:from-green-100 hover:to-green-200 transition-all group">
-                        <div class="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform">
+                    <a href="{{ route('admin.events.create') }}" class="flex items-center gap-4 p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-lg hover:from-green-100 hover:to-green-200 transition-all group border border-green-200">
+                        <div class="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-md">
                             <i class="fas fa-calendar-plus"></i>
                         </div>
                         <div>
@@ -103,13 +177,31 @@
                             <p class="text-sm text-gray-600">Schedule new event</p>
                         </div>
                     </a>
-                    <a href="{{ route('admin.team.create') }}" class="flex items-center gap-4 p-4 bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg hover:from-orange-100 hover:to-orange-200 transition-all group">
-                        <div class="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform">
+                    <a href="{{ route('admin.blogs.create') }}" class="flex items-center gap-4 p-4 bg-gradient-to-r from-indigo-50 to-indigo-100 rounded-lg hover:from-indigo-100 hover:to-indigo-200 transition-all group border border-indigo-200">
+                        <div class="w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-md">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-800">New Blog Post</p>
+                            <p class="text-sm text-gray-600">Write a new article</p>
+                        </div>
+                    </a>
+                    <a href="{{ route('admin.team.create') }}" class="flex items-center gap-4 p-4 bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg hover:from-orange-100 hover:to-orange-200 transition-all group border border-orange-200">
+                        <div class="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-md">
                             <i class="fas fa-user-plus"></i>
                         </div>
                         <div>
                             <p class="font-semibold text-gray-800">Add Team Member</p>
                             <p class="text-sm text-gray-600">Add to team</p>
+                        </div>
+                    </a>
+                    <a href="{{ route('admin.coaches.create') }}" class="flex items-center gap-4 p-4 bg-gradient-to-r from-teal-50 to-teal-100 rounded-lg hover:from-teal-100 hover:to-teal-200 transition-all group border border-teal-200">
+                        <div class="w-12 h-12 bg-teal-600 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-md">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-800">Add Coach</p>
+                            <p class="text-sm text-gray-600">Register new coach</p>
                         </div>
                     </a>
                 </div>
@@ -118,19 +210,40 @@
 
         <!-- Quick Links -->
         <div class="bg-white rounded-xl shadow-lg p-6 admin-card">
-            <h3 class="text-lg font-semibold text-gray-800 mb-4">Quick Links</h3>
-            <div class="space-y-3">
-                <a href="{{ route('admin.navigations.index') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold text-gray-800">Quick Links</h3>
+                <p class="text-sm text-gray-500 mt-1">Navigation shortcuts</p>
+            </div>
+            <div class="space-y-2">
+                <a href="{{ route('admin.navigations.index') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-200">
                     <i class="fas fa-bars text-primary-600 w-5"></i>
-                    <span class="text-gray-700">Navigation Menu</span>
+                    <span class="text-gray-700 font-medium">Navigation Menu</span>
+                    <i class="fas fa-chevron-right text-gray-400 ml-auto text-xs"></i>
                 </a>
-                <a href="{{ route('admin.hero-banners.index') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                <a href="{{ route('admin.hero-banners.index') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-200">
                     <i class="fas fa-image text-primary-600 w-5"></i>
-                    <span class="text-gray-700">Hero Banners</span>
+                    <span class="text-gray-700 font-medium">Hero Banners</span>
+                    <i class="fas fa-chevron-right text-gray-400 ml-auto text-xs"></i>
                 </a>
-                <a href="{{ route('home') }}" target="_blank" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                <a href="{{ route('admin.testimonials.index') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-200">
+                    <i class="fas fa-quote-left text-primary-600 w-5"></i>
+                    <span class="text-gray-700 font-medium">Testimonials</span>
+                    <i class="fas fa-chevron-right text-gray-400 ml-auto text-xs"></i>
+                </a>
+                <a href="{{ route('admin.videos.index') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-200">
+                    <i class="fas fa-video text-primary-600 w-5"></i>
+                    <span class="text-gray-700 font-medium">Videos</span>
+                    <i class="fas fa-chevron-right text-gray-400 ml-auto text-xs"></i>
+                </a>
+                <a href="{{ route('admin.settings') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-200">
+                    <i class="fas fa-cog text-primary-600 w-5"></i>
+                    <span class="text-gray-700 font-medium">Settings</span>
+                    <i class="fas fa-chevron-right text-gray-400 ml-auto text-xs"></i>
+                </a>
+                <a href="{{ route('home') }}" target="_blank" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-200">
                     <i class="fas fa-external-link-alt text-primary-600 w-5"></i>
-                    <span class="text-gray-700">View Website</span>
+                    <span class="text-gray-700 font-medium">View Website</span>
+                    <i class="fas fa-chevron-right text-gray-400 ml-auto text-xs"></i>
                 </a>
             </div>
         </div>

@@ -1,7 +1,39 @@
 @extends('layouts.app')
 
-@section('title', $program->title)
-@section('description', $program->excerpt ?? Str::limit($program->description, 160))
+@php
+    $pageTitle = $program->title . ' – ' . config('app.name');
+    $pageDescription = $program->excerpt ?? Str::limit(strip_tags($program->description ?? ''), 160);
+    $pageImage = $program->image ? (str_starts_with($program->image, 'http') ? $program->image : asset('storage/' . $program->image)) : asset('images/og-image.jpg');
+    $pageType = 'website';
+    $pageKeywords = 'coaching program, ' . Str::limit(strip_tags($program->description ?? ''), 50);
+@endphp
+
+@push('schema')
+@php
+    $programSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'Course',
+        'name' => $program->title,
+        'description' => $pageDescription,
+        'provider' => [
+            '@type' => 'EducationalOrganization',
+            'name' => 'Destiny Life Coaching Kenya',
+            'url' => config('app.url')
+        ],
+        'url' => url()->current(),
+        'inLanguage' => 'en-KE'
+    ];
+    
+    if ($program->image) {
+        $programSchema['image'] = $pageImage;
+    }
+@endphp
+<script type="application/ld+json">
+@verbatim
+{!! json_encode($programSchema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+@endverbatim
+</script>
+@endpush
 
 @section('content')
     @php
@@ -274,6 +306,9 @@
             </div>
         </div>
     </section>
+
+    <!-- Google Reviews Section -->
+    <x-google-reviews-section />
 
     <!-- CTA Section -->
     <section class="section bg-gradient-to-r from-primary-900 via-primary-800 to-primary-950 text-white relative overflow-hidden">

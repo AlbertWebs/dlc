@@ -7,6 +7,17 @@ use Illuminate\Http\Request;
 
 class CoachController extends Controller
 {
+    public function index()
+    {
+        $coaches = Coach::where('is_active', true)
+            ->orderByDesc('is_featured')
+            ->orderBy('order')
+            ->orderBy('name')
+            ->get();
+
+        return view('pages.coaches', compact('coaches'));
+    }
+
     public function show($slug)
     {
         $coach = Coach::where('slug', $slug)

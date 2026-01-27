@@ -10,9 +10,10 @@
             (object)['label' => 'Home', 'url' => route('home')],
             (object)['label' => 'About Us', 'url' => route('about')],
             (object)['label' => 'Events', 'url' => route('events.index')],
+            (object)['label' => 'Coaches', 'url' => route('coaches.index')],
             (object)['label' => 'Videos', 'url' => route('videos.index')],
             (object)['label' => 'Become a Coach', 'url' => route('become-a-coach')],
-            (object)['label' => 'Contact', 'url' => route('contact')],
+            (object)['label' => 'Blogs', 'url' => route('blog.index')],
         ]);
     }
     
@@ -28,8 +29,10 @@
     $twitter = \App\Models\Setting::get('social_twitter', config('app.social.twitter', ''));
     $youtube = \App\Models\Setting::get('social_youtube', config('app.social.youtube', ''));
     
-    // Logo URL - get from database settings, fallback to config
+    // Logo - prioritize uploaded file, then URL, then fallback
+    $logoFile = \App\Models\Setting::get('logo_file', '');
     $logoUrl = \App\Models\Setting::get('logo_url', config('app.logo_url', ''));
+    $logo = $logoFile ? asset('storage/' . $logoFile) : ($logoUrl ?: null);
 @endphp
 
 <!-- Top Header Bar -->
@@ -111,15 +114,15 @@
     </div>
 </div>
 
-<header class="hidden lg:block sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm border-b border-gray-100" id="header">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm border-b border-gray-100" id="header">
     <nav class="container mx-auto px-4 lg:px-6">
         <div class="flex items-center justify-between h-20">
             <!-- Logo -->
-            <a href="{{ route('home') }}" class="flex items-center gap-2 hover:opacity-80 transition-opacity duration-300 group">
-                @if($logoUrl)
-                    <img src="{{ $logoUrl }}" 
+            <a href="{{ route('home') }}" class="flex items-center h-full gap-2 hover:opacity-80 transition-opacity duration-300 group">
+                @if($logo)
+                    <img src="{{ $logo }}" 
                          alt="{{ config('app.name', 'DLC') }} Logo" 
-                         class="h-10 md:h-12 lg:h-14 w-auto object-contain max-w-[200px] group-hover:scale-105 transition-transform duration-300"
+                         class="h-20 w-auto object-contain max-w-[200px] group-hover:scale-105 transition-transform duration-300"
                          onerror="this.onerror=null; this.src=''; this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
                     <div class="hidden flex-col">
                         <span class="text-xl md:text-2xl font-bold text-primary-600">DLC</span>
@@ -179,7 +182,7 @@
                 <a href="{{ route('contact') }}" 
                    class="relative group px-4 py-2.5 rounded-lg transition-all duration-300 ease-in-out border text-white font-medium ml-2 hover:bg-primary-800 hover:shadow-md hover:-translate-y-0.5 hover:scale-105" 
                    style="background-color: #1e3a5f; border-color: #f8b016; filter: none !important; -webkit-filter: none !important;">
-                    <span class="relative z-10 transition-all duration-300 group-hover:tracking-wide">Get Started</span>
+                    <span class="relative z-10 transition-all duration-300 group-hover:tracking-wide">Contact Us</span>
                     <!-- Hover effect overlay -->
                     <span class="absolute inset-0 rounded-lg bg-gradient-to-r from-transparent via-primary-700/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                 </a>
@@ -240,7 +243,7 @@
                     <a href="{{ route('contact') }}" 
                        class="btn btn-primary w-full text-center mt-4 py-4 text-base font-semibold shadow-lg hover:shadow-xl active:scale-98 transition-all duration-300" 
                        style="filter: none !important; -webkit-filter: none !important;">
-                        <i class="fas fa-rocket mr-2"></i> Get Started
+                        <i class="fas fa-rocket mr-2"></i> Contact Us
                     </a>
                 </div>
             </div>

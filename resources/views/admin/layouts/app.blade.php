@@ -62,19 +62,42 @@
             border-top: none;
             margin-top: 0;
         }
+        /* Ensure full height for scrolling */
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-sans antialiased">
-    <div class="min-h-screen flex">
+    <div class="h-screen flex overflow-hidden">
         <!-- Sidebar -->
-        <aside class="w-64 admin-sidebar text-white flex-shrink-0 shadow-2xl">
-            <div class="h-full flex flex-col">
+        <aside class="w-64 admin-sidebar text-white flex-shrink-0 shadow-2xl h-screen flex flex-col">
+            <div class="flex flex-col h-full">
                 <!-- Logo & Brand Section -->
                 <div class="p-6 border-b border-white/10">
+                    @php
+                        // Get logo from settings (same logic as header component)
+                        $logoFile = \App\Models\Setting::get('logo_file', '');
+                        $logoUrl = \App\Models\Setting::get('logo_url', config('app.logo_url', ''));
+                        $logo = $logoFile ? asset('storage/' . $logoFile) : ($logoUrl ?: null);
+                    @endphp
                     <div class="flex items-center gap-3 mb-2">
-                        <div class="w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center shadow-lg">
-                            <i class="fas fa-graduation-cap text-white text-xl"></i>
-                        </div>
+                        @if($logo)
+                            <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg p-2">
+                                <img src="{{ $logo }}" 
+                                     alt="{{ config('app.name', 'DLC') }} Logo" 
+                                     class="w-full h-full object-contain"
+                                     onerror="this.onerror=null; this.src=''; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="w-full h-full bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center hidden">
+                                    <i class="fas fa-graduation-cap text-white text-xl"></i>
+                                </div>
+                            </div>
+                        @else
+                            <div class="w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center shadow-lg">
+                                <i class="fas fa-graduation-cap text-white text-xl"></i>
+                            </div>
+                        @endif
                         <div>
                             <h1 class="text-xl font-bold text-white">DLC Admin</h1>
                             <p class="text-xs text-gray-300">Content Management</p>
@@ -112,6 +135,10 @@
                         <i class="fas fa-quote-left w-5 text-center"></i>
                         <span class="font-medium">Testimonials</span>
                     </a>
+                    <a href="{{ route('admin.blogs.index') }}" class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg mb-1 {{ request()->routeIs('admin.blogs.*') ? 'active bg-accent-500/20 text-accent-300 shadow-lg font-semibold' : 'hover:bg-accent-500/10 hover:text-accent-300 text-gray-300' }}">
+                        <i class="fas fa-newspaper w-5 text-center"></i>
+                        <span class="font-medium">Blogs</span>
+                    </a>
 
                     <!-- Media & Design Group -->
                     <div class="nav-group-title">Media & Design</div>
@@ -148,6 +175,10 @@
 
                     <!-- Settings Group -->
                     <div class="nav-group-title">Settings</div>
+                    <a href="{{ route('admin.legal-pages.index') }}" class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg mb-1 {{ request()->routeIs('admin.legal-pages.*') ? 'active bg-accent-500/20 text-accent-300 shadow-lg font-semibold' : 'hover:bg-accent-500/10 hover:text-accent-300 text-gray-300' }}">
+                        <i class="fas fa-gavel w-5 text-center"></i>
+                        <span class="font-medium">Legal Pages</span>
+                    </a>
                     <a href="{{ route('admin.navigations.index') }}" class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg mb-1 {{ request()->routeIs('admin.navigations.*') ? 'active bg-accent-500/20 text-accent-300 shadow-lg font-semibold' : 'hover:bg-accent-500/10 hover:text-accent-300 text-gray-300' }}">
                         <i class="fas fa-bars w-5 text-center"></i>
                         <span class="font-medium">Navigation</span>
@@ -173,9 +204,9 @@
         </aside>
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col min-w-0">
+        <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
             <!-- Top Bar -->
-            <header class="bg-white shadow-md border-b-2 border-accent-500/20 sticky top-0 z-40">
+            <header class="bg-white shadow-md border-b-2 border-accent-500/20 z-40 flex-shrink-0">
                 <div class="px-6 py-4 flex items-center justify-between">
                     <div class="flex items-center gap-4">
                         <div class="w-10 h-10 bg-gradient-to-br from-primary-600 to-primary-800 rounded-xl flex items-center justify-center shadow-lg">
@@ -248,7 +279,7 @@
             </header>
 
             <!-- Content -->
-            <main class="flex-1 p-6 overflow-y-auto bg-gradient-to-br from-gray-50 to-white">
+            <main class="flex-1 p-6 overflow-y-auto bg-gradient-to-br from-gray-50 to-white min-h-0">
                 @if(session('success'))
                     <div class="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 text-green-800 px-4 py-3 rounded-lg mb-6 shadow-sm flex items-center gap-3">
                         <i class="fas fa-check-circle text-green-600"></i>

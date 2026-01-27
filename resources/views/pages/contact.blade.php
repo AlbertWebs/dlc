@@ -1,7 +1,49 @@
 @extends('layouts.app')
 
-@section('title', 'Contact Us')
-@section('description', 'Get in touch with DLC. Contact us for consultations, program inquiries, or general questions.')
+@php
+    $pageTitle = 'Contact Us – Destiny Life Coaching Kenya | Get in Touch';
+    $pageDescription = 'Get in touch with DLC Kenya. Contact us for consultations, program inquiries, or general questions. Call +254 722 992 111 or email info@dlc.co.ke. Located in Nairobi, Kenya.';
+    $pageKeywords = 'contact DLC Kenya, life coaching contact, coaching consultation Kenya, DLC phone number, coaching inquiry, book coaching session';
+    $pageImage = asset('images/og-image.jpg');
+    $pageType = 'website';
+@endphp
+
+@push('schema')
+@php
+    $contactPageSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'ContactPage',
+        'name' => $pageTitle,
+        'description' => $pageDescription,
+        'url' => url('/contact'),
+        'inLanguage' => 'en-KE',
+        'mainEntity' => [
+            '@type' => 'Organization',
+            'name' => 'Destiny Life Coaching Kenya',
+            'contactPoint' => [
+                '@type' => 'ContactPoint',
+                'telephone' => '+254-722-992-111',
+                'contactType' => 'Customer Service',
+                'email' => \App\Models\Setting::get('email', 'info@dlc.co.ke'),
+                'areaServed' => 'KE',
+                'availableLanguage' => ['English']
+            ],
+            'address' => [
+                '@type' => 'PostalAddress',
+                'streetAddress' => 'Savelberg Retreat Center Muringa Rd',
+                'addressLocality' => 'Nairobi',
+                'addressRegion' => 'Nairobi',
+                'addressCountry' => 'KE'
+            ]
+        ]
+    ];
+@endphp
+<script type="application/ld+json">
+@verbatim
+{!! json_encode($contactPageSchema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+@endverbatim
+</script>
+@endpush
 
 @section('content')
     <!-- Breadcrumb -->
@@ -191,6 +233,9 @@
             </div>
         </div>
     </section>
+
+    <!-- Google Reviews Section -->
+    <x-google-reviews-section />
 @endsection
 
 @push('scripts')

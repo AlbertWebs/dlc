@@ -33,7 +33,7 @@
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @if($testimonial->photo)
-                                    <img src="{{ asset('storage/' . $testimonial->photo) }}" alt="{{ $testimonial->name }}" class="w-12 h-12 rounded-full object-cover">
+                                    <img src="{{ $testimonial->is_from_google ? $testimonial->photo : asset('storage/' . $testimonial->photo) }}" alt="{{ $testimonial->name }}" class="w-12 h-12 rounded-full object-cover">
                                 @else
                                     <div class="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center">
                                         <i class="fas fa-user text-white"></i>
@@ -41,7 +41,23 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm font-medium text-gray-900">{{ $testimonial->name }}</div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm font-medium text-gray-900">{{ $testimonial->name }}</span>
+                                    @if($testimonial->is_from_google)
+                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded-full font-semibold">
+                                            <i class="fab fa-google text-xs"></i>
+                                            Google
+                                        </span>
+                                    @endif
+                                </div>
+                                @if($testimonial->rating)
+                                    <div class="flex items-center gap-1 mt-1">
+                                        @for($i = 1; $i <= 5; $i++)
+                                            <i class="fas fa-star {{ $i <= $testimonial->rating ? 'text-yellow-400' : 'text-gray-300' }} text-xs"></i>
+                                        @endfor
+                                        <span class="text-xs text-gray-500 ml-1">({{ $testimonial->rating }}/5)</span>
+                                    </div>
+                                @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 @if($testimonial->role)
@@ -65,6 +81,12 @@
                                     @endif
                                     @if($testimonial->is_featured)
                                         <span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">Featured</span>
+                                    @endif
+                                    @if($testimonial->is_from_google)
+                                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800 flex items-center gap-1">
+                                            <i class="fab fa-google text-xs"></i>
+                                            Google
+                                        </span>
                                     @endif
                                 </div>
                             </td>

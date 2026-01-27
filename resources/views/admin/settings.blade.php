@@ -11,7 +11,7 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.settings.store') }}" method="POST" class="space-y-6">
+    <form action="{{ route('admin.settings.store') }}" method="POST" class="space-y-6" enctype="multipart/form-data">
         @csrf
         
         <!-- General Settings -->
@@ -302,27 +302,99 @@
                 <h3 class="text-xl font-semibold text-gray-800">Appearance Settings</h3>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Logo Upload -->
                 <div>
-                    <label for="logo_url" class="block text-sm font-medium text-gray-700 mb-2">
-                        Logo URL
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Site Logo
                     </label>
-                    <input type="url" id="logo_url" name="logo_url" 
-                           value="{{ old('logo_url', $settings['logo_url'] ?? config('app.logo_url', '')) }}"
-                           placeholder="https://example.com/logo.png"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-                    <p class="text-xs text-gray-500 mt-1">URL to your site logo image</p>
+                    
+                    @if(isset($settings['logo_file']) && $settings['logo_file'])
+                        <div class="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                            <div class="flex items-center gap-4">
+                                <img src="{{ asset('storage/' . $settings['logo_file']) }}" 
+                                     alt="Current Logo" 
+                                     class="h-16 object-contain bg-white p-2 rounded border border-gray-200">
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-700">Current Logo</p>
+                                    <p class="text-xs text-gray-500 mt-1">Click "Choose File" to replace</p>
+                                </div>
+                                <label class="cursor-pointer">
+                                    <input type="checkbox" name="clear_logo" value="1" class="rounded">
+                                    <span class="text-xs text-red-600 ml-1">Delete</span>
+                                </label>
+                            </div>
+                        </div>
+                    @endif
+                    
+                    <input type="file" id="logo_file" name="logo_file" 
+                           accept="image/jpeg,image/png,image/jpg,image/gif,image/webp,image/svg+xml"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100">
+                    <p class="text-xs text-gray-500 mt-2">
+                        <i class="fas fa-info-circle text-blue-500"></i> 
+                        Recommended: PNG or SVG, max 5MB. Transparent background works best.
+                    </p>
+                    @error('logo_file')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                    
+                    <!-- Optional: Logo URL fallback -->
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <label for="logo_url" class="block text-sm font-medium text-gray-700 mb-2">
+                            Logo URL (Optional - fallback if no file uploaded)
+                        </label>
+                        <input type="url" id="logo_url" name="logo_url" 
+                               value="{{ old('logo_url', $settings['logo_url'] ?? '') }}"
+                               placeholder="https://example.com/logo.png"
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm">
+                    </div>
                 </div>
                 
+                <!-- Favicon Upload -->
                 <div>
-                    <label for="favicon_url" class="block text-sm font-medium text-gray-700 mb-2">
-                        Favicon URL
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Favicon
                     </label>
-                    <input type="url" id="favicon_url" name="favicon_url" 
-                           value="{{ old('favicon_url', $settings['favicon_url'] ?? config('app.favicon_url', '')) }}"
-                           placeholder="https://example.com/favicon.ico"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-                    <p class="text-xs text-gray-500 mt-1">URL to your favicon image</p>
+                    
+                    @if(isset($settings['favicon_file']) && $settings['favicon_file'])
+                        <div class="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                            <div class="flex items-center gap-4">
+                                <img src="{{ asset('storage/' . $settings['favicon_file']) }}" 
+                                     alt="Current Favicon" 
+                                     class="w-16 h-16 object-contain bg-white p-2 rounded border border-gray-200">
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-700">Current Favicon</p>
+                                    <p class="text-xs text-gray-500 mt-1">Click "Choose File" to replace</p>
+                                </div>
+                                <label class="cursor-pointer">
+                                    <input type="checkbox" name="clear_favicon" value="1" class="rounded">
+                                    <span class="text-xs text-red-600 ml-1">Delete</span>
+                                </label>
+                            </div>
+                        </div>
+                    @endif
+                    
+                    <input type="file" id="favicon_file" name="favicon_file" 
+                           accept="image/x-icon,image/png,image/jpeg,image/gif,image/webp"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100">
+                    <p class="text-xs text-gray-500 mt-2">
+                        <i class="fas fa-info-circle text-blue-500"></i> 
+                        Recommended: ICO or PNG, 32x32px or 16x16px, max 2MB.
+                    </p>
+                    @error('favicon_file')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                    
+                    <!-- Optional: Favicon URL fallback -->
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <label for="favicon_url" class="block text-sm font-medium text-gray-700 mb-2">
+                            Favicon URL (Optional - fallback if no file uploaded)
+                        </label>
+                        <input type="url" id="favicon_url" name="favicon_url" 
+                               value="{{ old('favicon_url', $settings['favicon_url'] ?? '') }}"
+                               placeholder="https://example.com/favicon.ico"
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm">
+                    </div>
                 </div>
             </div>
         </div>
@@ -401,6 +473,66 @@
                         </div>
                     @endif
                 </div>
+            </div>
+        </div>
+
+        <!-- Google Reviews API Settings -->
+        <div class="bg-white rounded-xl shadow-lg p-8">
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200">
+                <i class="fab fa-google text-primary-600 text-xl"></i>
+                <h3 class="text-xl font-semibold text-gray-800">Google Reviews Integration</h3>
+            </div>
+            
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded">
+                <div class="flex items-start gap-3">
+                    <i class="fas fa-info-circle text-blue-600 mt-1"></i>
+                    <div class="text-sm text-blue-800">
+                        <p class="font-semibold mb-2">How to get your Google Place ID and API Key:</p>
+                        <ol class="list-decimal list-inside space-y-1 ml-2">
+                            <li>Go to <a href="https://console.cloud.google.com/" target="_blank" class="underline">Google Cloud Console</a> and create a project</li>
+                            <li>Enable the "Places API" for your project</li>
+                            <li>Create an API key and restrict it to Places API</li>
+                            <li>Find your Place ID using <a href="https://developers.google.com/maps/documentation/places/web-service/place-id" target="_blank" class="underline">Google's Place ID Finder</a></li>
+                            <li>Run <code class="bg-blue-100 px-1 rounded">php artisan google-reviews:sync</code> to sync reviews</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="space-y-6">
+                <div>
+                    <label for="google_places_api_key" class="block text-sm font-medium text-gray-700 mb-2">
+                        Google Places API Key
+                    </label>
+                    <input type="text" id="google_places_api_key" name="google_places_api_key" 
+                           value="{{ old('google_places_api_key', $settings['google_places_api_key'] ?? '') }}"
+                           placeholder="AIzaSy..."
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent font-mono text-sm">
+                    <p class="text-xs text-gray-500 mt-1">Your Google Places API key. Keep this secure!</p>
+                </div>
+                
+                <div>
+                    <label for="google_place_id" class="block text-sm font-medium text-gray-700 mb-2">
+                        Google Place ID
+                    </label>
+                    <input type="text" id="google_place_id" name="google_place_id" 
+                           value="{{ old('google_place_id', $settings['google_place_id'] ?? '') }}"
+                           placeholder="ChIJN1t_tDeuEmsRUsoyG83frY4"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent font-mono text-sm">
+                    <p class="text-xs text-gray-500 mt-1">Your business Place ID from Google Maps</p>
+                </div>
+                
+                @if(!empty($settings['google_places_api_key']) && !empty($settings['google_place_id']))
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <div class="flex items-center gap-2 text-green-800">
+                            <i class="fas fa-check-circle"></i>
+                            <span class="font-semibold">Configuration Complete</span>
+                        </div>
+                        <p class="text-sm text-green-700 mt-2">
+                            You can now sync Google reviews by running: <code class="bg-green-100 px-2 py-1 rounded">php artisan google-reviews:sync</code>
+                        </p>
+                    </div>
+                @endif
             </div>
         </div>
 

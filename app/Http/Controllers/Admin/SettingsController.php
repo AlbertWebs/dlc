@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SettingsController extends Controller
 {
@@ -47,8 +48,12 @@ class SettingsController extends Controller
             'google_tag_manager' => 'nullable|string|max:100',
             
             // Appearance
+            'logo_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:5120',
+            'favicon_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,ico|max:2048',
             'logo_url' => 'nullable|url|max:500',
             'favicon_url' => 'nullable|url|max:500',
+            'clear_logo' => 'nullable|boolean',
+            'clear_favicon' => 'nullable|boolean',
             'hero_type' => 'nullable|in:slider,fullwidth-video',
             
             // Who We Are Section
@@ -56,11 +61,66 @@ class SettingsController extends Controller
             'about_section_subtitle' => 'nullable|string|max:500',
             'about_section_description' => 'nullable|string',
             'about_section_image' => 'nullable|url|max:500',
+            
+            // Google Reviews API
+            'google_places_api_key' => 'nullable|string|max:255',
+            'google_place_id' => 'nullable|string|max:255',
         ]);
 
-        // Save all settings to database
+        // Handle logo file upload
+        if ($request->hasFile('logo_file')) {
+            try {
+                // Delete old logo if exists
+                $oldLogo = Setting::get('logo_file');
+                if ($oldLogo && Storage::disk('public')->exists($oldLogo)) {
+                    Storage::disk('public')->delete($oldLogo);
+                }
+                
+                $logoPath = $request->file('logo_file')->store('settings', 'public');
+                Setting::set('logo_file', $logoPath);
+            } catch (\Exception $e) {
+                return redirect()->route('admin.settings')
+                    ->withErrors(['logo_file' => 'Error uploading logo: ' . $e->getMessage()])
+                    ->withInput();
+            }
+        } elseif ($request->has('clear_logo')) {
+            $oldLogo = Setting::get('logo_file');
+            if ($oldLogo && Storage::disk('public')->exists($oldLogo)) {
+                Storage::disk('public')->delete($oldLogo);
+            }
+            Setting::set('logo_file', null);
+        }
+
+        // Handle favicon file upload
+        if ($request->hasFile('favicon_file')) {
+            try {
+                // Delete old favicon if exists
+                $oldFavicon = Setting::get('favicon_file');
+                if ($oldFavicon && Storage::disk('public')->exists($oldFavicon)) {
+                    Storage::disk('public')->delete($oldFavicon);
+                }
+                
+                $faviconPath = $request->file('favicon_file')->store('settings', 'public');
+                Setting::set('favicon_file', $faviconPath);
+            } catch (\Exception $e) {
+                return redirect()->route('admin.settings')
+                    ->withErrors(['favicon_file' => 'Error uploading favicon: ' . $e->getMessage()])
+                    ->withInput();
+            }
+        } elseif ($request->has('clear_favicon')) {
+            $oldFavicon = Setting::get('favicon_file');
+            if ($oldFavicon && Storage::disk('public')->exists($oldFavicon)) {
+                Storage::disk('public')->delete($oldFavicon);
+            }
+            Setting::set('favicon_file', null);
+        }
+
+        // Save all other settings to database
         foreach ($validated as $key => $value) {
-            Setting::set($key, $value ?? '');
+            // Skip file fields as they're handled above
+            if (!in_array($key, ['logo_file', 'favicon_file', 'clear_logo', 'clear_favicon'])) {
+                Setting::set($key, $value ?? '');
+            }
         }
 
         return redirect()->route('admin.settings')
@@ -91,6 +151,8 @@ class SettingsController extends Controller
             'meta_keywords' => Setting::get('meta_keywords', config('app.meta.keywords', '')),
             'google_analytics' => Setting::get('google_analytics', config('app.google.analytics', '')),
             'google_tag_manager' => Setting::get('google_tag_manager', config('app.google.tag_manager', '')),
+            'logo_file' => Setting::get('logo_file', ''),
+            'favicon_file' => Setting::get('favicon_file', ''),
             'logo_url' => Setting::get('logo_url', config('app.logo_url', '')),
             'favicon_url' => Setting::get('favicon_url', config('app.favicon_url', '')),
             'hero_type' => Setting::get('hero_type', 'slider'),
@@ -98,6 +160,8 @@ class SettingsController extends Controller
             'about_section_subtitle' => Setting::get('about_section_subtitle', 'We are a leading coaching organization dedicated to helping individuals unlock their full potential through personalized guidance, proven methodologies, and comprehensive certification programs.'),
             'about_section_description' => Setting::get('about_section_description', 'Our mission is to transform lives by providing world-class coaching education and support. With years of experience and a commitment to excellence, we\'ve helped thousands of individuals achieve their personal and professional goals.'),
             'about_section_image' => Setting::get('about_section_image', config('app.about_section_image', '')),
+            'google_places_api_key' => Setting::get('google_places_api_key', ''),
+            'google_place_id' => Setting::get('google_place_id', ''),
         ];
     }
 }

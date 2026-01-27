@@ -2,11 +2,34 @@
 
 @php
     use Illuminate\Support\Str;
-    $pageTitle = 'Videos – ' . config('app.name');
-    $pageDescription = 'Watch our collection of coaching videos, training sessions, testimonials, and more.';
+    $pageTitle = 'Coaching Videos – Training Sessions & Testimonials | DLC Kenya';
+    $pageDescription = 'Watch our collection of coaching videos, training sessions, testimonials, and success stories. Learn from expert coaches and discover how life coaching can transform your life.';
+    $pageKeywords = 'coaching videos, life coaching videos, training videos, coaching testimonials, coaching tutorials, coaching content';
     $pageImage = asset('images/og-image.jpg');
     $pageType = 'website';
 @endphp
+
+@push('schema')
+@php
+    $videosPageSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'CollectionPage',
+        'name' => $pageTitle,
+        'description' => $pageDescription,
+        'url' => url('/videos'),
+        'inLanguage' => 'en-KE',
+        'about' => [
+            '@type' => 'Thing',
+            'name' => 'Coaching Videos and Training Content'
+        ]
+    ];
+@endphp
+<script type="application/ld+json">
+@verbatim
+{!! json_encode($videosPageSchema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+@endverbatim
+</script>
+@endpush
 
 @section('content')
     <!-- Breadcrumb -->
@@ -231,96 +254,8 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="relative py-20 lg:py-32 bg-gradient-to-br from-primary-50 via-white to-accent-50/20 overflow-hidden">
-        <div class="absolute top-0 right-0 w-96 h-96 bg-accent-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-        <div class="absolute bottom-0 left-0 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
-        
-        <div class="container relative z-10 px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 animate-on-scroll">
-                <span class="text-accent-600 font-semibold text-sm uppercase tracking-wider">Success Stories</span>
-                <h2 class="text-3xl lg:text-4xl xl:text-5xl font-bold text-primary-900 mt-2 mb-4">
-                    What Our Clients Say
-                </h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-accent-500 to-transparent mx-auto"></div>
-            </div>
-            
-            @php
-                $testimonials = \App\Models\Testimonial::where('is_published', true)
-                    ->orderBy('order')
-                    ->orderBy('created_at', 'desc')
-                    ->limit(3)
-                    ->get();
-            @endphp
-            
-            @if($testimonials->count() > 0)
-                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    @foreach($testimonials as $testimonial)
-                        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll">
-                            <div class="text-accent-500 text-5xl mb-6 opacity-20">
-                                <i class="fas fa-quote-left"></i>
-                            </div>
-                            <p class="text-gray-700 italic mb-6 leading-relaxed text-lg">
-                                "{{ $testimonial->quote ?? $testimonial->content ?? '' }}"
-                            </p>
-                            <div class="flex items-center gap-4 pt-6 border-t border-gray-100">
-                                @if($testimonial->image)
-                                    <img src="{{ asset('storage/' . $testimonial->image) }}" 
-                                         alt="{{ $testimonial->author_name }}" 
-                                         class="w-14 h-14 rounded-full object-cover border-2 border-accent-500/30">
-                                @else
-                                    <div class="w-14 h-14 bg-gradient-to-br from-primary-600 to-primary-800 rounded-full flex items-center justify-center border-2 border-accent-500/30">
-                                        <i class="fas fa-user text-white text-lg"></i>
-                                    </div>
-                                @endif
-                                <div>
-                                    <div class="font-bold text-primary-900 text-lg">{{ $testimonial->author_name }}</div>
-                                    @if($testimonial->author_title)
-                                        <div class="text-sm text-gray-600">{{ $testimonial->author_title }}</div>
-                                    @endif
-                                    @if($testimonial->rating)
-                                        <div class="flex gap-1 mt-1">
-                                            @for($i = 1; $i <= 5; $i++)
-                                                <i class="fas fa-star {{ $i <= $testimonial->rating ? 'text-accent-500' : 'text-gray-300' }} text-xs"></i>
-                                            @endfor
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @else
-                <!-- Fallback Testimonials -->
-                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    @for($i = 0; $i < 3; $i++)
-                        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll">
-                            <div class="text-accent-500 text-5xl mb-6 opacity-20">
-                                <i class="fas fa-quote-left"></i>
-                            </div>
-                            <p class="text-gray-700 italic mb-6 leading-relaxed text-lg">
-                                "The coaching program transformed my career. I gained clarity on my goals and the confidence to pursue them. Highly recommended!"
-                            </p>
-                            <div class="flex items-center gap-4 pt-6 border-t border-gray-100">
-                                <div class="w-14 h-14 bg-gradient-to-br from-primary-600 to-primary-800 rounded-full flex items-center justify-center border-2 border-accent-500/30">
-                                    <i class="fas fa-user text-white text-lg"></i>
-                                </div>
-                                <div>
-                                    <div class="font-bold text-primary-900 text-lg">Sarah Johnson</div>
-                                    <div class="text-sm text-gray-600">Marketing Director</div>
-                                    <div class="flex gap-1 mt-1">
-                                        @for($j = 1; $j <= 5; $j++)
-                                            <i class="fas fa-star text-accent-500 text-xs"></i>
-                                        @endfor
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endfor
-                </div>
-            @endif
-        </div>
-    </section>
+    <!-- Google Reviews Section -->
+    <x-google-reviews-section />
 
  
 @endsection

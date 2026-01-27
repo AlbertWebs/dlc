@@ -2,10 +2,44 @@
 
 @php
     $pageTitle = $coach->name . ' – ' . ($coach->title ?? 'Certified Life Coach') . ' | ' . config('app.name');
-    $pageDescription = $coach->bio ?? 'Professional life coach helping you achieve your goals.';
-    $pageImage = $coach->photo ? asset('storage/' . $coach->photo) : asset('images/og-image.jpg');
+    $pageDescription = $coach->bio ?? 'Professional ICR-certified life coach in Kenya helping you achieve your goals and transform your life.';
+    $pageImage = $coach->photo ? (str_starts_with($coach->photo, 'http') ? $coach->photo : asset('storage/' . $coach->photo)) : asset('images/og-image.jpg');
     $pageType = 'profile';
+    $pageKeywords = 'life coach ' . $coach->name . ', certified coach Kenya, professional coach, ' . ($coach->title ?? '');
 @endphp
+
+@push('schema')
+@php
+    $coachSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'Person',
+        'name' => $coach->name,
+        'jobTitle' => $coach->title ?? 'Certified Life Coach',
+        'description' => $pageDescription,
+        'url' => url()->current(),
+        'image' => $pageImage,
+        'worksFor' => [
+            '@type' => 'Organization',
+            'name' => 'Destiny Life Coaching Kenya',
+            'url' => config('app.url')
+        ],
+        'knowsAbout' => ['Life Coaching', 'Personal Development', 'Professional Coaching']
+    ];
+    
+    if ($coach->email) {
+        $coachSchema['email'] = $coach->email;
+    }
+    
+    if ($coach->phone) {
+        $coachSchema['telephone'] = $coach->phone;
+    }
+@endphp
+<script type="application/ld+json">
+@verbatim
+{!! json_encode($coachSchema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+@endverbatim
+</script>
+@endpush
 
 @section('content')
     <!-- Breadcrumb -->
@@ -369,8 +403,11 @@
             </div>
             
             @php
-                $testimonials = \App\Models\Testimonial::where('is_published', true)
+                // Show only Google reviews here
+                $testimonials = \App\Models\Testimonial::where('is_active', true)
+                    ->where('is_from_google', true)
                     ->orderBy('order')
+                    ->orderBy('google_review_time', 'desc')
                     ->orderBy('created_at', 'desc')
                     ->limit(3)
                     ->get();
@@ -379,34 +416,43 @@
             @if($testimonials->count() > 0)
                 <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                     @foreach($testimonials as $testimonial)
-                        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll">
+                        <div class="bg-white rounded-2xl shadow-xl p-8 border border-l-4 border-l-blue-500 bg-gradient-to-r from-blue-50/30 to-white hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll">
                             <div class="text-accent-500 text-5xl mb-6 opacity-20">
                                 <i class="fas fa-quote-left"></i>
                             </div>
                             <p class="text-gray-700 italic mb-6 leading-relaxed text-lg">
-                                "{{ $testimonial->quote ?? $testimonial->content ?? '' }}"
+                                "{{ $testimonial->content }}"
                             </p>
                             <div class="flex items-center gap-4 pt-6 border-t border-gray-100">
-                                @if($testimonial->image)
-                                    <img src="{{ asset('storage/' . $testimonial->image) }}" 
-                                         alt="{{ $testimonial->author_name }}" 
+                                @if($testimonial->photo)
+                                    <img src="{{ $testimonial->is_from_google ? $testimonial->photo : asset('storage/' . $testimonial->photo) }}" 
+                                         alt="{{ $testimonial->name }}"
                                          class="w-14 h-14 rounded-full object-cover border-2 border-accent-500/30">
                                 @else
                                     <div class="w-14 h-14 bg-gradient-to-br from-primary-600 to-primary-800 rounded-full flex items-center justify-center border-2 border-accent-500/30">
                                         <i class="fas fa-user text-white text-lg"></i>
                                     </div>
                                 @endif
-                                <div>
-                                    <div class="font-bold text-primary-900 text-lg">{{ $testimonial->author_name }}</div>
-                                    @if($testimonial->author_title)
-                                        <div class="text-sm text-gray-600">{{ $testimonial->author_title }}</div>
-                                    @endif
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <span class="font-bold text-primary-900 text-lg">{{ $testimonial->name }}</span>
+                                        @if($testimonial->is_from_google)
+                                            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-700 text-xs rounded-full font-bold shadow-sm border border-blue-200 hover:shadow-md transition-all duration-200">
+                                                <i class="fab fa-google text-blue-600"></i>
+                                                <span>Google Review</span>
+                                            </span>
+                                        @endif
+                                    </div>
                                     @if($testimonial->rating)
-                                        <div class="flex gap-1 mt-1">
+                                        <div class="flex items-center gap-1 mt-2">
                                             @for($i = 1; $i <= 5; $i++)
-                                                <i class="fas fa-star {{ $i <= $testimonial->rating ? 'text-accent-500' : 'text-gray-300' }} text-xs"></i>
+                                                <i class="fas fa-star {{ $i <= $testimonial->rating ? 'text-yellow-400' : 'text-gray-300' }} text-xs"></i>
                                             @endfor
+                                            <span class="text-xs text-gray-500 ml-1">({{ $testimonial->rating }}/5)</span>
                                         </div>
+                                    @endif
+                                    @if($testimonial->role)
+                                        <div class="text-sm text-gray-600 mt-1">{{ $testimonial->role }}{{ $testimonial->company ? ' at ' . $testimonial->company : '' }}</div>
                                     @endif
                                 </div>
                             </div>
@@ -414,32 +460,13 @@
                     @endforeach
                 </div>
             @else
-                <!-- Fallback Testimonials -->
-                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    @for($i = 0; $i < 3; $i++)
-                        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll">
-                            <div class="text-accent-500 text-5xl mb-6 opacity-20">
-                                <i class="fas fa-quote-left"></i>
-                            </div>
-                            <p class="text-gray-700 italic mb-6 leading-relaxed text-lg">
-                                "Working with {{ explode(' ', $coach->name)[0] ?? $coach->name }} transformed my entire perspective on life and career. The coaching helped me identify and release limiting beliefs I didn't even know I had."
-                            </p>
-                            <div class="flex items-center gap-4 pt-6 border-t border-gray-100">
-                                <div class="w-14 h-14 bg-gradient-to-br from-primary-600 to-primary-800 rounded-full flex items-center justify-center border-2 border-accent-500/30">
-                                    <i class="fas fa-user text-white text-lg"></i>
-                                </div>
-                                <div>
-                                    <div class="font-bold text-primary-900 text-lg">Client Testimonial</div>
-                                    <div class="text-sm text-gray-600">Satisfied Client</div>
-                                    <div class="flex gap-1 mt-1">
-                                        @for($j = 1; $j <= 5; $j++)
-                                            <i class="fas fa-star text-accent-500 text-xs"></i>
-                                        @endfor
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endfor
+                <!-- No Google reviews yet -->
+                <div class="text-center py-12">
+                    <div class="inline-block p-8 bg-white rounded-2xl border-2 border-dashed border-gray-300 max-w-md mx-auto">
+                        <i class="fab fa-google text-5xl text-gray-400 mb-4"></i>
+                        <p class="text-gray-600 text-lg mb-2">No Google reviews available yet</p>
+                        <p class="text-gray-500 text-sm">Google reviews about {{ explode(' ', $coach->name)[0] ?? $coach->name }} will appear here once synced from your Google Business Profile.</p>
+                    </div>
                 </div>
             @endif
         </div>

@@ -1,7 +1,48 @@
 @extends('layouts.app')
 
-@section('title', 'Become a Coach')
-@section('description', 'Become a certified life coach with DLC\'s comprehensive certification program. Transform lives and build a rewarding coaching career.')
+@php
+    $pageTitle = 'Become a Certified Life Coach in Kenya | ICR Accredited Training Program – DLC Kenya';
+    $pageDescription = 'Become a certified life coach with DLC\'s comprehensive ICR-accredited certification program. Ksh 90,000 for 6 months of training with lifetime access to our online platform. Transform lives and build a rewarding coaching career.';
+    $pageKeywords = 'become a life coach, life coach certification Kenya, ICR accredited coach training, certified life coach program, coach training course, professional coaching certification, life coach certification cost Kenya, coaching school Kenya';
+    $pageImage = asset('images/og-image.jpg');
+    $pageType = 'website';
+@endphp
+
+@push('schema')
+@php
+    $becomeCoachSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'Course',
+        'name' => 'Certified Life Coach Certification Program',
+        'description' => 'Comprehensive 6-month ICR-accredited life coach certification program in Kenya. Includes 60+ training hours, mentorship, and lifetime access to online collaborative platform.',
+        'provider' => [
+            '@type' => 'EducationalOrganization',
+            'name' => 'Destiny Life Coaching Kenya',
+            'url' => config('app.url')
+        ],
+        'educationalCredentialAwarded' => 'ICR Accredited Life Coach Certification',
+        'courseCode' => 'CLC-KE',
+        'timeRequired' => 'P6M',
+        'offers' => [
+            '@type' => 'Offer',
+            'price' => '90000',
+            'priceCurrency' => 'KES',
+            'availability' => 'https://schema.org/InStock',
+            'url' => url('/become-a-coach')
+        ],
+        'aggregateRating' => [
+            '@type' => 'AggregateRating',
+            'ratingValue' => '4.8',
+            'reviewCount' => '150'
+        ]
+    ];
+@endphp
+<script type="application/ld+json">
+@verbatim
+{!! json_encode($becomeCoachSchema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+@endverbatim
+</script>
+@endpush
 
 @section('content')
     <!-- Breadcrumb -->
@@ -84,7 +125,7 @@
                         </li>
                         <li class="flex items-start gap-3">
                             <i class="fas fa-check text-accent-500 mt-1"></i>
-                            <span class="text-gray-700">ICF accreditation preparation and requirements</span>
+                            <span class="text-gray-700">ICR accreditation preparation and requirements</span>
                         </li>
                     </ul>
 
@@ -102,7 +143,7 @@
 
                 <div class="lg:col-span-1">
                     <div class="card bg-gray-50 sticky top-24 animate-on-scroll">
-                        <div class="text-4xl font-bold text-primary-600 mb-6">KES 120,000</div>
+                        <div class="text-4xl font-bold text-primary-600 mb-6">Ksh 90,000</div>
                         <div class="space-y-4 mb-6">
                             <div class="flex items-center gap-3 text-gray-700">
                                 <i class="fas fa-clock text-accent-500"></i>
@@ -110,7 +151,7 @@
                             </div>
                             <div class="flex items-center gap-3 text-gray-700">
                                 <i class="fas fa-certificate text-accent-500"></i>
-                                <span>ICF Accredited</span>
+                                <span>ICR Accredited</span>
                             </div>
                             <div class="flex items-center gap-3 text-gray-700">
                                 <i class="fas fa-users text-accent-500"></i>
@@ -121,11 +162,11 @@
                                 <span>Mentorship Included</span>
                             </div>
                             <div class="flex items-center gap-3 text-gray-700">
-                                <i class="fas fa-headset text-accent-500"></i>
-                                <span>Ongoing Support</span>
+                                <i class="fas fa-globe text-accent-500"></i>
+                                <span>Lifetime access to our online collaborative platform</span>
                             </div>
                         </div>
-                        <a href="{{ route('contact') }}" class="btn btn-accent w-full mb-3">Apply Now</a>
+                        <button onclick="openApplyModal()" class="btn btn-accent w-full mb-3">Apply Now</button>
                         <a href="{{ route('contact') }}" class="btn btn-secondary w-full">Request Info</a>
                     </div>
                 </div>
@@ -133,36 +174,6 @@
         </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="section bg-gray-50">
-        <div class="container">
-            <div class="text-center mb-12 animate-on-scroll">
-                <span class="text-accent-600 font-semibold text-sm uppercase tracking-wider">Success Stories</span>
-                <h2 class="text-3xl lg:text-4xl font-bold text-primary-900 mt-2 mb-4">Hear From Our Certified Coaches</h2>
-            </div>
-            <div class="grid md:grid-cols-2 gap-8">
-                @for($i = 0; $i < 2; $i++)
-                    <div class="card animate-on-scroll">
-                        <div class="text-accent-500 text-4xl mb-4 opacity-30">
-                            <i class="fas fa-quote-left"></i>
-                        </div>
-                        <p class="text-gray-700 italic mb-6 leading-relaxed">
-                            "The certification program gave me everything I needed to start my coaching practice. The mentorship was invaluable, and I'm now running a successful coaching business."
-                        </p>
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center">
-                                <i class="fas fa-user text-white"></i>
-                            </div>
-                            <div>
-                                <div class="font-bold text-primary-900">Amina Hassan</div>
-                                <div class="text-sm text-gray-600">Certified Life Coach</div>
-                            </div>
-                        </div>
-                    </div>
-                @endfor
-            </div>
-        </div>
-    </section>
 
     <!-- CTA Section -->
     <section class="section bg-gradient-to-r from-primary-900 to-primary-800 text-white">
@@ -172,15 +183,235 @@
                 Take the first step towards becoming a certified professional coach. Contact us today to learn more or apply now.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="{{ route('contact') }}" class="btn btn-accent btn-large">Apply Now</a>
+                <button onclick="openApplyModal()" class="btn btn-accent btn-large">Apply Now</button>
                 <a href="{{ route('contact') }}" class="btn bg-white text-primary-900 hover:bg-gray-100 btn-large">Request More Info</a>
             </div>
         </div>
     </section>
+    <!-- Google Reviews Section -->
+    <x-google-reviews-section />
+
+
+
+    <!-- Apply Now Modal -->
+    <div id="applyModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full transform transition-all animate-modal-in">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                <div>
+                    <h3 class="text-2xl font-bold text-primary-900">Apply for Coach Certification</h3>
+                    <p class="text-sm text-gray-600 mt-1">Start your journey to become a certified life coach</p>
+                </div>
+                <button onclick="closeApplyModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form id="applyForm" class="p-6 space-y-4">
+                @csrf
+                <input type="hidden" name="subject" value="Coach Certification Application">
+                <input type="hidden" name="program" value="Become A Certified Life Coach">
+                
+                <!-- Success Message -->
+                <div id="applySuccess" class="hidden bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg mb-4">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    <span>Thank you for your application! We will get back to you soon.</span>
+                </div>
+                
+                <!-- Error Message -->
+                <div id="applyError" class="hidden bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg mb-4">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <span id="applyErrorText">Something went wrong. Please try again.</span>
+                </div>
+                
+                <div>
+                    <label for="apply_name" class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+                    <input type="text" id="apply_name" name="name" required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                </div>
+                
+                <div>
+                    <label for="apply_email" class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+                    <input type="email" id="apply_email" name="email" required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                </div>
+                
+                <div>
+                    <label for="apply_phone" class="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
+                    <input type="tel" id="apply_phone" name="phone" required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                </div>
+                
+                <div>
+                    <label for="apply_experience" class="block text-sm font-medium text-gray-700 mb-2">Coaching Experience</label>
+                    <select id="apply_experience" name="experience"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                        <option value="">Select your experience level</option>
+                        <option value="beginner">Beginner - No prior experience</option>
+                        <option value="some">Some experience in helping others</option>
+                        <option value="experienced">Experienced in coaching/mentoring</option>
+                        <option value="professional">Professional coach seeking certification</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="apply_message" class="block text-sm font-medium text-gray-700 mb-2">Why do you want to become a certified coach? *</label>
+                    <textarea id="apply_message" name="message" rows="4" required
+                              placeholder="Tell us about your motivation and goals..."
+                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"></textarea>
+                </div>
+                
+                <div class="flex items-center gap-2 pt-2">
+                    <input type="checkbox" id="apply_consent" name="consent" required
+                           class="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500">
+                    <label for="apply_consent" class="text-sm text-gray-600">
+                        I agree to be contacted about the certification program *
+                    </label>
+                </div>
+                
+                <div class="pt-4">
+                    <button type="submit" id="applySubmitBtn" class="btn btn-accent w-full">
+                        <span id="applySubmitText">Submit Application</span>
+                        <span id="applySubmitSpinner" class="hidden">
+                            <i class="fas fa-spinner fa-spin mr-2"></i>Submitting...
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 @endsection
+
+@push('styles')
+<style>
+    #applyModal {
+        display: none;
+    }
+    
+    #applyModal.show {
+        display: flex;
+    }
+    
+    @keyframes modal-in {
+        from {
+            opacity: 0;
+            transform: scale(0.95) translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+    
+    .animate-modal-in {
+        animation: modal-in 0.3s ease-out;
+    }
+</style>
+@endpush
 
 @push('scripts')
 <script>
+    // Modal Functions
+    function openApplyModal() {
+        document.getElementById('applyModal').classList.add('show');
+        document.body.style.overflow = 'hidden';
+        // Reset form
+        document.getElementById('applyForm').reset();
+        document.getElementById('applySuccess').classList.add('hidden');
+        document.getElementById('applyError').classList.add('hidden');
+    }
+    
+    function closeApplyModal() {
+        document.getElementById('applyModal').classList.remove('show');
+        document.body.style.overflow = '';
+    }
+    
+    // Close modal on backdrop click
+    document.getElementById('applyModal')?.addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeApplyModal();
+        }
+    });
+    
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeApplyModal();
+        }
+    });
+    
+    // Handle AJAX form submission
+    document.getElementById('applyForm')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const form = this;
+        const submitBtn = document.getElementById('applySubmitBtn');
+        const submitText = document.getElementById('applySubmitText');
+        const submitSpinner = document.getElementById('applySubmitSpinner');
+        const successDiv = document.getElementById('applySuccess');
+        const errorDiv = document.getElementById('applyError');
+        const errorText = document.getElementById('applyErrorText');
+        
+        // Hide previous messages
+        successDiv.classList.add('hidden');
+        errorDiv.classList.add('hidden');
+        
+        // Show loading state
+        submitBtn.disabled = true;
+        submitText.classList.add('hidden');
+        submitSpinner.classList.remove('hidden');
+        
+        // Get form data
+        const formData = new FormData(form);
+        
+        // Submit via AJAX
+        fetch('{{ route("contact") }}', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(data => {
+                    throw new Error(data.message || 'Validation failed');
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                // Show success message
+                successDiv.classList.remove('hidden');
+                form.reset();
+                
+                // Scroll to top of modal
+                form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Close modal after 3 seconds
+                setTimeout(() => {
+                    closeApplyModal();
+                }, 3000);
+            } else {
+                // Show error message
+                errorText.textContent = data.message || 'Something went wrong. Please try again.';
+                errorDiv.classList.remove('hidden');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            errorText.textContent = 'Network error. Please check your connection and try again.';
+            errorDiv.classList.remove('hidden');
+        })
+        .finally(() => {
+            // Reset button state
+            submitBtn.disabled = false;
+            submitText.classList.remove('hidden');
+            submitSpinner.classList.add('hidden');
+        });
+    });
+    
+    // Scroll animations
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {

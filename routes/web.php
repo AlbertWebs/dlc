@@ -15,6 +15,11 @@ use App\Http\Controllers\Admin\FullWidthVideoController;
 use App\Http\Controllers\Admin\WhoWeAreController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\AboutPageController;
+use App\Http\Controllers\CoachController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\Admin\BlogController as AdminBlogController;
+use App\Http\Controllers\LegalPageController;
+use App\Http\Controllers\Admin\LegalPageController as AdminLegalPageController;
 
 // Frontend Routes
 Route::get('/', [PageController::class, 'home'])->name('home');
@@ -24,8 +29,17 @@ Route::get('/become-a-coach', [PageController::class, 'becomeACoach'])->name('be
 Route::match(['get', 'post'], '/contact', [PageController::class, 'contact'])->name('contact');
 Route::get('/programs', [PageController::class, 'programs'])->name('programs.index');
 Route::get('/programs/{slug}', [PageController::class, 'showProgram'])->name('programs.show');
+Route::get('/coaches', [CoachController::class, 'index'])->name('coaches.index');
 Route::get('/coach/{slug}', [\App\Http\Controllers\CoachController::class, 'show'])->name('coach.show');
 Route::get('/videos', [\App\Http\Controllers\VideoController::class, 'index'])->name('videos.index');
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+
+// Legal Pages
+Route::get('/legal/{slug}', [LegalPageController::class, 'show'])->name('legal.show');
+
+// Sitemap
+Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
 
 // Admin Routes
 // TODO: Add 'auth' middleware after installing Laravel Breeze/Jetstream
@@ -43,6 +57,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('coaches', AdminCoachController::class);
     Route::resource('videos', AdminVideoController::class);
     Route::resource('testimonials', TestimonialController::class);
+    Route::resource('blogs', AdminBlogController::class);
+    Route::resource('legal-pages', AdminLegalPageController::class);
     
     // Full Width Video Management
     Route::get('/full-width-video', [FullWidthVideoController::class, 'index'])->name('full-width-video.index');

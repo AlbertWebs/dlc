@@ -1,7 +1,34 @@
 @extends('layouts.app')
 
-@section('title', 'Coaching Programs')
-@section('description', 'Explore our comprehensive coaching programs: Career, Life, Certification, and Corporate coaching.')
+@php
+    $pageTitle = 'Coaching Programs – Life Coach Training & Certification | DLC Kenya';
+    $pageDescription = 'Explore our comprehensive ICR-accredited coaching programs: Life Coach Certification, Group Coaching, Breakthrough Coaching, and more. Transform your career with professional coaching training in Kenya.';
+    $pageKeywords = 'coaching programs Kenya, life coach training, coaching courses, certification programs, group coaching, breakthrough coaching, professional coaching programs';
+    $pageImage = asset('images/og-image.jpg');
+    $pageType = 'website';
+@endphp
+
+@push('schema')
+@php
+    $programsPageSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'CollectionPage',
+        'name' => $pageTitle,
+        'description' => $pageDescription,
+        'url' => url('/programs'),
+        'inLanguage' => 'en-KE',
+        'about' => [
+            '@type' => 'Thing',
+            'name' => 'Coaching Programs and Training'
+        ]
+    ];
+@endphp
+<script type="application/ld+json">
+@verbatim
+{!! json_encode($programsPageSchema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+@endverbatim
+</script>
+@endpush
 
 @section('content')
     <!-- Breadcrumb -->
