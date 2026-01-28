@@ -1,11 +1,11 @@
 @php
-    // Show only Google reviews
+    // Show up to 100 Google reviews
     $testimonials = \App\Models\Testimonial::where('is_active', true)
         ->where('is_from_google', true)
         ->orderBy('order')
         ->orderBy('google_review_time', 'desc')
         ->orderBy('created_at', 'desc')
-        ->limit(3)
+        ->limit(100)
         ->get();
 @endphp
 
@@ -23,50 +23,105 @@
         </div>
         
         @if($testimonials->count() > 0)
-            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                @foreach($testimonials as $testimonial)
-                    <div class="bg-white rounded-2xl shadow-xl p-8 border-l-4 border-l-blue-500 bg-gradient-to-r from-blue-50/30 to-white hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll">
-                        <div class="text-accent-500 text-5xl mb-6 opacity-20">
-                            <i class="fas fa-quote-left"></i>
-                        </div>
-                        <p class="text-gray-700 italic mb-6 leading-relaxed text-lg">
-                            "{{ $testimonial->content }}"
-                        </p>
-                        <div class="flex items-center gap-4 pt-6 border-t border-gray-100">
-                            @if($testimonial->photo)
-                                <img src="{{ $testimonial->is_from_google ? $testimonial->photo : asset('storage/' . $testimonial->photo) }}" 
-                                     alt="{{ $testimonial->name }}" 
-                                     class="w-14 h-14 rounded-full object-cover border-2 border-accent-500/30">
-                            @else
-                                <div class="w-14 h-14 bg-gradient-to-br from-primary-600 to-primary-800 rounded-full flex items-center justify-center border-2 border-accent-500/30">
-                                    <i class="fas fa-user text-white text-lg"></i>
-                                </div>
-                            @endif
-                            <div class="flex-1">
-                                <div class="flex items-center gap-2 flex-wrap">
-                                    <span class="font-bold text-primary-900 text-lg">{{ $testimonial->name }}</span>
-                                    @if($testimonial->is_from_google)
-                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-700 text-xs rounded-full font-bold shadow-sm border border-blue-200 hover:shadow-md transition-all duration-200">
-                                            <i class="fab fa-google text-blue-600"></i>
-                                            <span>Google Review</span>
-                                        </span>
-                                    @endif
-                                </div>
-                                @if($testimonial->rating)
-                                    <div class="flex items-center gap-1 mt-2">
-                                        @for($i = 1; $i <= 5; $i++)
-                                            <i class="fas fa-star {{ $i <= $testimonial->rating ? 'text-yellow-400' : 'text-gray-300' }} text-xs"></i>
-                                        @endfor
-                                        <span class="text-xs text-gray-500 ml-1">({{ $testimonial->rating }}/5)</span>
+            <!-- Reviews Carousel Container -->
+            <div class="reviews-carousel-wrapper relative max-w-7xl mx-auto">
+                <!-- Carousel Track -->
+                <div class="reviews-carousel-track overflow-hidden" id="reviewsCarousel">
+                    <div class="reviews-carousel-inner flex gap-8">
+                        <!-- First set of reviews -->
+                        @foreach($testimonials as $testimonial)
+                            <div class="reviews-carousel-item flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-2">
+                                <div class="bg-white rounded-2xl shadow-xl p-8 border-l-4 border-l-blue-500 bg-gradient-to-r from-blue-50/30 to-white hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 h-full">
+                                    <div class="text-accent-500 text-5xl mb-6 opacity-20">
+                                        <i class="fas fa-quote-left"></i>
                                     </div>
-                                @endif
-                                @if($testimonial->role)
-                                    <div class="text-sm text-gray-600 mt-1">{{ $testimonial->role }}{{ $testimonial->company ? ' at ' . $testimonial->company : '' }}</div>
-                                @endif
+                                    <p class="text-gray-700 italic mb-6 leading-relaxed text-lg line-clamp-4">
+                                        "{{ $testimonial->content }}"
+                                    </p>
+                                    <div class="flex items-center gap-4 pt-6 border-t border-gray-100">
+                                        @if($testimonial->photo)
+                                            <img src="{{ $testimonial->is_from_google ? $testimonial->photo : asset('storage/' . $testimonial->photo) }}" 
+                                                 alt="{{ $testimonial->name }}" 
+                                                 class="w-14 h-14 rounded-full object-cover border-2 border-accent-500/30 flex-shrink-0">
+                                        @else
+                                            <div class="w-14 h-14 bg-gradient-to-br from-primary-600 to-primary-800 rounded-full flex items-center justify-center border-2 border-accent-500/30 flex-shrink-0">
+                                                <i class="fas fa-user text-white text-lg"></i>
+                                            </div>
+                                        @endif
+                                        <div class="flex-1 min-w-0">
+                                            <div class="flex items-center gap-2 flex-wrap">
+                                                <span class="font-bold text-primary-900 text-lg">{{ $testimonial->name }}</span>
+                                                @if($testimonial->is_from_google)
+                                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-700 text-xs rounded-full font-bold shadow-sm border border-blue-200 hover:shadow-md transition-all duration-200 flex-shrink-0">
+                                                        <i class="fab fa-google text-blue-600"></i>
+                                                        <span>Google Review</span>
+                                                    </span>
+                                                @endif
+                                            </div>
+                                            @if($testimonial->rating)
+                                                <div class="flex items-center gap-1 mt-2">
+                                                    @for($i = 1; $i <= 5; $i++)
+                                                        <i class="fas fa-star {{ $i <= $testimonial->rating ? 'text-yellow-400' : 'text-gray-300' }} text-xs"></i>
+                                                    @endfor
+                                                    <span class="text-xs text-gray-500 ml-1">({{ $testimonial->rating }}/5)</span>
+                                                </div>
+                                            @endif
+                                            @if($testimonial->role)
+                                                <div class="text-sm text-gray-600 mt-1">{{ $testimonial->role }}{{ $testimonial->company ? ' at ' . $testimonial->company : '' }}</div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        @endforeach
+                        <!-- Duplicate all items for seamless infinite loop -->
+                        @foreach($testimonials as $testimonial)
+                            <div class="reviews-carousel-item flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-2">
+                                <div class="bg-white rounded-2xl shadow-xl p-8 border-l-4 border-l-blue-500 bg-gradient-to-r from-blue-50/30 to-white hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 h-full">
+                                    <div class="text-accent-500 text-5xl mb-6 opacity-20">
+                                        <i class="fas fa-quote-left"></i>
+                                    </div>
+                                    <p class="text-gray-700 italic mb-6 leading-relaxed text-lg line-clamp-4">
+                                        "{{ $testimonial->content }}"
+                                    </p>
+                                    <div class="flex items-center gap-4 pt-6 border-t border-gray-100">
+                                        @if($testimonial->photo)
+                                            <img src="{{ $testimonial->is_from_google ? $testimonial->photo : asset('storage/' . $testimonial->photo) }}" 
+                                                 alt="{{ $testimonial->name }}" 
+                                                 class="w-14 h-14 rounded-full object-cover border-2 border-accent-500/30 flex-shrink-0">
+                                        @else
+                                            <div class="w-14 h-14 bg-gradient-to-br from-primary-600 to-primary-800 rounded-full flex items-center justify-center border-2 border-accent-500/30 flex-shrink-0">
+                                                <i class="fas fa-user text-white text-lg"></i>
+                                            </div>
+                                        @endif
+                                        <div class="flex-1 min-w-0">
+                                            <div class="flex items-center gap-2 flex-wrap">
+                                                <span class="font-bold text-primary-900 text-lg">{{ $testimonial->name }}</span>
+                                                @if($testimonial->is_from_google)
+                                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-700 text-xs rounded-full font-bold shadow-sm border border-blue-200 hover:shadow-md transition-all duration-200 flex-shrink-0">
+                                                        <i class="fab fa-google text-blue-600"></i>
+                                                        <span>Google Review</span>
+                                                    </span>
+                                                @endif
+                                            </div>
+                                            @if($testimonial->rating)
+                                                <div class="flex items-center gap-1 mt-2">
+                                                    @for($i = 1; $i <= 5; $i++)
+                                                        <i class="fas fa-star {{ $i <= $testimonial->rating ? 'text-yellow-400' : 'text-gray-300' }} text-xs"></i>
+                                                    @endfor
+                                                    <span class="text-xs text-gray-500 ml-1">({{ $testimonial->rating }}/5)</span>
+                                                </div>
+                                            @endif
+                                            @if($testimonial->role)
+                                                <div class="text-sm text-gray-600 mt-1">{{ $testimonial->role }}{{ $testimonial->company ? ' at ' . $testimonial->company : '' }}</div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
+                </div>
             </div>
         @else
             <!-- No Google reviews yet -->
@@ -80,3 +135,61 @@
         @endif
     </div>
 </section>
+
+@push('styles')
+<style>
+    .reviews-carousel-wrapper {
+        position: relative;
+    }
+    
+    .reviews-carousel-track {
+        position: relative;
+        overflow: hidden;
+        mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            black 5%,
+            black 95%,
+            transparent 100%
+        );
+        -webkit-mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            black 5%,
+            black 95%,
+            transparent 100%
+        );
+    }
+    
+    .reviews-carousel-inner {
+        display: flex;
+        gap: 2rem;
+        animation: slideReviews {{ max(120, $testimonials->count() * 4) }}s linear infinite;
+        will-change: transform;
+    }
+    
+    .reviews-carousel-wrapper:hover .reviews-carousel-inner {
+        animation-play-state: paused;
+    }
+    
+    @keyframes slideReviews {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+    
+    .reviews-carousel-item {
+        flex: 0 0 auto;
+    }
+    
+    .line-clamp-4 {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>
+@endpush
