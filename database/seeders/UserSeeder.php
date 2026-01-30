@@ -7,25 +7,22 @@ use App\Models\User;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     * 
-     * Note: No users exist in production database.
-     * Add user records here when they are created.
-     */
     public function run(): void
     {
-        // No users in production database
-        // Example structure:
-        // User::updateOrCreate(
-        //     ['email' => 'admin@dlc.co.ke'],
-        //     [
-        //         'name' => 'Admin User',
-        //         'email' => 'admin@dlc.co.ke',
-        //         'password' => bcrypt('password'),
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     ]
-        // );
+        App\Models\User::updateOrCreate(
+            [
+                'email' => 'admin@dlc.co.ke',
+            ],
+            [
+                'id' => 1,
+                'name' => 'DLC Administrator',
+                'email_verified_at' => '2026-01-30 08:18:16',
+                'password' => '$2y$12$.DeGQ/ySrq2kEB0m7mtuDOsIsCuxRYJcyOw.WqgidN.7QN/pUvKKW',
+                'remember_token' => 'MBxduoDm7Aa0EO0VKRaJqZT7wbgZvLHrpD8D9WdJO5iExeJuVbKdJkfu7Z32',
+                'created_at' => '2026-01-30 08:18:16',
+                'updated_at' => '2026-01-30 08:18:16',
+            ]
+        );
+
     }
 }

@@ -11,14 +11,13 @@ class LegalPageSeeder extends Seeder
     {
         LegalPage::updateOrCreate(
             [
-                'type' => 'privacy',
+                'slug' => 'privacy-policy',
             ],
             [
                 'type' => 'privacy',
                 'title' => 'Privacy Policy',
-                'slug' => 'privacy-policy',
                 'content' => '<h2>1. Introduction</h2>
-        <p>Welcome to Destiny Life Coaching Kenya (\"we,\" \"our,\" or \"us\"). We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.</p>
+        <p>Welcome to Destiny Life Coaching Kenya ("we," "our," or "us"). We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.</p>
 
         <h2>2. Information We Collect</h2>
         <p>We may collect information about you in a variety of ways. The information we may collect includes:</p>
@@ -71,7 +70,7 @@ class LegalPageSeeder extends Seeder
         <p>Our services are not directed to individuals under the age of 18. We do not knowingly collect personal information from children.</p>
 
         <h2>10. Changes to This Privacy Policy</h2>
-        <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the \"Last updated\" date.</p>
+        <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date.</p>
 
         <h2>11. Contact Us</h2>
         <p>If you have any questions about this Privacy Policy, please contact us at:</p>
@@ -82,7 +81,7 @@ class LegalPageSeeder extends Seeder
         </p>',
                 'meta_title' => 'Privacy Policy | Destiny Life Coaching Kenya',
                 'meta_description' => 'Read our privacy policy to understand how we collect, use, and protect your personal information at Destiny Life Coaching Kenya.',
-                'is_published' => true,
+                'is_published' => 1,
                 'created_at' => '2026-01-27 11:36:27',
                 'updated_at' => '2026-01-27 11:36:27',
             ]
@@ -90,12 +89,11 @@ class LegalPageSeeder extends Seeder
 
         LegalPage::updateOrCreate(
             [
-                'type' => 'terms',
+                'slug' => 'terms-of-service',
             ],
             [
                 'type' => 'terms',
                 'title' => 'Terms of Service',
-                'slug' => 'terms-of-service',
                 'content' => '<h2>1. Acceptance of Terms</h2>
         <p>By accessing and using the Destiny Life Coaching Kenya website and services, you accept and agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.</p>
 
@@ -147,7 +145,7 @@ class LegalPageSeeder extends Seeder
         <p>We reserve the right to revoke certification if you violate these terms or our professional standards.</p>
 
         <h2>8. Disclaimer of Warranties</h2>
-        <p>Our services are provided \"as is\" and \"as available\" without warranties of any kind, either express or implied. We do not guarantee that:</p>
+        <p>Our services are provided "as is" and "as available" without warranties of any kind, either express or implied. We do not guarantee that:</p>
         <ul>
             <li>Our services will be uninterrupted, secure, or error-free</li>
             <li>The results obtained from using our services will meet your expectations</li>
@@ -181,7 +179,7 @@ class LegalPageSeeder extends Seeder
         </p>',
                 'meta_title' => 'Terms of Service | Destiny Life Coaching Kenya',
                 'meta_description' => 'Read our terms of service to understand the rules and regulations for using Destiny Life Coaching Kenya services.',
-                'is_published' => true,
+                'is_published' => 1,
                 'created_at' => '2026-01-27 11:36:27',
                 'updated_at' => '2026-01-27 11:36:27',
             ]

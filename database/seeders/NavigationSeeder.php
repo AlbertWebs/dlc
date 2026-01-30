@@ -16,11 +16,8 @@ class NavigationSeeder extends Seeder
                 'location' => 'header',
             ],
             [
-                'label' => 'Home',
-                'url' => '/',
-                'location' => 'header',
                 'category' => null,
-                'is_visible' => true,
+                'is_visible' => 1,
                 'order' => 1,
                 'created_at' => '2025-12-10 09:18:00',
                 'updated_at' => '2025-12-10 09:18:00',
@@ -34,11 +31,8 @@ class NavigationSeeder extends Seeder
                 'location' => 'header',
             ],
             [
-                'label' => 'About Us',
-                'url' => '/about',
-                'location' => 'header',
                 'category' => null,
-                'is_visible' => true,
+                'is_visible' => 1,
                 'order' => 2,
                 'created_at' => '2025-12-10 09:18:00',
                 'updated_at' => '2025-12-10 09:18:00',
@@ -52,11 +46,8 @@ class NavigationSeeder extends Seeder
                 'location' => 'header',
             ],
             [
-                'label' => 'Events',
-                'url' => '/events',
-                'location' => 'header',
                 'category' => null,
-                'is_visible' => true,
+                'is_visible' => 1,
                 'order' => 3,
                 'created_at' => '2025-12-10 09:18:00',
                 'updated_at' => '2025-12-10 09:18:00',
@@ -70,14 +61,11 @@ class NavigationSeeder extends Seeder
                 'location' => 'header',
             ],
             [
-                'label' => 'Become a Coach',
-                'url' => '/become-a-coach',
-                'location' => 'header',
                 'category' => null,
-                'is_visible' => true,
-                'order' => 6,
+                'is_visible' => 1,
+                'order' => 5,
                 'created_at' => '2025-12-10 09:18:00',
-                'updated_at' => now(),
+                'updated_at' => '2026-01-27 08:08:19',
             ]
         );
 
@@ -88,11 +76,8 @@ class NavigationSeeder extends Seeder
                 'location' => 'header',
             ],
             [
-                'label' => 'Life Mastery Bootcamp',
-                'url' => '/life-mastery-bootcamp',
-                'location' => 'header',
                 'category' => null,
-                'is_visible' => false,
+                'is_visible' => 0,
                 'order' => 8,
                 'created_at' => '2025-12-10 09:18:00',
                 'updated_at' => '2026-01-27 08:08:19',
@@ -106,11 +91,8 @@ class NavigationSeeder extends Seeder
                 'location' => 'header',
             ],
             [
-                'label' => 'Life Mastery Webinar',
-                'url' => '/life-mastery-webinar',
-                'location' => 'header',
                 'category' => null,
-                'is_visible' => false,
+                'is_visible' => 0,
                 'order' => 9,
                 'created_at' => '2025-12-10 09:18:00',
                 'updated_at' => '2026-01-27 08:08:19',
@@ -124,11 +106,8 @@ class NavigationSeeder extends Seeder
                 'location' => 'header',
             ],
             [
-                'label' => 'My Account',
-                'url' => '/my-account',
-                'location' => 'header',
                 'category' => null,
-                'is_visible' => false,
+                'is_visible' => 0,
                 'order' => 10,
                 'created_at' => '2025-12-10 09:18:00',
                 'updated_at' => '2026-01-27 08:08:19',
@@ -142,11 +121,8 @@ class NavigationSeeder extends Seeder
                 'location' => 'footer',
             ],
             [
-                'label' => 'Home',
-                'url' => '/',
-                'location' => 'footer',
                 'category' => 'quick_links',
-                'is_visible' => true,
+                'is_visible' => 1,
                 'order' => 1,
                 'created_at' => '2025-12-10 09:18:00',
                 'updated_at' => '2025-12-10 09:18:00',
@@ -160,11 +136,8 @@ class NavigationSeeder extends Seeder
                 'location' => 'footer',
             ],
             [
-                'label' => 'About Us',
-                'url' => '/about',
-                'location' => 'footer',
                 'category' => 'quick_links',
-                'is_visible' => true,
+                'is_visible' => 1,
                 'order' => 2,
                 'created_at' => '2025-12-10 09:18:00',
                 'updated_at' => '2025-12-10 09:18:00',
@@ -178,11 +151,8 @@ class NavigationSeeder extends Seeder
                 'location' => 'footer',
             ],
             [
-                'label' => 'Events',
-                'url' => '/events',
-                'location' => 'footer',
                 'category' => 'quick_links',
-                'is_visible' => true,
+                'is_visible' => 1,
                 'order' => 3,
                 'created_at' => '2025-12-10 09:18:00',
                 'updated_at' => '2025-12-10 09:18:00',
@@ -196,11 +166,8 @@ class NavigationSeeder extends Seeder
                 'location' => 'footer',
             ],
             [
-                'label' => 'Become a Coach',
-                'url' => '/become-a-coach',
-                'location' => 'footer',
                 'category' => 'quick_links',
-                'is_visible' => true,
+                'is_visible' => 1,
                 'order' => 5,
                 'created_at' => '2025-12-10 09:18:00',
                 'updated_at' => '2026-01-27 08:52:21',
@@ -214,11 +181,8 @@ class NavigationSeeder extends Seeder
                 'location' => 'footer',
             ],
             [
-                'label' => 'Contact',
-                'url' => '/contact',
-                'location' => 'footer',
                 'category' => 'quick_links',
-                'is_visible' => true,
+                'is_visible' => 1,
                 'order' => 7,
                 'created_at' => '2025-12-10 09:18:00',
                 'updated_at' => '2026-01-27 08:52:21',
@@ -232,14 +196,11 @@ class NavigationSeeder extends Seeder
                 'location' => 'header',
             ],
             [
-                'label' => 'Videos',
-                'url' => '/videos',
-                'location' => 'header',
                 'category' => null,
-                'is_visible' => true,
-                'order' => 7,
+                'is_visible' => 1,
+                'order' => 6,
                 'created_at' => '2026-01-26 09:27:42',
-                'updated_at' => now(),
+                'updated_at' => '2026-01-27 08:08:19',
             ]
         );
 
@@ -250,11 +211,8 @@ class NavigationSeeder extends Seeder
                 'location' => 'footer',
             ],
             [
-                'label' => 'Videos',
-                'url' => '/videos',
-                'location' => 'footer',
                 'category' => 'quick_links',
-                'is_visible' => true,
+                'is_visible' => 1,
                 'order' => 6,
                 'created_at' => '2026-01-26 09:27:42',
                 'updated_at' => '2026-01-27 08:52:21',
@@ -268,11 +226,8 @@ class NavigationSeeder extends Seeder
                 'location' => 'header',
             ],
             [
-                'label' => 'Coaches',
-                'url' => '/coaches',
-                'location' => 'header',
                 'category' => null,
-                'is_visible' => true,
+                'is_visible' => 1,
                 'order' => 4,
                 'created_at' => '2026-01-27 08:08:19',
                 'updated_at' => '2026-01-27 08:08:19',
@@ -281,34 +236,13 @@ class NavigationSeeder extends Seeder
 
         Navigation::updateOrCreate(
             [
-                'label' => 'Find a Coach',
-                'url' => 'https://calendly.com/breakthrough101/1-on-1-coaching-session-with-jeff',
-                'location' => 'header',
-            ],
-            [
-                'label' => 'Find a Coach',
-                'url' => 'https://calendly.com/breakthrough101/1-on-1-coaching-session-with-jeff',
-                'location' => 'header',
-                'category' => null,
-                'is_visible' => true,
-                'order' => 5,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]
-        );
-
-        Navigation::updateOrCreate(
-            [
                 'label' => 'Coaches',
                 'url' => '/coaches',
                 'location' => 'footer',
             ],
             [
-                'label' => 'Coaches',
-                'url' => '/coaches',
-                'location' => 'footer',
                 'category' => 'quick_links',
-                'is_visible' => true,
+                'is_visible' => 1,
                 'order' => 4,
                 'created_at' => '2026-01-27 08:17:32',
                 'updated_at' => '2026-01-27 08:17:32',
@@ -322,14 +256,11 @@ class NavigationSeeder extends Seeder
                 'location' => 'header',
             ],
             [
-                'label' => 'Our Blog',
-                'url' => '/blog',
-                'location' => 'header',
                 'category' => null,
-                'is_visible' => true,
-                'order' => 8,
+                'is_visible' => 1,
+                'order' => 7,
                 'created_at' => '2026-01-27 08:52:21',
-                'updated_at' => now(),
+                'updated_at' => '2026-01-27 08:52:21',
             ]
         );
 
