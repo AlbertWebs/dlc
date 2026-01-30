@@ -144,11 +144,12 @@
                         $currentUrl = request()->url();
                         $navUrl = $nav->url;
                         $isActive = false;
+                        $isExternal = str_starts_with($navUrl, 'http://') || str_starts_with($navUrl, 'https://');
                         
-                        // Check exact match
-                        if ($currentUrl === $navUrl) {
+                        // Check exact match (only for internal links)
+                        if (!$isExternal && $currentUrl === $navUrl) {
                             $isActive = true;
-                        } else {
+                        } else if (!$isExternal) {
                             // Check if current URL starts with navigation URL (for sub-pages)
                             $parsedNavUrl = parse_url($navUrl);
                             $parsedCurrentUrl = parse_url($currentUrl);
@@ -164,7 +165,7 @@
                             }
                         }
                     @endphp
-                    <a href="{{ $nav->url }}" 
+                    <a href="{{ $nav->url }}" @if($isExternal) target="_blank" rel="noopener noreferrer" @endif 
                        class="relative group px-4 py-2.5 rounded-lg transition-all duration-300 ease-in-out border
                               {{ $isActive 
                                   ? 'text-primary-600 bg-primary-50 shadow-sm scale-100' 
@@ -204,11 +205,12 @@
                             $currentUrl = request()->url();
                             $navUrl = $nav->url;
                             $isActive = false;
+                            $isExternal = str_starts_with($navUrl, 'http://') || str_starts_with($navUrl, 'https://');
                             
-                            // Check exact match
-                            if ($currentUrl === $navUrl) {
+                            // Check exact match (only for internal links)
+                            if (!$isExternal && $currentUrl === $navUrl) {
                                 $isActive = true;
-                            } else {
+                            } else if (!$isExternal) {
                                 // Check if current URL starts with navigation URL (for sub-pages)
                                 $parsedNavUrl = parse_url($navUrl);
                                 $parsedCurrentUrl = parse_url($currentUrl);
@@ -224,7 +226,7 @@
                                 }
                             }
                         @endphp
-                        <a href="{{ $nav->url }}" 
+                        <a href="{{ $nav->url }}" @if($isExternal) target="_blank" rel="noopener noreferrer" @endif 
                            class="relative group px-4 py-4 rounded-xl font-semibold text-base transition-all duration-300 ease-in-out border-2 active:scale-98
                                   {{ $isActive 
                                       ? 'text-primary-600 bg-primary-50 shadow-md' 

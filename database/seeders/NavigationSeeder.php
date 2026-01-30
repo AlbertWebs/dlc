@@ -75,9 +75,9 @@ class NavigationSeeder extends Seeder
                 'location' => 'header',
                 'category' => null,
                 'is_visible' => true,
-                'order' => 5,
+                'order' => 6,
                 'created_at' => '2025-12-10 09:18:00',
-                'updated_at' => '2026-01-27 08:08:19',
+                'updated_at' => now(),
             ]
         );
 
@@ -237,9 +237,9 @@ class NavigationSeeder extends Seeder
                 'location' => 'header',
                 'category' => null,
                 'is_visible' => true,
-                'order' => 6,
+                'order' => 7,
                 'created_at' => '2026-01-26 09:27:42',
-                'updated_at' => '2026-01-27 08:08:19',
+                'updated_at' => now(),
             ]
         );
 
@@ -281,6 +281,24 @@ class NavigationSeeder extends Seeder
 
         Navigation::updateOrCreate(
             [
+                'label' => 'Find a Coach',
+                'url' => 'https://calendly.com/breakthrough101/1-on-1-coaching-session-with-jeff',
+                'location' => 'header',
+            ],
+            [
+                'label' => 'Find a Coach',
+                'url' => 'https://calendly.com/breakthrough101/1-on-1-coaching-session-with-jeff',
+                'location' => 'header',
+                'category' => null,
+                'is_visible' => true,
+                'order' => 5,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+        );
+
+        Navigation::updateOrCreate(
+            [
                 'label' => 'Coaches',
                 'url' => '/coaches',
                 'location' => 'footer',
@@ -309,9 +327,9 @@ class NavigationSeeder extends Seeder
                 'location' => 'header',
                 'category' => null,
                 'is_visible' => true,
-                'order' => 7,
+                'order' => 8,
                 'created_at' => '2026-01-27 08:52:21',
-                'updated_at' => '2026-01-27 08:52:21',
+                'updated_at' => now(),
             ]
         );
 

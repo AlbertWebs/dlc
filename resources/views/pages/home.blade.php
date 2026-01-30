@@ -117,14 +117,17 @@
                                 <span class="text-accent-400 font-accent italic">Professional Coaching</span>
                             @endif
                         </h1>
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-delay-2 relative z-10">
+                        <div class="flex flex-row gap-4 justify-center items-center animate-fade-in-delay-2 relative z-10 flex-wrap">
                             @if($heroBanner && $heroBanner->cta_text && $heroBanner->cta_link)
-                                <a href="{{ $heroBanner->cta_link }}" class="btn btn-accent text-base px-6 py-3 shadow-2xl hover:shadow-accent-500/50 transform hover:scale-105 transition-all duration-300">
+                                @php
+                                    $isExternal = str_starts_with($heroBanner->cta_link, 'http://') || str_starts_with($heroBanner->cta_link, 'https://');
+                                @endphp
+                                <a href="{{ $heroBanner->cta_link }}" @if($isExternal) target="_blank" rel="noopener noreferrer" @endif class="btn btn-accent text-base px-6 py-3 shadow-2xl hover:shadow-accent-500/50 transform hover:scale-105 transition-all duration-300">
                                     {{ $heroBanner->cta_text }}
                                 </a>
                             @else
-                                <a href="{{ route('contact') }}" class="btn btn-accent text-base px-6 py-3 shadow-2xl hover:shadow-accent-500/50 transform hover:scale-105 transition-all duration-300">
-                                    Start Your Journey
+                                <a href="https://calendly.com/breakthrough101/1-on-1-coaching-session-with-jeff" target="_blank" rel="noopener noreferrer" class="btn btn-accent text-base px-6 py-3 shadow-2xl hover:shadow-accent-500/50 transform hover:scale-105 transition-all duration-300">
+                                    Find a Coach
                                 </a>
                             @endif
                             @if($heroBanner && $heroBanner->secondary_cta_text && $heroBanner->secondary_cta_link)
@@ -181,14 +184,17 @@
                     <p class="text-xl text-gray-600 mb-8 leading-relaxed">
                         {{ $heroBanner && $heroBanner->subtitle ? $heroBanner->subtitle : 'Unlock your potential with certified coaching programs designed to help you achieve your personal and professional goals.' }}
                     </p>
-                    <div class="flex flex-col sm:flex-row gap-4">
+                    <div class="flex flex-row gap-4 flex-wrap justify-center">
                         @if($heroBanner && $heroBanner->cta_text && $heroBanner->cta_link)
-                            <a href="{{ $heroBanner->cta_link }}" class="btn btn-accent btn-large">
+                            @php
+                                $isExternal = str_starts_with($heroBanner->cta_link, 'http://') || str_starts_with($heroBanner->cta_link, 'https://');
+                            @endphp
+                            <a href="{{ $heroBanner->cta_link }}" @if($isExternal) target="_blank" rel="noopener noreferrer" @endif class="btn btn-accent btn-large">
                                 {{ $heroBanner->cta_text }}
                             </a>
                         @else
-                            <a href="{{ route('contact') }}" class="btn btn-accent btn-large">
-                                Start Your Journey
+                            <a href="https://calendly.com/breakthrough101/1-on-1-coaching-session-with-jeff" target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-large">
+                                Find a Coach
                             </a>
                         @endif
                         @if($heroBanner && $heroBanner->secondary_cta_text && $heroBanner->secondary_cta_link)

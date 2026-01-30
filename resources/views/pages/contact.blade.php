@@ -218,10 +218,22 @@
             <div class="space-y-4">
                 @php
                     $faqs = [
-                        ['q' => 'How do I get started?', 'a' => 'Simply fill out the contact form above or call us to schedule a free consultation. We\'ll discuss your goals and recommend the best program for you.'],
-                        ['q' => 'What is included in the coaching programs?', 'a' => 'Each program includes one-on-one sessions, personalized action plans, progress tracking, and ongoing support. Specific details vary by program.'],
-                        ['q' => 'Do you offer online coaching?', 'a' => 'Yes, we offer both in-person and online coaching sessions to accommodate your preferences and location.'],
-                        ['q' => 'Are your certifications recognized?', 'a' => 'Yes, our certification programs are accredited by leading coaching organizations including ICF (International Coach Federation).'],
+                        ['q' => 'What is Destiny Life Coaching?', 'a' => 'Destiny Life Coaching is a transformational coaching service designed to help you clarify your purpose, shift limiting patterns, and step confidently into your next level of life and impact.'],
+                        ['q' => 'Who do you coach?', 'a' => 'We work with individuals ready for breakthrough growth, high-achievers seeking clarity, professionals navigating life transitions, and anyone committed to leveling up their identity, results, and fulfillment.'],
+                        ['q' => 'Is the coaching course globally accredited?', 'a' => 'Yes. Our coaching courses are accredited by recognized international coaching bodies, ensuring global standards and credibility so you can use your certification with confidence worldwide.'],
+                        ['q' => 'What coaching styles do you use?', 'a' => 'Our coaching blends breakthrough intervention, strategic intervention tools, embodiment practices, and identity activation frameworks to create deep, lasting change.'],
+                        ['q' => 'How long is a coaching session?', 'a' => 'Standard sessions are 60 minutes. Some specialized programs and immersion experiences may include longer or multiple session formats.'],
+                        ['q' => 'Do you offer programs or only one-on-one coaching?', 'a' => 'We offer both tailored one-on-one coaching and structured programs designed for personal growth, leadership development, and destiny activation.'],
+                        ['q' => 'What results can I expect?', 'a' => 'Clients commonly experience greater clarity of purpose, mindset shifts, breakthroughs in relationships or career, increased confidence, and a stronger sense of direction.'],
+                        ['q' => 'Is coaching the same as therapy?', 'a' => 'No. Coaching is future-focused and action-oriented. It helps you create forward momentum, overcome obstacles, and achieve specific outcomes. It does not diagnose or treat mental health conditions.'],
+                        ['q' => 'How do I know if coaching is right for me?', 'a' => 'If you are ready to take responsibility for your growth and want tangible results, coaching can be a powerful catalyst. You can also book a clarity call to explore fit before you commit.'],
+                        ['q' => 'How do I book a session?', 'a' => 'Click the Book Now button or schedule through our Calendly links to select a time that works for you.'],
+                        ['q' => 'What are your rates?', 'a' => 'Investment varies by program and coaching package. Contact us or book a clarity call for details tailored to your goals.'],
+                        ['q' => 'Do you offer virtual coaching?', 'a' => 'Yes. Coaching is available online globally, making it easy to work with us from anywhere.'],
+                        ['q' => 'What if I need to reschedule?', 'a' => 'Please refer to our session policies or contact support for assistance rescheduling your appointment.'],
+                        ['q' => 'Can I get a refund if I change my mind?', 'a' => 'Refund policies depend on the program you purchase. Please review the specific terms or contact us for clarification.'],
+                        ['q' => 'How is destiny coaching different?', 'a' => 'Destiny coaching focuses on uncovering your unique identity, aligning your life with your highest purpose, and activating your gifts for impact.'],
+                        ['q' => 'I still have questions. Who can I contact?', 'a' => 'Reach out via our Contact Us page or email support and we\'ll be happy to assist.'],
                     ];
                 @endphp
                 @foreach($faqs as $faq)
@@ -250,6 +262,18 @@
 
     document.querySelectorAll('.animate-on-scroll').forEach(el => {
         observer.observe(el);
+    });
+    
+    // Replace footer copyright text on contact page
+    document.addEventListener('DOMContentLoaded', function() {
+        // Find the copyright paragraph in the footer
+        const copyrightSection = document.querySelector('.relative.bg-primary-950');
+        if (copyrightSection) {
+            const copyrightText = copyrightSection.querySelector('p.text-gray-400');
+            if (copyrightText) {
+                copyrightText.innerHTML = '&copy; 2026 DLC Kenya - Destiny Life Coaching. All rights reserved | Powered By <a href="https://designekta.com" target="_blank" rel="noopener noreferrer" class="text-accent-400 hover:text-accent-300 transition-colors underline">Designekta Studios</a>';
+            }
+        }
     });
 </script>
 @endpush
