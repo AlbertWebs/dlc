@@ -1173,79 +1173,8 @@
         <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent-500 to-transparent"></div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="pt-16 lg:pt-24 pb-0 bg-gray-50">
-        <div class="container">
-            <div class="text-center mb-12 animate-on-scroll">
-                <span class="text-accent-600 font-semibold text-sm uppercase tracking-wider">Success Stories</span>
-                <h2 class="text-3xl lg:text-4xl font-bold text-primary-900 mt-2 mb-4">What Our Clients Say</h2>
-            </div>
-            @php
-                // Show only Google reviews in this section
-                $testimonials = \App\Models\Testimonial::where('is_active', true)
-                    ->where('is_from_google', true)
-                    ->orderBy('order')
-                    ->orderBy('google_review_time', 'desc')
-                    ->orderBy('created_at', 'desc')
-                    ->limit(3)
-                    ->get();
-            @endphp
-            @if($testimonials->count() > 0)
-                <div class="grid md:grid-cols-3 gap-8">
-                    @foreach($testimonials as $testimonial)
-                        <div class="card animate-on-scroll {{ $testimonial->is_from_google ? 'border-l-4 border-l-blue-500 bg-gradient-to-r from-blue-50/30 to-white' : '' }}">
-                            <div class="text-accent-500 text-4xl mb-4 opacity-30">
-                                <i class="fas fa-quote-left"></i>
-                            </div>
-                            <p class="text-gray-700 italic mb-6 leading-relaxed">
-                                "{{ $testimonial->content }}"
-                            </p>
-                            <div class="flex items-center gap-4">
-                                @if($testimonial->photo)
-                                    <img src="{{ $testimonial->is_from_google ? $testimonial->photo : asset('storage/' . $testimonial->photo) }}" alt="{{ $testimonial->name }}" class="w-12 h-12 rounded-full object-cover">
-                                @else
-                                    <div class="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center">
-                                        <i class="fas fa-user text-white"></i>
-                                    </div>
-                                @endif
-                                <div class="flex-1">
-                                    <div class="flex items-center gap-2 flex-wrap">
-                                        <span class="font-bold text-primary-900">{{ $testimonial->name }}</span>
-                                        @if($testimonial->is_from_google)
-                                            <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-700 text-xs rounded-full font-bold shadow-sm border border-blue-200 hover:shadow-md transition-all duration-200">
-                                                <i class="fab fa-google text-blue-600"></i>
-                                                <span>Google</span>
-                                            </span>
-                                        @endif
-                                    </div>
-                                    @if($testimonial->rating)
-                                        <div class="flex items-center gap-1 mt-2">
-                                            @for($i = 1; $i <= 5; $i++)
-                                                <i class="fas fa-star {{ $i <= $testimonial->rating ? 'text-yellow-400' : 'text-gray-300' }} text-xs"></i>
-                                            @endfor
-                                            <span class="text-xs text-gray-500 ml-1">({{ $testimonial->rating }}/5)</span>
-                                        </div>
-                                    @endif
-                                    @if($testimonial->role)
-                                        <div class="text-sm text-gray-600 mt-1">{{ $testimonial->role }}{{ $testimonial->company ? ' at ' . $testimonial->company : '' }}</div>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @else
-                <!-- No Google reviews yet - show message -->
-                <div class="text-center py-12">
-                    <div class="inline-block p-8 bg-white rounded-2xl border-2 border-dashed border-gray-300 max-w-md mx-auto">
-                        <i class="fab fa-google text-5xl text-gray-400 mb-4"></i>
-                        <p class="text-gray-600 text-lg mb-2">No Google reviews available yet</p>
-                        <p class="text-gray-500 text-sm">Google reviews will appear here once synced from your Google Business Profile.</p>
-                    </div>
-                </div>
-            @endif
-        </div>
-    </section>
+    <!-- Google Reviews Section -->
+    <x-google-reviews-section />
 
    
 @endsection
