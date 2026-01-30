@@ -1,10 +1,8 @@
 @php
-    // Show up to 100 Google reviews
+    // Show up to 100 Google reviews in random order
     $testimonials = \App\Models\Testimonial::where('is_active', true)
         ->where('is_from_google', true)
-        ->orderBy('order')
-        ->orderBy('google_review_time', 'desc')
-        ->orderBy('created_at', 'desc')
+        ->inRandomOrder()
         ->limit(100)
         ->get();
 @endphp
@@ -164,7 +162,7 @@
     .reviews-carousel-inner {
         display: flex;
         gap: 2rem;
-        animation: slideReviews {{ max(120, $testimonials->count() * 4) }}s linear infinite;
+        animation: slideReviews {{ max(60, $testimonials->count() * 2) }}s linear infinite;
         will-change: transform;
     }
     
@@ -178,6 +176,19 @@
         }
         100% {
             transform: translateX(-50%);
+        }
+    }
+    
+    /* Smooth sliding animation */
+    @media (prefers-reduced-motion: no-preference) {
+        .reviews-carousel-inner {
+            animation: slideReviews {{ max(60, $testimonials->count() * 2) }}s linear infinite;
+        }
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+        .reviews-carousel-inner {
+            animation: none;
         }
     }
     
