@@ -89,7 +89,16 @@
     @endphp
     <link rel="icon" type="image/png" href="{{ $favicon }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ $favicon }}">
-    <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+    <link rel="manifest" href="{{ route('manifest') }}">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#f8b016">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="{{ \App\Models\Setting::get('site_name', 'DLC Kenya') }}">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileColor" content="#1e3a5f">
+    <meta name="msapplication-config" content="{{ asset('browserconfig.xml') }}">
 
     <!-- DNS Prefetch & Preconnect for Performance -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
@@ -212,6 +221,9 @@
 
     <!-- Mobile Bottom Navigation -->
     <x-mobile-bottom-nav />
+
+    <!-- PWA Install Prompt -->
+    <x-pwa-install-prompt />
 
     <!-- Scripts -->
     @stack('scripts')

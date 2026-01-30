@@ -114,7 +114,7 @@
     </div>
 </div>
 
-<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm border-b border-gray-100" id="header">
+<header class="hidden lg:block sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm border-b border-gray-100" id="header">
     <nav class="container mx-auto px-4 lg:px-6">
         <div class="flex items-center justify-between h-20">
             <!-- Logo -->
@@ -189,29 +189,31 @@
                 </a>
             </div>
 
-            <!-- Mobile Menu Toggle -->
-            <button id="mobile-menu-toggle" class="lg:hidden text-gray-700 focus:outline-none">
-                <i class="fas fa-bars text-2xl"></i>
+            <!-- Mobile Menu Toggle Button -->
+            <button type="button" id="mobile-menu-btn" class="lg:hidden w-10 h-10 flex items-center justify-center text-gray-700 hover:text-primary-600 rounded-lg">
+                <i class="fas fa-bars text-2xl" id="menu-icon"></i>
             </button>
         </div>
 
-        <!-- Mobile Navigation -->
-        <div id="mobile-menu" class="lg:hidden fixed inset-0 top-20 bg-white z-40 transform transition-transform duration-300 ease-in-out -translate-x-full">
-            <div class="h-full overflow-y-auto pb-20">
-                <div class="flex flex-col gap-1 p-4">
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden" style="display: none; position: fixed; top: 80px; left: 0; right: 0; bottom: 0; z-index: 9999;">
+            <!-- Backdrop -->
+            <div id="menu-backdrop" style="position: fixed; top: 80px; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5);"></div>
+            
+            <!-- Menu Panel -->
+            <div id="menu-panel" style="position: fixed; top: 80px; left: 0; bottom: 0; width: 320px; max-width: 90%; background: #ffffff; box-shadow: 2px 0 10px rgba(0,0,0,0.2); overflow-y: auto; z-index: 10000;">
+                <div style="padding: 24px;">
+                    <h3 style="font-size: 18px; font-weight: 700; color: #1e3a5f; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #f8b016;">Menu</h3>
                     @foreach($navigations as $nav)
                         @php
-                            // Check if current URL matches navigation URL
                             $currentUrl = request()->url();
                             $navUrl = $nav->url;
                             $isActive = false;
                             $isExternal = str_starts_with($navUrl, 'http://') || str_starts_with($navUrl, 'https://');
                             
-                            // Check exact match (only for internal links)
                             if (!$isExternal && $currentUrl === $navUrl) {
                                 $isActive = true;
                             } else if (!$isExternal) {
-                                // Check if current URL starts with navigation URL (for sub-pages)
                                 $parsedNavUrl = parse_url($navUrl);
                                 $parsedCurrentUrl = parse_url($currentUrl);
                                 
@@ -219,94 +221,110 @@
                                     $navPath = rtrim($parsedNavUrl['path'], '/');
                                     $currentPath = rtrim($parsedCurrentUrl['path'], '/');
                                     
-                                    // Match if paths are the same or current path starts with nav path
                                     if ($navPath === $currentPath || ($navPath !== '/' && str_starts_with($currentPath, $navPath))) {
                                         $isActive = true;
                                     }
                                 }
                             }
                         @endphp
-                        <a href="{{ $nav->url }}" @if($isExternal) target="_blank" rel="noopener noreferrer" @endif 
-                           class="relative group px-4 py-4 rounded-xl font-semibold text-base transition-all duration-300 ease-in-out border-2 active:scale-98
-                                  {{ $isActive 
-                                      ? 'text-primary-600 bg-primary-50 shadow-md' 
-                                      : 'text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-gray-50 hover:to-primary-50/30 hover:shadow-md active:bg-primary-50' }}"
-                           style="border-color: {{ $isActive ? '#f8b016' : 'rgba(248, 176, 22, 0.3)' }};">
-                            <div class="flex items-center justify-between">
-                                <span class="relative z-10 transition-all duration-300">{{ $nav->label }}</span>
-                                <i class="fas fa-chevron-right text-xs text-gray-400 group-hover:text-primary-600 group-hover:translate-x-1 transition-all duration-300"></i>
+                        <a href="{{ $nav->url }}" 
+                           @if($isExternal) target="_blank" rel="noopener noreferrer" @endif
+                           class="mobile-menu-link"
+                           style="display: block; padding: 16px; margin-bottom: 8px; border-radius: 8px; font-weight: 600; color: #1f2937; text-decoration: none; background: {{ $isActive ? '#eff6ff' : '#ffffff' }}; border: 2px solid {{ $isActive ? '#f8b016' : 'rgba(248, 176, 22, 0.3)' }};">
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <span style="color: {{ $isActive ? '#1e40af' : '#1f2937' }};">{{ $nav->label }}</span>
+                                @if($isExternal)
+                                    <i class="fas fa-external-link-alt" style="font-size: 12px; color: #9ca3af;"></i>
+                                @else
+                                    <i class="fas fa-chevron-right" style="font-size: 12px; color: #9ca3af;"></i>
+                                @endif
                             </div>
-                            @if($isActive)
-                                <div class="absolute left-0 top-0 bottom-0 w-1 bg-accent-500 rounded-l-xl"></div>
-                                <div class="absolute right-4 top-1/2 -translate-y-1/2 w-2 h-2 bg-accent-500 rounded-full"></div>
-                            @endif
                         </a>
                     @endforeach
                     <a href="{{ route('contact') }}" 
-                       class="btn btn-primary w-full text-center mt-4 py-4 text-base font-semibold shadow-lg hover:shadow-xl active:scale-98 transition-all duration-300" 
-                       style="filter: none !important; -webkit-filter: none !important;">
-                        <i class="fas fa-rocket mr-2"></i> Contact Us
+                       class="mobile-menu-link"
+                       style="display: block; width: 100%; margin-top: 16px; padding: 16px; background-color: #1e3a5f; color: #ffffff; text-align: center; border-radius: 8px; font-weight: 600; text-decoration: none; border: 2px solid #f8b016;">
+                        Contact Us
                     </a>
                 </div>
             </div>
-            <!-- Backdrop -->
-            <div id="mobile-menu-backdrop" class="absolute inset-0 bg-black/20 backdrop-blur-sm -z-10"></div>
         </div>
     </nav>
 </header>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const menuToggle = document.getElementById('mobile-menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const backdrop = document.getElementById('mobile-menu-backdrop');
-        const body = document.body;
+(function() {
+    'use strict';
+    
+    function initMobileMenu() {
+        var menuBtn = document.getElementById('mobile-menu-btn');
+        var mobileMenu = document.getElementById('mobile-menu');
+        var menuIcon = document.getElementById('menu-icon');
+        var backdrop = document.getElementById('menu-backdrop');
+        var menuPanel = document.getElementById('menu-panel');
         
-        if (menuToggle && mobileMenu) {
-            menuToggle.addEventListener('click', function() {
-                const icon = this.querySelector('i');
-                const isOpen = !mobileMenu.classList.contains('-translate-x-full');
-                
-                if (isOpen) {
-                    // Close menu
-                    mobileMenu.classList.add('-translate-x-full');
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                    body.style.overflow = '';
-                } else {
-                    // Open menu
-                    mobileMenu.classList.remove('-translate-x-full');
-                    mobileMenu.classList.remove('hidden');
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                    body.style.overflow = 'hidden';
-                }
-            });
-            
-            // Close menu when clicking backdrop
-            if (backdrop) {
-                backdrop.addEventListener('click', function() {
-                    mobileMenu.classList.add('-translate-x-full');
-                    const icon = menuToggle.querySelector('i');
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                    body.style.overflow = '';
-                });
-            }
-            
-            // Close menu when clicking a link
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', function() {
-                    setTimeout(() => {
-                        mobileMenu.classList.add('-translate-x-full');
-                        const icon = menuToggle.querySelector('i');
-                        icon.classList.remove('fa-times');
-                        icon.classList.add('fa-bars');
-                        body.style.overflow = '';
-                    }, 300);
-                });
-            });
+        if (!menuBtn || !mobileMenu || !menuIcon) {
+            return;
         }
-    });
+        
+        var isOpen = false;
+        
+        function showMenu() {
+            mobileMenu.style.display = 'block';
+            menuIcon.className = 'fas fa-times text-2xl';
+            document.body.style.overflow = 'hidden';
+            isOpen = true;
+        }
+        
+        function hideMenu() {
+            mobileMenu.style.display = 'none';
+            menuIcon.className = 'fas fa-bars text-2xl';
+            document.body.style.overflow = '';
+            isOpen = false;
+        }
+        
+        // Toggle button
+        menuBtn.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (isOpen) {
+                hideMenu();
+            } else {
+                showMenu();
+            }
+        };
+        
+        // Backdrop click
+        if (backdrop) {
+            backdrop.onclick = function(e) {
+                e.stopPropagation();
+                if (isOpen) {
+                    hideMenu();
+                }
+            };
+        }
+        
+        // Prevent panel clicks from closing
+        if (menuPanel) {
+            menuPanel.onclick = function(e) {
+                e.stopPropagation();
+            };
+        }
+        
+        // Close on link click
+        var links = mobileMenu.querySelectorAll('a');
+        for (var i = 0; i < links.length; i++) {
+            links[i].onclick = function() {
+                setTimeout(hideMenu, 150);
+            };
+        }
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMobileMenu);
+    } else {
+        initMobileMenu();
+    }
+})();
 </script>
 

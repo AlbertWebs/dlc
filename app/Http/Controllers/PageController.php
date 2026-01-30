@@ -155,5 +155,57 @@ class PageController extends Controller
         }
         return view('pages.program-detail', compact('program'));
     }
+
+    public function lifeMasteryBootcamp()
+    {
+        // Try to find as a program first, otherwise show dedicated page
+        try {
+            $program = Program::where('slug', 'life-mastery-bootcamp')->where('is_published', true)->first();
+            if ($program) {
+                return view('pages.program-detail', compact('program'));
+            }
+        } catch (\Exception $e) {
+            // Continue to dedicated page
+        }
+        
+        // If not found as program, show dedicated page (will be created)
+        return view('pages.life-mastery-bootcamp');
+    }
+
+    public function lifeMasteryWebinar()
+    {
+        // Try to find as a program first, otherwise show dedicated page
+        try {
+            $program = Program::where('slug', 'life-mastery-webinar')->where('is_published', true)->first();
+            if ($program) {
+                return view('pages.program-detail', compact('program'));
+            }
+        } catch (\Exception $e) {
+            // Continue to dedicated page
+        }
+        
+        // If not found as program, show dedicated page (will be created)
+        return view('pages.life-mastery-webinar');
+    }
+
+    public function myAccount()
+    {
+        return view('pages.my-account');
+    }
+
+    public function team()
+    {
+        try {
+            $teamMembers = TeamMember::where('is_visible', true)->orderBy('order')->get();
+        } catch (\Exception $e) {
+            $teamMembers = collect([]);
+        }
+        return view('pages.team', compact('teamMembers'));
+    }
+
+    public function offline()
+    {
+        return view('pages.offline');
+    }
 }
 

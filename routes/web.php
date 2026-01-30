@@ -20,6 +20,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 use App\Http\Controllers\LegalPageController;
 use App\Http\Controllers\Admin\LegalPageController as AdminLegalPageController;
+use App\Http\Controllers\Auth\LoginController;
 
 // Frontend Routes
 Route::get('/', [PageController::class, 'home'])->name('home');
@@ -35,15 +36,29 @@ Route::get('/videos', [\App\Http\Controllers\VideoController::class, 'index'])->
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
+// Additional Pages from Live Site
+Route::get('/life-mastery-bootcamp', [PageController::class, 'lifeMasteryBootcamp'])->name('life-mastery-bootcamp');
+Route::get('/life-mastery-webinar', [PageController::class, 'lifeMasteryWebinar'])->name('life-mastery-webinar');
+Route::get('/my-account', [PageController::class, 'myAccount'])->name('my-account');
+Route::get('/team', [PageController::class, 'team'])->name('team');
+
 // Legal Pages
 Route::get('/legal/{slug}', [LegalPageController::class, 'show'])->name('legal.show');
 
 // Sitemap
 Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
 
-// Admin Routes
-// TODO: Add 'auth' middleware after installing Laravel Breeze/Jetstream
-Route::prefix('admin')->name('admin.')->group(function () {
+// PWA Routes
+Route::get('/manifest.json', [\App\Http\Controllers\PWAController::class, 'manifest'])->name('manifest');
+Route::get('/offline', [PageController::class, 'offline'])->name('offline');
+
+// Authentication Routes
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Admin Routes (Protected)
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->name('dashboard');
@@ -57,6 +72,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('coaches', AdminCoachController::class);
     Route::resource('videos', AdminVideoController::class);
     Route::resource('testimonials', TestimonialController::class);
+    Route::post('testimonials/sync-google-reviews', [TestimonialController::class, 'syncGoogleReviews'])->name('testimonials.sync-google-reviews');
     Route::resource('blogs', AdminBlogController::class);
     Route::resource('legal-pages', AdminLegalPageController::class);
     
@@ -81,11 +97,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         }
         return view('admin.backup');
     })->name('backup');
-    
-    Route::post('/logout', function () {
-        // TODO: Implement logout when auth is set up
-        return redirect()->route('home')->with('success', 'Logged out successfully!');
-    })->name('logout');
     
     Route::get('/danger-zone', function () {
         return view('admin.danger-zone');

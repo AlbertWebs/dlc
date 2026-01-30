@@ -230,11 +230,11 @@
                         <div class="relative" x-data="{ open: false }">
                             <button @click="open = !open" class="flex items-center gap-3 px-4 py-2.5 bg-gradient-to-r from-primary-50 to-primary-100 rounded-xl hover:from-primary-100 hover:to-primary-200 transition-all focus:outline-none focus:ring-2 focus:ring-primary-500 shadow-sm">
                                 <div class="w-9 h-9 bg-gradient-to-br from-primary-600 to-primary-800 rounded-lg flex items-center justify-center text-white text-sm font-bold shadow-md">
-                                    A
+                                    {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
                                 </div>
                                 <div class="text-left hidden md:block">
-                                    <div class="text-sm font-semibold text-primary-900">Admin</div>
-                                    <div class="text-xs text-gray-600">Administrator</div>
+                                    <div class="text-sm font-semibold text-primary-900">{{ Auth::user()->name ?? 'Admin' }}</div>
+                                    <div class="text-xs text-gray-600">{{ Auth::user()->email ?? 'Administrator' }}</div>
                                 </div>
                                 <i class="fas fa-chevron-down text-xs text-gray-500 transition-transform" :class="{ 'rotate-180': open }"></i>
                             </button>
@@ -259,7 +259,7 @@
                                     <span>Run Backup</span>
                                 </a>
                                 <div class="border-t border-gray-200 my-2"></div>
-                                <form action="{{ route('admin.logout') }}" method="POST" class="w-full">
+                                <form action="{{ route('logout') }}" method="POST" class="w-full">
                                     @csrf
                                     <button type="submit" class="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors text-left">
                                         <i class="fas fa-sign-out-alt w-5 text-gray-400"></i>
@@ -284,6 +284,13 @@
                     <div class="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 text-green-800 px-4 py-3 rounded-lg mb-6 shadow-sm flex items-center gap-3">
                         <i class="fas fa-check-circle text-green-600"></i>
                         <span class="font-medium">{{ session('success') }}</span>
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div class="bg-gradient-to-r from-red-50 to-rose-50 border-l-4 border-red-500 text-red-800 px-4 py-3 rounded-lg mb-6 shadow-sm flex items-center gap-3">
+                        <i class="fas fa-exclamation-circle text-red-600"></i>
+                        <span class="font-medium">{{ session('error') }}</span>
                     </div>
                 @endif
 

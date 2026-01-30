@@ -10,9 +10,17 @@
                 <h3 class="text-xl font-bold text-gray-800">All Testimonials</h3>
                 <p class="text-sm text-gray-600 mt-1">Manage client testimonials</p>
             </div>
-            <a href="{{ route('admin.testimonials.create') }}" class="btn btn-primary shadow-md hover:shadow-lg">
-                <i class="fas fa-plus mr-2"></i> Add Testimonial
-            </a>
+            <div class="flex items-center gap-3">
+                <form action="{{ route('admin.testimonials.sync-google-reviews') }}" method="POST" class="inline" onsubmit="return confirm('This will sync Google Reviews from your Google Business Profile. Continue?');">
+                    @csrf
+                    <button type="submit" class="btn bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg">
+                        <i class="fab fa-google mr-2"></i> Refresh Google Reviews
+                    </button>
+                </form>
+                <a href="{{ route('admin.testimonials.create') }}" class="btn btn-primary shadow-md hover:shadow-lg">
+                    <i class="fas fa-plus mr-2"></i> Add Testimonial
+                </a>
+            </div>
         </div>
 
         <div class="overflow-x-auto">

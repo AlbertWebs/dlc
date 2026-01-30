@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Services\GoogleReviewsService;
 
 class TestimonialController extends Controller
 {
@@ -113,5 +114,58 @@ class TestimonialController extends Controller
 
         return redirect()->route('admin.testimonials.index')
             ->with('success', 'Testimonial deleted successfully.');
+    }
+
+    public function syncGoogleReviews()
+    {
+        try {
+            $service = new GoogleReviewsService();
+            
+            // Check configuration first
+            $apiKey = \App\Models\Setting::get('google_places_api_key', '');
+            $placeId = \App\Models\Setting::get('google_place_id', '');
+            
+            if (empty($apiKey)) {
+                return redirect()->route('admin.testimonials.index')
+                    ->with('error', 'Google Places API Key is not configured. Please set it in Admin → Settings → Google Reviews Integration');
+            }
+            
+            if (empty($placeId)) {
+                return redirect()->route('admin.testimonials.index')
+                    ->with('error', 'Google Place ID is not configured. Please set it in Admin → Settings → Google Reviews Integration');
+            }
+            
+            $result = $service->syncReviews(true);
+            
+            if (!empty($result['message']) && $result['synced'] === 0 && ($result['total'] ?? 0) === 0) {
+                $errorMessage = $result['message'];
+                if (isset($result['error_details'])) {
+                    $errorMessage .= ' Details: ' . $result['error_details'];
+                }
+                return redirect()->route('admin.testimonials.index')
+                    ->with('error', $errorMessage);
+            }
+            
+            $message = '';
+            if (($result['synced'] ?? 0) > 0) {
+                $message = "Successfully synced {$result['synced']} review(s) from Google.";
+            } else {
+                $message = "No new reviews were synced.";
+            }
+            
+            if (($result['total'] ?? 0) > 0) {
+                $message .= " Total reviews fetched: {$result['total']}.";
+            } else {
+                $message .= " No reviews found. Please check your Google Business Profile has reviews.";
+            }
+            
+            return redirect()->route('admin.testimonials.index')
+                ->with('success', $message);
+                
+        } catch (\Exception $e) {
+            \Log::error('Error syncing Google reviews: ' . $e->getMessage());
+            return redirect()->route('admin.testimonials.index')
+                ->with('error', 'An error occurred while syncing Google reviews: ' . $e->getMessage());
+        }
     }
 }

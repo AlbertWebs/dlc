@@ -8,65 +8,65 @@
     <!-- Statistics Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <!-- Pages Card -->
-        <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow">
+        <div class="bg-gradient-to-br from-blue-600 via-blue-600 to-blue-700 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow border-2 border-blue-500/40">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm opacity-90 mb-1">Total Pages</p>
-                    <p class="text-3xl font-bold">{{ \App\Models\Page::count() }}</p>
+                    <p class="text-sm font-semibold text-blue-100 mb-1">Total Pages</p>
+                    <p class="text-3xl font-bold text-white drop-shadow-sm">{{ \App\Models\Page::count() }}</p>
                 </div>
-                <div class="w-14 h-14 bg-white bg-opacity-20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                    <i class="fas fa-file-alt text-2xl text-white"></i>
+                <div class="w-14 h-14 bg-white/30 rounded-xl flex items-center justify-center backdrop-blur-sm border-2 border-white/40 shadow-lg">
+                    <i class="fas fa-file-alt text-2xl text-white drop-shadow-sm"></i>
                 </div>
             </div>
-            <a href="{{ route('admin.pages.index') }}" class="text-sm opacity-90 mt-4 inline-flex items-center hover:opacity-100 transition-opacity">
+            <a href="{{ route('admin.pages.index') }}" class="text-sm font-semibold text-blue-100 mt-4 inline-flex items-center hover:text-white transition-colors">
                 View all <i class="fas fa-arrow-right ml-1"></i>
             </a>
         </div>
 
         <!-- Programs Card -->
-        <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow">
+        <div class="bg-gradient-to-br from-purple-600 via-purple-600 to-purple-700 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow border-2 border-purple-500/40">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm opacity-90 mb-1">Programs</p>
-                    <p class="text-3xl font-bold">{{ \App\Models\Program::count() }}</p>
+                    <p class="text-sm font-semibold text-purple-100 mb-1">Programs</p>
+                    <p class="text-3xl font-bold text-white drop-shadow-sm">{{ \App\Models\Program::count() }}</p>
                 </div>
-                <div class="w-14 h-14 bg-white bg-opacity-20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                    <i class="fas fa-graduation-cap text-2xl text-white"></i>
+                <div class="w-14 h-14 bg-white/30 rounded-xl flex items-center justify-center backdrop-blur-sm border-2 border-white/40 shadow-lg">
+                    <i class="fas fa-graduation-cap text-2xl text-white drop-shadow-sm"></i>
                 </div>
             </div>
-            <a href="{{ route('admin.programs.index') }}" class="text-sm opacity-90 mt-4 inline-flex items-center hover:opacity-100 transition-opacity">
+            <a href="{{ route('admin.programs.index') }}" class="text-sm font-semibold text-purple-100 mt-4 inline-flex items-center hover:text-white transition-colors">
                 View all <i class="fas fa-arrow-right ml-1"></i>
             </a>
         </div>
 
         <!-- Events Card -->
-        <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow">
+        <div class="bg-gradient-to-br from-green-600 via-green-600 to-green-700 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow border-2 border-green-500/40">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm opacity-90 mb-1">Events</p>
-                    <p class="text-3xl font-bold">{{ \App\Models\Event::count() }}</p>
+                    <p class="text-sm font-semibold text-green-100 mb-1">Events</p>
+                    <p class="text-3xl font-bold text-white drop-shadow-sm">{{ \App\Models\Event::count() }}</p>
                 </div>
-                <div class="w-14 h-14 bg-white bg-opacity-20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                    <i class="fas fa-calendar text-2xl text-white"></i>
+                <div class="w-14 h-14 bg-white/30 rounded-xl flex items-center justify-center backdrop-blur-sm border-2 border-white/40 shadow-lg">
+                    <i class="fas fa-calendar text-2xl text-white drop-shadow-sm"></i>
                 </div>
             </div>
-            <a href="{{ route('admin.events.index') }}" class="text-sm opacity-90 mt-4 inline-flex items-center hover:opacity-100 transition-opacity">
+            <a href="{{ route('admin.events.index') }}" class="text-sm font-semibold text-green-100 mt-4 inline-flex items-center hover:text-white transition-colors">
                 View all <i class="fas fa-arrow-right ml-1"></i>
             </a>
         </div>
 
         <!-- Blog Posts Card -->
-        <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow">
+        <div class="bg-gradient-to-br from-violet-600 via-violet-600 to-violet-700 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow border-2 border-violet-500/40">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm opacity-90 mb-1">Blog Posts</p>
-                    <p class="text-3xl font-bold">{{ \App\Models\BlogPost::count() }}</p>
+                    <p class="text-sm font-semibold text-violet-100 mb-1">Blog Posts</p>
+                    <p class="text-3xl font-bold text-white drop-shadow-sm">{{ \App\Models\BlogPost::count() }}</p>
                 </div>
-                <div class="w-14 h-14 bg-white bg-opacity-20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                    <i class="fas fa-newspaper text-2xl text-white"></i>
+                <div class="w-14 h-14 bg-white/30 rounded-xl flex items-center justify-center backdrop-blur-sm border-2 border-white/40 shadow-lg">
+                    <i class="fas fa-newspaper text-2xl text-white drop-shadow-sm"></i>
                 </div>
             </div>
-            <a href="{{ route('admin.blogs.index') }}" class="text-sm opacity-90 mt-4 inline-flex items-center hover:opacity-100 transition-opacity">
+            <a href="{{ route('admin.blogs.index') }}" class="text-sm font-semibold text-violet-100 mt-4 inline-flex items-center hover:text-white transition-colors">
                 View all <i class="fas fa-arrow-right ml-1"></i>
             </a>
         </div>
@@ -75,65 +75,65 @@
     <!-- Second Row Statistics -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <!-- Team Members Card -->
-        <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow">
+        <div class="bg-gradient-to-br from-orange-600 via-orange-600 to-orange-700 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow border-2 border-orange-500/40">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm opacity-90 mb-1">Team Members</p>
-                    <p class="text-3xl font-bold">{{ \App\Models\TeamMember::count() }}</p>
+                    <p class="text-sm font-semibold text-orange-100 mb-1">Team Members</p>
+                    <p class="text-3xl font-bold text-white drop-shadow-sm">{{ \App\Models\TeamMember::count() }}</p>
                 </div>
-                <div class="w-14 h-14 bg-white bg-opacity-20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                    <i class="fas fa-users text-2xl text-white"></i>
+                <div class="w-14 h-14 bg-white/30 rounded-xl flex items-center justify-center backdrop-blur-sm border-2 border-white/40 shadow-lg">
+                    <i class="fas fa-users text-2xl text-white drop-shadow-sm"></i>
                 </div>
             </div>
-            <a href="{{ route('admin.team.index') }}" class="text-sm opacity-90 mt-4 inline-flex items-center hover:opacity-100 transition-opacity">
+            <a href="{{ route('admin.team.index') }}" class="text-sm font-semibold text-orange-100 mt-4 inline-flex items-center hover:text-white transition-colors">
                 View all <i class="fas fa-arrow-right ml-1"></i>
             </a>
         </div>
 
         <!-- Coaches Card -->
-        <div class="bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow">
+        <div class="bg-gradient-to-br from-teal-600 via-teal-600 to-teal-700 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow border-2 border-teal-500/40">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm opacity-90 mb-1">Coaches</p>
-                    <p class="text-3xl font-bold">{{ \App\Models\Coach::count() }}</p>
+                    <p class="text-sm font-semibold text-teal-100 mb-1">Coaches</p>
+                    <p class="text-3xl font-bold text-white drop-shadow-sm">{{ \App\Models\Coach::count() }}</p>
                 </div>
-                <div class="w-14 h-14 bg-white bg-opacity-20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                    <i class="fas fa-user-tie text-2xl text-white"></i>
+                <div class="w-14 h-14 bg-white/30 rounded-xl flex items-center justify-center backdrop-blur-sm border-2 border-white/40 shadow-lg">
+                    <i class="fas fa-user-tie text-2xl text-white drop-shadow-sm"></i>
                 </div>
             </div>
-            <a href="{{ route('admin.coaches.index') }}" class="text-sm opacity-90 mt-4 inline-flex items-center hover:opacity-100 transition-opacity">
+            <a href="{{ route('admin.coaches.index') }}" class="text-sm font-semibold text-teal-100 mt-4 inline-flex items-center hover:text-white transition-colors">
                 View all <i class="fas fa-arrow-right ml-1"></i>
             </a>
         </div>
 
         <!-- Testimonials Card -->
-        <div class="bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow">
+        <div class="bg-gradient-to-br from-pink-600 via-pink-600 to-pink-700 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow border-2 border-pink-500/40">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm opacity-90 mb-1">Testimonials</p>
-                    <p class="text-3xl font-bold">{{ \App\Models\Testimonial::count() }}</p>
+                    <p class="text-sm font-semibold text-pink-100 mb-1">Testimonials</p>
+                    <p class="text-3xl font-bold text-white drop-shadow-sm">{{ \App\Models\Testimonial::count() }}</p>
                 </div>
-                <div class="w-14 h-14 bg-white bg-opacity-20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                    <i class="fas fa-quote-left text-2xl text-white"></i>
+                <div class="w-14 h-14 bg-white/30 rounded-xl flex items-center justify-center backdrop-blur-sm border-2 border-white/40 shadow-lg">
+                    <i class="fas fa-quote-left text-2xl text-white drop-shadow-sm"></i>
                 </div>
             </div>
-            <a href="{{ route('admin.testimonials.index') }}" class="text-sm opacity-90 mt-4 inline-flex items-center hover:opacity-100 transition-opacity">
+            <a href="{{ route('admin.testimonials.index') }}" class="text-sm font-semibold text-pink-100 mt-4 inline-flex items-center hover:text-white transition-colors">
                 View all <i class="fas fa-arrow-right ml-1"></i>
             </a>
         </div>
 
         <!-- Videos Card -->
-        <div class="bg-gradient-to-br from-red-500 to-red-600 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow">
+        <div class="bg-gradient-to-br from-red-600 via-red-600 to-red-700 rounded-xl shadow-lg p-6 text-white admin-card hover:shadow-xl transition-shadow border-2 border-red-500/40">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm opacity-90 mb-1">Videos</p>
-                    <p class="text-3xl font-bold">{{ \App\Models\Video::count() }}</p>
+                    <p class="text-sm font-semibold text-red-100 mb-1">Videos</p>
+                    <p class="text-3xl font-bold text-white drop-shadow-sm">{{ \App\Models\Video::count() }}</p>
                 </div>
-                <div class="w-14 h-14 bg-white bg-opacity-20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                    <i class="fas fa-video text-2xl text-white"></i>
+                <div class="w-14 h-14 bg-white/30 rounded-xl flex items-center justify-center backdrop-blur-sm border-2 border-white/40 shadow-lg">
+                    <i class="fas fa-video text-2xl text-white drop-shadow-sm"></i>
                 </div>
             </div>
-            <a href="{{ route('admin.videos.index') }}" class="text-sm opacity-90 mt-4 inline-flex items-center hover:opacity-100 transition-opacity">
+            <a href="{{ route('admin.videos.index') }}" class="text-sm font-semibold text-red-100 mt-4 inline-flex items-center hover:text-white transition-colors">
                 View all <i class="fas fa-arrow-right ml-1"></i>
             </a>
         </div>
@@ -177,9 +177,9 @@
                             <p class="text-sm text-gray-600">Schedule new event</p>
                         </div>
                     </a>
-                    <a href="{{ route('admin.blogs.create') }}" class="flex items-center gap-4 p-4 bg-gradient-to-r from-indigo-50 to-indigo-100 rounded-lg hover:from-indigo-100 hover:to-indigo-200 transition-all group border border-indigo-200">
-                        <div class="w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-md">
-                            <i class="fas fa-newspaper"></i>
+                    <a href="{{ route('admin.blogs.create') }}" class="flex items-center gap-4 p-4 bg-gradient-to-r from-violet-50 to-violet-100 rounded-lg hover:from-violet-100 hover:to-violet-200 transition-all group border border-violet-200">
+                        <div class="w-12 h-12 bg-violet-700 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg">
+                            <i class="fas fa-newspaper text-lg drop-shadow-sm"></i>
                         </div>
                         <div>
                             <p class="font-semibold text-gray-800">New Blog Post</p>
@@ -196,8 +196,8 @@
                         </div>
                     </a>
                     <a href="{{ route('admin.coaches.create') }}" class="flex items-center gap-4 p-4 bg-gradient-to-r from-teal-50 to-teal-100 rounded-lg hover:from-teal-100 hover:to-teal-200 transition-all group border border-teal-200">
-                        <div class="w-12 h-12 bg-teal-600 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-md">
-                            <i class="fas fa-user-tie"></i>
+                        <div class="w-12 h-12 bg-teal-700 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg">
+                            <i class="fas fa-user-tie text-lg drop-shadow-sm"></i>
                         </div>
                         <div>
                             <p class="font-semibold text-gray-800">Add Coach</p>
