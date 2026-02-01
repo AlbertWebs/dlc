@@ -155,16 +155,7 @@
                     </div>
 
                     <!-- Features Section -->
-                    @php
-                        $features = $program->features;
-                        if (is_string($features)) {
-                            $features = json_decode($features, true) ?? [];
-                        }
-                        if (!is_array($features)) {
-                            $features = [];
-                        }
-                    @endphp
-                    @if(!empty($features) && count($features) > 0)
+                    @if($program->features && count($program->features) > 0)
                         <div class="bg-gradient-to-br from-primary-50 to-accent-50/30 rounded-2xl shadow-lg p-6 md:p-8 lg:p-10 border border-primary-100">
                             <h3 class="text-xl md:text-2xl font-bold text-primary-900 mb-6 flex items-center gap-3">
                                 <div class="w-12 h-12 bg-gradient-to-br from-accent-400 to-accent-600 rounded-xl flex items-center justify-center shadow-lg">
@@ -173,7 +164,7 @@
                                 What You'll Learn
                             </h3>
                             <div class="grid md:grid-cols-2 gap-4">
-                                @foreach($features as $feature)
+                                @foreach($program->features as $feature)
                                     <div class="flex items-start gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
                                         <i class="fas fa-check-circle text-accent-500 text-lg mt-0.5 flex-shrink-0"></i>
                                         <span class="text-gray-700 leading-relaxed">{{ $feature }}</span>

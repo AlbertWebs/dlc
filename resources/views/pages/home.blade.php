@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @php
-    $pageTitle = 'Kenya\'s #1 Transformational Life Coaching Platform for Identity Shift, Breakthrough Results, and Personal Power – DLC Kenya';
-    $pageDescription = 'Kenya\'s #1 Transformational Life Coaching Platform for Identity Shift, Breakthrough Results, and Personal Power. Internationally certified training, breakthrough coaching, and online programs to help you transform your life and career with ICR-accredited certification programs.';
+    $pageTitle = 'Kenya Life Coach Certification – Kenya\'s top life coaching school offering internationally certified training, breakthrough coaching, and online programs to help you become a powerful coach.';
+    $pageDescription = 'Kenya\'s top life coaching school offering internationally certified training, breakthrough coaching, and online programs to help you become a powerful coach. Transform your life and career with ICR-accredited certification programs.';
     $pageImage = asset('images/og-image.jpg');
     $pageType = 'website';
-    $pageKeywords = 'Kenya transformational life coaching, identity shift coaching, breakthrough results, personal power, life coaching Kenya, coach certification, ICR accredited, life coach training, professional coaching, breakthrough coaching, online coaching programs, coaching certification Kenya, certified life coach, personal development, mindset coaching';
+    $pageKeywords = 'life coaching Kenya, coach certification, ICR accredited, life coach training, professional coaching, breakthrough coaching, online coaching programs, coaching certification Kenya, certified life coach, personal development, mindset coaching';
 @endphp
 
 @push('schema')
@@ -24,8 +24,8 @@
         ],
         'about' => [
             '@type' => 'Thing',
-            'name' => 'Transformational Life Coaching Platform',
-            'description' => 'Kenya\'s #1 Transformational Life Coaching Platform for Identity Shift, Breakthrough Results, and Personal Power'
+            'name' => 'Life Coaching Certification',
+            'description' => 'Professional life coaching certification programs in Kenya'
         ],
         'breadcrumb' => [
             '@type' => 'BreadcrumbList',
@@ -581,19 +581,10 @@
                                 @endif
                                 
                                 <!-- Features Preview (if available) -->
-                                @php
-                                    $features = $program->features;
-                                    if (is_string($features)) {
-                                        $features = json_decode($features, true) ?? [];
-                                    }
-                                    if (!is_array($features)) {
-                                        $features = [];
-                                    }
-                                @endphp
-                                @if(!empty($features) && count($features) > 0)
+                                @if($program->features && count($program->features) > 0)
                                     <div class="mb-6 pb-6 border-b border-gray-100">
                                         <ul class="space-y-2.5">
-                                            @foreach(array_slice($features, 0, 3) as $feature)
+                                            @foreach(array_slice($program->features, 0, 3) as $feature)
                                                 <li class="flex items-start gap-3 text-sm text-gray-700">
                                                     <i class="fas fa-check-circle text-accent-500 text-sm mt-0.5 flex-shrink-0"></i>
                                                     <span class="line-clamp-2">{{ $feature }}</span>
