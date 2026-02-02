@@ -581,10 +581,19 @@
                                 @endif
                                 
                                 <!-- Features Preview (if available) -->
-                                @if($program->features && count($program->features) > 0)
+                                @php
+                                    $features = $program->features;
+                                    if (is_string($features)) {
+                                        $features = json_decode($features, true) ?? [];
+                                    }
+                                    if (!is_array($features)) {
+                                        $features = [];
+                                    }
+                                @endphp
+                                @if(!empty($features) && count($features) > 0)
                                     <div class="mb-6 pb-6 border-b border-gray-100">
                                         <ul class="space-y-2.5">
-                                            @foreach(array_slice($program->features, 0, 3) as $feature)
+                                            @foreach(array_slice($features, 0, 3) as $feature)
                                                 <li class="flex items-start gap-3 text-sm text-gray-700">
                                                     <i class="fas fa-check-circle text-accent-500 text-sm mt-0.5 flex-shrink-0"></i>
                                                     <span class="line-clamp-2">{{ $feature }}</span>

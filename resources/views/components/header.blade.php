@@ -3,14 +3,19 @@
         $navigations = \App\Models\Navigation::where('is_visible', true)
             ->where('location', 'header')
             ->orderBy('order')
-            ->get();
+            ->get()
+            ->filter(function($nav) {
+                // Hide Coaches link
+                return $nav->label !== 'Coaches' && 
+                       $nav->url !== route('coaches.index') &&
+                       !str_contains($nav->url, '/coaches');
+            });
     } catch (\Exception $e) {
         // Fallback if migrations haven't run yet
         $navigations = collect([
             (object)['label' => 'Home', 'url' => route('home')],
             (object)['label' => 'About Us', 'url' => route('about')],
             (object)['label' => 'Events', 'url' => route('events.index')],
-            (object)['label' => 'Coaches', 'url' => route('coaches.index')],
             (object)['label' => 'Videos', 'url' => route('videos.index')],
             (object)['label' => 'Become a Coach', 'url' => route('become-a-coach')],
             (object)['label' => 'Blogs', 'url' => route('blog.index')],
